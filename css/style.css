@@ -583,4 +583,14 @@ form .send-btn:hover {
     object-fit: cover;
     margin: 0 auto;
   }
+  .hero .main-content {
+    margin-top: 180px;
+  }
+  header .h-btn {
+    font-size: 10px;
+    padding: 5px;
+  }
+  header .logo {
+    font-size: 22px;
+  }
 }
