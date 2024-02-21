@@ -589,7 +589,7 @@ form .send-btn:hover {
   header .logo {
     font-size: 20px;
   }
-  header {
+  .hero {
     padding-bottom: 20px;
   }
 }
