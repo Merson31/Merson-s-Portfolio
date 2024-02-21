@@ -589,4 +589,7 @@ form .send-btn:hover {
   header .logo {
     font-size: 20px;
   }
+  header .main-content {
+    margin-top: -20px;
+  }
 }
