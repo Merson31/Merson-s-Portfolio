@@ -50,7 +50,7 @@
     <section class="hero" id="home">
       <div class="main-content" data-aos="fade-in">
         <h4>Hi, There!</h4>
-        <h1>I'm <span>Merson Muhammad</span></h1>
+        <h1 id="name"></h1>
         <p>
           2+ years of experience in website development and in creating
           innovative solutions to system issues. I am a team player with strong
@@ -262,6 +262,23 @@
         offset: 300,
         duration: 1400,
       });
+    </script>
+
+    <!-- Typeitjs Animation Script -->
+    <script src="https://unpkg.com/typeit@8.7.1/dist/index.umd.js"></script>
+
+    <script>
+      new TypeIt("#name", {
+        speed: 100,
+        waitUntilVisible: true,
+        loop: true,
+      })
+        .type("I'm <span>Merson Muhammad</span>", { delay: 2500 })
+        .delete(15, { delay: 500 })
+        .type("a <span>UI/UX Designer<span>", { delay: 2500 })
+        .delete(15, { delay: 500 })
+        .type("<span>Web Developer<span>", { delay: 2500 })
+        .go();
     </script>
   </body>
 </html>
