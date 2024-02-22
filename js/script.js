@@ -27,7 +27,7 @@ window.addEventListener("load", function () {
       method: "POST",
       body: data,
     }).then(() => {
-      alert("Success!");
+      alert("Your feedback has been successfully sent!");
     });
   });
 });
