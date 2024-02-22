@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Merson's Portfolio</title>
+
     <link rel="stylesheet" href="css/style.css" />
 
     <!-- Box Icons Link -->
@@ -28,6 +29,9 @@
 
     <!-- AOS Animation Link -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <!-- Lightbox Style CSS -->
+    <link rel="stylesheet" href="css/lightbox.min.css" />
   </head>
   <body>
     <!-- Header -->
@@ -58,10 +62,19 @@
           to developing website expertise to help company grow more efficiently.
         </p>
         <div class="social">
-          <a href="#"><i class="ri-facebook-fill"></i></a>
-          <a href="#"><i class="ri-instagram-fill"></i></a>
-          <a href="#"><i class="ri-twitter-x-fill"></i></a>
-          <a href="#"><i class="ri-youtube-fill"></i></a>
+          <a href="https://www.facebook.com/merson.muhammad?mibextid=ZbWKwL"
+            ><i class="ri-facebook-fill"></i
+          ></a>
+          <a
+            href="https://www.instagram.com/mer_son31?igsh=MWJ1aW1oNTk1YmV4eA=="
+            ><i class="ri-instagram-fill"></i
+          ></a>
+          <a href="https://x.com/MersonMuhammad?s=08"
+            ><i class="ri-twitter-x-fill"></i
+          ></a>
+          <a href="https://youtube.com/@mersonmuhammad6596?si=jn6rLHN5K9xBEjrU"
+            ><i class="ri-youtube-fill"></i
+          ></a>
         </div>
         <div class="main-btn">
           <a href="#" class="btn">Hire Me</a>
@@ -89,6 +102,35 @@
           <p class="exp">Email: <span>mer***@gmail.com</span></p>
           <p class="exp">Phone: <span>082***</span></p>
           <p class="exp">Freelance: <span>Available</span></p>
+          <p class="exp">Sertification:</p>
+          <ul>
+            <li>
+              <a
+                class="example-image-link"
+                href="img/sertif1.jpg"
+                data-lightbox="example-1"
+                data-title="Certified Developer"
+                ><span>Certified Developer</span>
+                <i class="ri-arrow-right-line"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                class="example-image-link"
+                href="img/sertif2.jpg"
+                data-lightbox="example-2"
+                data-title="Apsara Clauder - Cloud Computing"
+                ><span>Apsara Clauder - Cloud Computing</span>
+                <i class="ri-arrow-right-line"></i
+              ></a>
+            </li>
+            <li>
+              <a href="https://www.codepolitan.com/c/MERRD0A/"
+                ><span>Certified Javascript</span>
+                <i class="ri-arrow-right-line"></i>
+              </a>
+            </li>
+          </ul>
         </div>
         <a href="#portfolio" class="btn">View All Project's</a>
       </div>
@@ -104,21 +146,27 @@
           <img src="img/uiux.jpeg" alt="" />
           <h3>UI/UX Design</h3>
           <p>2+ years of experience as a UI/UX designer.</p>
-          <a href="#">Download Now <i class="ri-arrow-right-line"></i></a>
+          <a href="released.html"
+            >Download Now <i class="ri-arrow-right-line"></i
+          ></a>
         </div>
 
         <div class="box">
           <img src="img/webdeveloper.jpeg" alt="" />
           <h3>Web Developer</h3>
           <p>2+ years of experience as a Website Developer.</p>
-          <a href="#">Download Now <i class="ri-arrow-right-line"></i></a>
+          <a href="released.html"
+            >Download Now <i class="ri-arrow-right-line"></i
+          ></a>
         </div>
 
         <div class="box">
           <img src="img/fullstackdev.jpeg" alt="" />
           <h3>Fullstack Developer</h3>
           <p>2+ years of experience as a Fullstack Developer.</p>
-          <a href="#">Download Now <i class="ri-arrow-right-line"></i></a>
+          <a href="released.html"
+            >Download Now <i class="ri-arrow-right-line"></i
+          ></a>
         </div>
       </div>
     </section>
@@ -229,11 +277,20 @@
         <h2>Contact <span>Me</span></h2>
       </div>
       <div class="contact-form" data-aos="zoom-in">
-        <form action="">
-          <input type="text" placeholder="Your Name" required />
-          <input type="email" placeholder="Email Address" required />
+        <form
+          method="POST"
+          action="https://script.google.com/macros/s/AKfycbyOKu4-fQW6lSTBdf8aja4Hidzx0vH6TmEPLAf-sdUgQqQ4lJxp6ZzJZKrIPeO4PPa2rg/exec"
+          id="my-form"
+        >
+          <input type="text" placeholder="Your Name" name="nama" required />
+          <input
+            type="email"
+            placeholder="Email Address"
+            name="email"
+            required
+          />
           <textarea
-            name=""
+            name="pesan"
             id=""
             cols="30"
             rows="10"
@@ -247,7 +304,7 @@
 
     <div class="footer">
       <div class="copyright">
-        <p>2024 Merson Muhammad, All Rights Reserved.</p>
+        <p>&copy; 2024 Developer Son. All Rights Reserved.</p>
       </div>
       <a href="#home" class="scroll-top"><i class="ri-arrow-up-s-fill"></i></a>
     </div>
@@ -280,5 +337,8 @@
         .type("<span>Web Developer<span>", { delay: 2500 })
         .go();
     </script>
+
+    <!-- Lightbox Script -->
+    <script src="js/lightbox-plus-jquery.min.js"></script>
   </body>
 </html>
