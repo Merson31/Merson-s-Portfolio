@@ -30,10 +30,10 @@ h1 {
   flex-direction: column;
   align-items: center;
   width: 45rem;
-  max-width: 80%;
+  max-width: 90%;
   margin: 20px auto;
   background: var(--second-bg-color);
-  font-size: 18px;
+  font-size: 1.2em;
   font-weight: 600;
   color: var(--main-color);
   border-radius: 50px;
@@ -100,94 +100,26 @@ form .send-btn:hover {
 @media (max-width: 1380px) {
 }
 @media (max-width: 1290px) {
-  /* .apply-form {
-    margin: 20px auto;
-  } */
 }
 @media (max-width: 1240px) {
-  /* .container h1 {
-    font-size: 20px;
-    margin: 20px 280px 35px;
-  } */
 }
 @media (max-width: 950px) {
-  /* .container h1 {
-    font-size: 18px;
-    margin: 20px 50px;
+  h1 {
+    font-size: 1.3em;
   }
-
-  .apply-form {
-    width: 40rem;
-    padding: 2rem 4rem;
-  }
-
-  form div input {
-    height: 40px;
-    width: 220px;
-  }
-
-  form div textarea {
-    width: 220px;
-  } */
 }
 @media (max-width: 680px) {
-  /* .apply-form {
-    width: 30rem;
+  h1 {
+    font-size: 1em;
+    margin: 20px 18vw 35px;
   }
 
-  form div input {
-    height: 40px;
-    width: 180px;
+  .apply-form {
+    font-size: 0.9em;
   }
-
-  form div textarea {
-    width: 180px;
-  } */
 }
 @media (max-width: 470px) {
-  /* .container h1 {
-    font-size: 18px;
-    margin: 20px 50px;
+  h1 {
+    font-size: 0.8em;
   }
-
-  .apply-form {
-    font-size: 12px;
-    width: 22rem;
-    padding: 2rem 2rem;
-  }
-
-  form div input {
-    height: 40px;
-    width: 180px;
-  }
-
-  form div textarea {
-    width: 180px;
-  }
-
-  form .send-btn {
-    font-weight: bold;
-    padding: 0 20px;
-  }
-}
-
-@media (max-width: 370px) {
-  .apply-form {
-    font-size: 11px;
-    width: 20rem;
-    padding: 1rem 20px;
-  }
-
-  form div label {
-    display: inline-block;
-  }
-
-  form div input {
-    height: 30px;
-    width: 140px;
-  }
-
-  form div textarea {
-    width: 140px;
-  } */
 }
