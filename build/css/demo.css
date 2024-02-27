@@ -44,12 +44,6 @@ form {
   width: 100%;
 }
 
-form div {
-  display: flex;
-  flex-direction: column;
-  margin: 20px 6.5vw;
-}
-
 form div label {
   margin: 12px 0;
 }
@@ -62,6 +56,7 @@ form div input {
   box-shadow: 0 0 5px var(--main-color);
   background: var(--second-bg-color);
   color: var(--text-color);
+  padding: 0 15px;
 }
 
 form div textarea {
@@ -71,15 +66,22 @@ form div textarea {
   box-shadow: 0 0 5px var(--main-color);
   background: var(--second-bg-color);
   color: var(--text-color);
+  padding: 15px 15px;
 }
 
 span {
   color: var(--main-color);
 }
 
-form .send-btn {
-  margin: auto;
-  width: 8rem;
+.kirim {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+form .send-btn1 {
+  /* margin: auto; */
+  width: 20vw;
   background: var(--main-color);
   color: var(--second-bg-color);
   font-weight: bolder;
@@ -88,21 +90,75 @@ form .send-btn {
   border: 2px solid var(--main-color);
 }
 
-form .send-btn:hover {
+form .send-btn1:hover {
   background: var(--second-bg-color);
   color: var(--main-color);
   transition: all 0.5s ease;
 }
 
-/* Style Ukuran Device */
-@media (max-width: 1700px) {
+form div.project,
+form div.detail,
+form div.budget,
+form div.timeline,
+form div.reference,
+form div.platform,
+form div.additional {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 6.5vw;
 }
-@media (max-width: 1380px) {
+
+form div.contact {
+  margin: 20px 6.5vw;
+  display: flex;
+  flex-direction: column;
 }
-@media (max-width: 1290px) {
+
+form div.contact input {
+  margin-bottom: 20px;
 }
-@media (max-width: 1240px) {
+
+input[type="tel"] {
+  width: 100%;
 }
+
+/* form div.contact #phone {
+  font-size: 100px !important;
+} */
+
+input#phone[disabled] {
+  background-color: #eee;
+}
+
+.iti__selected-dial-code {
+  color: #fff;
+  font-size: 16px;
+}
+
+select {
+  height: 45px;
+  border-radius: 10px;
+  outline: none;
+  border: 2px solid var(--main-color);
+  box-shadow: 0 0 5px var(--main-color);
+  background: var(--second-bg-color);
+  color: var(--text-color);
+  padding: 0 15px;
+}
+
+select#currency {
+  border-radius: 10px 0 0 10px;
+}
+
+.budget .input-select {
+  display: flex;
+}
+
+.budget input {
+  width: 100%;
+  border-radius: 0 10px 10px 0;
+}
+
 @media (max-width: 950px) {
   h1 {
     font-size: 1.3em;
