@@ -1,181 +1,192 @@
-* {
-  font-family: "Inter", sans-serif;
-  box-sizing: border-box;
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
 }
 
 :root {
-  --bg-color: #1b1f24;
-  --second-bg-color: #22282f;
-  --main-color: #13bbff;
-  --text-color: #fff;
+  --bg: #1b1f24;
+  --surface: #22282f;
+  --primary: #13bbff;
+  --text: #fff;
+  --radius: 0.5rem;
+  --spacing: 1rem;
 }
 
-body {
-  background: var(--bg-color);
+body { 
+  font-family: 'Inter', sans-serif; 
+  background: var(--bg); 
+  color: var(--text); 
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: var(--spacing);
 }
 
 h1 {
-  font-size: 1.5em;
-  margin: 20px 25vw 35px;
-  padding: 10px 5vw;
-  color: var(--text-color);
-  border: 2px solid var(--main-color);
-  border-radius: 50px 0 50px 0;
-  box-shadow: 0 0 15px var(--main-color);
   text-align: center;
+  font-size: 2rem;
+  margin-bottom: var(--spacing);
+}
+
+h1 span { 
+  color: var(--primary); 
 }
 
 .apply-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 45rem;
-  max-width: 90%;
-  margin: 20px auto;
-  background: var(--second-bg-color);
-  font-size: 1.2em;
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: calc(var(--spacing) * 1.5);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.section {
+  border: none;
+  margin-bottom: var(--spacing);
+}
+
+.section legend {
+  text-align: center;
   font-weight: 600;
-  color: var(--main-color);
-  border-radius: 50px;
-  box-shadow: 0 0 30px rgb(22, 22, 22);
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 0.25rem;
 }
 
-form {
-  width: 100%;
-}
-
-form div label {
-  margin: 12px 0;
-}
-
-form div input {
-  height: 45px;
-  border-radius: 10px;
-  outline: none;
-  border: 2px solid var(--main-color);
-  box-shadow: 0 0 5px var(--main-color);
-  background: var(--second-bg-color);
-  color: var(--text-color);
-  padding: 0 15px;
-}
-
-form div textarea {
-  border-radius: 10px;
-  outline: none;
-  border: 2px solid var(--main-color);
-  box-shadow: 0 0 5px var(--main-color);
-  background: var(--second-bg-color);
-  color: var(--text-color);
-  padding: 15px 15px;
-}
-
-span {
-  color: var(--main-color);
-}
-
-.kirim {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 2rem;
-}
-
-form .send-btn1 {
-  /* margin: auto; */
-  width: 20vw;
-  background: var(--main-color);
-  color: var(--second-bg-color);
-  font-weight: bolder;
-  font-size: 14px;
-  transition: all 0.5s ease;
-  border: 2px solid var(--main-color);
-}
-
-form .send-btn1:hover {
-  background: var(--second-bg-color);
-  color: var(--main-color);
-  transition: all 0.5s ease;
-}
-
-form div.project,
-form div.detail,
-form div.budget,
-form div.timeline,
-form div.reference,
-form div.platform,
-form div.additional {
+.field-group {
   display: flex;
   flex-direction: column;
-  margin: 20px 6.5vw;
+  margin-bottom: var(--spacing);
 }
 
-form div.contact {
-  margin: 20px 6.5vw;
+.field-group.full-width { 
+  width: 100%; 
+}
+
+.field-group label { 
+  margin-bottom: 0.5rem; 
+}
+
+.field-group input,
+.field-group textarea {
+  padding: 0.75rem;
+  border: 1px solid var(--primary);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.9rem;
+  transition: border-color 0.3s;
+}
+
+.field-group #phone {
+  width: 100%;
+}
+
+.select-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.select-wrapper select {
+  font-size: 0.9rem;
+  background-image: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: var(--bg);
+  color: var(--text);
+  padding: 0.75rem;
+  width: 100%;
+  border: 1px solid var(--primary);
+  border-radius: var(--radius);
+}
+
+.select-wrapper .dropdown-icon {
+  position: absolute;
+  right: 1rem;             
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;    
+  width: 1em;
+  height: 1em;
+  color: var(--text);
+}
+
+.field-group {
   display: flex;
   flex-direction: column;
+  margin-bottom: var(--spacing);
 }
 
-form div.contact input {
-  margin-bottom: 20px;
-}
-
-input[type="tel"] {
-  width: 100%;
-}
-
-/* form div.contact #phone {
-  font-size: 100px !important;
-} */
-
-input#phone[disabled] {
-  background-color: #eee;
-}
-
-.iti__selected-dial-code {
-  color: #fff;
-  font-size: 16px;
-}
-
-select {
-  height: 45px;
-  border-radius: 10px;
+.field-group input:focus,
+.field-group select:focus,
+.field-group textarea:focus {
   outline: none;
-  border: 2px solid var(--main-color);
-  box-shadow: 0 0 5px var(--main-color);
-  background: var(--second-bg-color);
-  color: var(--text-color);
-  padding: 0 15px;
+  border-color: #fff;
 }
 
-select#currency {
-  border-radius: 10px 0 0 10px;
-}
-
-.budget .input-select {
+.flex-row {
   display: flex;
+  gap: var(--spacing);
+  flex-wrap: wrap;
 }
 
-.budget input {
-  width: 100%;
-  border-radius: 0 10px 10px 0;
+.flex-row .field-group { 
+  flex: 1; 
+  min-width: 120px; 
 }
 
-@media (max-width: 950px) {
-  h1 {
-    font-size: 1.3em;
-  }
+.actions { 
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
 }
-@media (max-width: 680px) {
-  h1 {
-    font-size: 1em;
-    margin: 20px 18vw 35px;
+
+.actions a {
+  text-decoration: none;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  background: var(--bg);
+  padding: 0.6rem 2rem;
+  font-size: 1rem;
+  border-radius: var(--radius);
+  transition: all 0.5s ease;
+  font-weight: 600;
+}
+
+.actions a:hover {
+  background: var(--primary);
+  color: var(--bg);
+  box-shadow: 0 0 20px var(--primary);
+}
+
+.btn {
+  background: var(--primary);
+  color: var(--surface);
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  font-weight: bold;
+}
+
+.btn:hover { 
+  background: var(--bg); 
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  box-shadow: 0 0 20px var(--primary);
+}
+
+@media (max-width: 600px) {
+  .field-group input, .field-group select, .field-group textarea { 
+    font-size: 0.9rem; 
   }
 
-  .apply-form {
-    font-size: 0.9em;
-  }
-}
-@media (max-width: 470px) {
-  h1 {
-    font-size: 0.8em;
+  h1 { 
+    font-size: 1.5rem; 
   }
 }

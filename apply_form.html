@@ -3,88 +3,111 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>International Telephone Input</title>
+    <title>Client Intake Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="build/css/intlTelInput.css" />
     <link rel="stylesheet" href="build/css/demo.css" />
   </head>
 
   <body>
-    <div class="container">
-      <h1>Client Intake <span>Form</span></h1>
-      <div class="apply-form">
-        <form action="">
-          <div class="contact">
-            <label for="">Contact Information:</label>
-            <input type="text" placeholder="Your Name" />
-            <input type="email" placeholder="Your Email" />
-            <input type="tel" id="phone" placeholder="Phone Number" />
-          </div>
-          <div class="project">
-            <label for="">Project Type:</label>
-            <!-- <input type="text" /> -->
-            <select name="" id="project">
-              <option value="">UI/UX Design</option>
-              <option value="">Web Development</option>
-              <option value="">Fullstack Development</option>
+  <div class="container">
+    <h1>Client Intake <span>Form</span></h1>
+    <form class="apply-form" action="#" novalidate>
+      <fieldset class="section contact">
+        <legend>Contact Information</legend>
+        <div class="field-group">
+          <label for="name">Name</label>
+          <input id="name" type="text" placeholder="Your Name" required />
+        </div>
+        <div class="field-group">
+          <label for="email">Email</label>
+          <input id="email" type="email" placeholder="Your Email" required />
+        </div>
+        <div class="field-group">
+          <label for="phone">Phone</label>
+          <input id="phone" type="tel" placeholder="Phone Number" required />
+        </div>
+      </fieldset>
+
+      <fieldset class="section project">
+        <legend>Project Info</legend>
+        <div class="field-group">
+          <label for="project">Type</label>
+          <div class="select-wrapper">
+            <select id="project">
+              <option>UI/UX Design</option>
+              <option>Web Development</option>
+              <option>Fullstack Development</option>
             </select>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="dropdown-icon">
+              <path d="m7 10 5 5 5-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+            </svg>
           </div>
-          <div class="detail">
-            <label for="">Project Detail:</label>
-            <input
-              type="text"
-              name=""
-              id=""
-              placeholder="Explain Project Details"
-            />
-          </div>
-          <div class="budget">
-            <label for="">Budget:</label>
-            <div class="input-select">
-              <select name="" id="currency">
-                <option value="">USD</option>
-                <option value="">RP</option>
-                <option value="">EURO</option>
-              </select>
-              <input type="number" />
+        </div>
+        <div class="field-group">
+          <label for="detail">Details</label>
+          <input id="detail" type="text" placeholder="Explain Project Details" />
+        </div>
+      </fieldset>
+
+      <fieldset class="section budget">
+        <legend>Budget & Timeline</legend>
+        <div class="flex-row">
+          <div class="field-group">
+            <label for="currency">Currency</label>
+            <div class="select-wrapper">
+              <select id="currency">
+                <option>USD</option>
+                <option>IDR</option>
+                <option>EUR</option>
+            </select>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="dropdown-icon">
+              <path d="m7 10 5 5 5-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+            </svg>
             </div>
           </div>
-          <div class="timeline">
-            <label for="">Timeline:</label>
-            <input type="text" placeholder="Project Timeline" />
+          <div class="field-group">
+            <label for="amount">Amount</label>
+            <input id="amount" type="number" placeholder="Budget" />
           </div>
-          <div class="reference">
-            <label for="">Referance:</label>
-            <input type="text" placeholder="Project Referance" />
-          </div>
-          <div class="platform">
-            <label for="">Platform or Technology:</label>
-            <input type="text" placeholder="Platform Used" />
-          </div>
-          <div class="additional">
-            <label for="">Additional Questions:</label>
-            <textarea
-              name=""
-              id=""
-              cols="30"
-              rows="10"
-              placeholder="Ask Question"
-            ></textarea>
-          </div>
-          <div class="kirim">
-            <input type="submit" value="Submit" class="send-btn1" />
-          </div>
-        </form>
-      </div>
-    </div>
+        </div>
+        <div class="field-group">
+          <label for="timeline">Timeline</label>
+          <input id="timeline" type="text" placeholder="Project Timeline" />
+        </div>
+      </fieldset>
 
-    <script src="build/js/intlTelInput.js"></script>
-    <script>
-      const input = document.querySelector("#phone");
-      window.intlTelInput(input, {
-        initialCountry: "us",
-        showSelectedDialCode: true,
-        utilsScript: "/intl-tel-input/js/utils.js?1708621744742", // just for formatting/placeholders etc
-      });
-    </script>
-  </body>
+      <fieldset class="section extra">
+        <legend>Additional</legend>
+        <div class="field-group">
+          <label for="reference">Reference</label>
+          <input id="reference" type="text" placeholder="Project Reference" />
+        </div>
+        <div class="field-group">
+          <label for="platform">Platform / Tech</label>
+          <input id="platform" type="text" placeholder="Platform Used" />
+        </div>
+        <div class="field-group full-width">
+          <label for="questions">Other Questions</label>
+          <textarea id="questions" rows="4" placeholder="Ask Question"></textarea>
+        </div>
+      </fieldset>
+
+      <div class="actions">
+        <a href="index.html">Cancel</a>
+        <button type="submit" class="btn">Submit</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="build/js/intlTelInput.js"></script>
+  <script>
+    const phoneInput = document.querySelector("#phone");
+    window.intlTelInput(phoneInput, {
+      initialCountry: "us",
+      utilsScript: "/intl-tel-input/js/utils.js",
+      separateDialCode: true
+    });
+  </script>
+</body>
 </html>
