@@ -1,436 +1,878 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Merson's Portfolio</title>
-
-    <link rel="stylesheet" href="css/style.css" />
-
-    <!-- Box Icons Link -->
+    <title>Merson Muhammad — Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
       rel="stylesheet"
-      href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
     />
-
-    <!-- Remix Icon Link -->
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css"
       rel="stylesheet"
     />
-
-    <!-- Google Fonts Link -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- AOS Animation Link -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-
-    <!-- Lightbox Style CSS -->
-    <link rel="stylesheet" href="css/lightbox.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <!-- Header -->
-    <header>
-      <a href="#" class="logo">Sonix<span>Dev</span></a>
-      <div class="bx bx-menu" id="menu-icon"></div>
-      <ul class="navlist">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <div class="top-btn">
-        <a href="#contact" class="h-btn">Contact Me</a>
-      </div>
+    <div id="cursor"></div>
+    <div id="cursor-follower"></div>
+    <canvas id="canvas-bg"></canvas>
+
+    <!-- ==================== HEADER ==================== -->
+    <header id="header">
+      <a href="#home" class="logo">Sonix<span>Dev</span></a>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Contact</a>
+        <a href="#contact" class="nav-cta">Hire Me</a>
+      </nav>
+      <div class="menu-btn" id="menuBtn"><i class="ri-menu-3-line"></i></div>
     </header>
 
-    <!-- Hero -->
-    <section class="hero" id="home">
-      <div class="meteors">
-        <div
-          class="meteor"
-          style="
-            --delay: 0s;
-            --size: 2px;
-            --length: 120px;
-            --speed: 2.5s;
-            --startX: 10%;
-            --startY: -10%;
-          "
-        ></div>
-        <div
-          class="meteor"
-          style="
-            --delay: 1s;
-            --size: 1.5px;
-            --length: 80px;
-            --speed: 3s;
-            --startX: 30%;
-            --startY: -20%;
-          "
-        ></div>
-        <div
-          class="meteor"
-          style="
-            --delay: 0.5s;
-            --size: 2.5px;
-            --length: 150px;
-            --speed: 4s;
-            --startX: 50%;
-            --startY: -15%;
-          "
-        ></div>
-        <div
-          class="meteor"
-          style="
-            --delay: 1.5s;
-            --size: 1px;
-            --length: 60px;
-            --speed: 2s;
-            --startX: 70%;
-            --startY: -25%;
-          "
-        ></div>
-        <div
-          class="meteor"
-          style="
-            --delay: 2s;
-            --size: 2px;
-            --length: 100px;
-            --speed: 3.5s;
-            --startX: 85%;
-            --startY: -5%;
-          "
-        ></div>
-      </div>
-      <div class="main-content" data-aos="fade-in">
-        <h4 data-aos="fade-right" data-aos-delay="400">Hi, There!</h4>
-        <h1 data-aos="fade-right" data-aos-delay="600" id="name"></h1>
-        <p data-aos="fade-right" data-aos-delay="800">
-          2+ years of experience in website development and in creating
-          innovative solutions to system issues. I am a team player with strong
-          programming experience to build and operate secure website. Committed
-          to developing website expertise to help company grow more efficiently.
+    <!-- Mobile Nav -->
+    <div class="mobile-nav" id="mobileNav">
+      <a href="#home" onclick="closeMobileNav()">Home</a>
+      <a href="#about" onclick="closeMobileNav()">About</a>
+      <a href="#skills" onclick="closeMobileNav()">Skills</a>
+      <a href="#services" onclick="closeMobileNav()">Services</a>
+      <a href="#portfolio" onclick="closeMobileNav()">Portfolio</a>
+      <a href="#contact" onclick="closeMobileNav()">Contact</a>
+    </div>
+
+    <!-- ==================== HERO ==================== -->
+    <section id="home">
+      <div class="hero-glow"></div>
+      <div class="hero-glow2"></div>
+      <div class="hero-content">
+        <div class="badge">
+          <span class="badge-dot"></span>
+          Available for Freelance Work
+        </div>
+        <h1 class="hero-title">
+          <span class="line">Hi, I'm</span>
+          <span class="line gradient-text" id="typed-name"
+            >Merson Muhammad</span
+          >
+        </h1>
+        <p class="hero-sub">
+          Full-Stack Developer &amp; UI/UX Designer with 2+ years of experience
+          crafting innovative digital experiences. Building secure, scalable web
+          solutions that help companies grow.
         </p>
-        <div class="social">
-          <a href="https://www.facebook.com/merson.muhammad?mibextid=ZbWKwL"
+        <div class="hero-actions">
+          <a href="apply_form.html" class="btn-primary"
+            ><i class="ri-send-plane-fill"></i> Hire Me</a
+          >
+          <a href="files/cv.pdf" target="_blank" class="btn-outline"
+            ><i class="ri-download-2-line"></i> Download CV</a
+          >
+        </div>
+        <div class="hero-socials">
+          <a
+            href="https://www.facebook.com/merson.muhammad?mibextid=ZbWKwL"
+            aria-label="Facebook"
             ><i class="ri-facebook-fill"></i
           ></a>
           <a
             href="https://www.instagram.com/mer_son31?igsh=MWJ1aW1oNTk1YmV4eA=="
+            aria-label="Instagram"
             ><i class="ri-instagram-fill"></i
           ></a>
-          <a href="https://x.com/MersonMuhammad?s=08"
+          <a href="https://x.com/MersonMuhammad?s=08" aria-label="X/Twitter"
             ><i class="ri-twitter-x-fill"></i
           ></a>
-          <a href="https://youtube.com/@mersonmuhammad6596?si=jn6rLHN5K9xBEjrU"
+          <a
+            href="https://youtube.com/@mersonmuhammad6596?si=jn6rLHN5K9xBEjrU"
+            aria-label="YouTube"
             ><i class="ri-youtube-fill"></i
           ></a>
         </div>
-        <div class="main-btn">
-          <a href="apply_form.html" class="btn">Hire Me</a>
-          <a href="files/cv.pdf" target="_blank" rel="noopener" class="btn btn2"
-            >Download CV</a
-          >
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-num" data-count="2">0</div>
+            <div class="stat-label">Years Exp.</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num" data-count="7">0</div>
+            <div class="stat-label">Projects Done</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num" data-count="3">0</div>
+            <div class="stat-label">Certifications</div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- About -->
-    <section class="about" id="about">
-      <div class="about-img" data-aos="zoom-in-down">
-        <img src="img/foto12.png" alt="img" />
-      </div>
-      <div class="about-text" data-aos="zoom-in-up">
-        <h2>
-          I am a UI/UX <span>Designer</span> <br />
-          & Web Developer
-        </h2>
-        <div class="exp-area">
-          <p class="exp">Experience: <span>2 Years</span></p>
-          <p class="exp">Specialty: <span>Product Designer, Developer</span></p>
-          <p class="exp">
-            Address: <span>Rantepao, South Sulawesi, Indonesian</span>
+    <!-- ==================== ABOUT ==================== -->
+    <section id="about">
+      <div class="about-grid">
+        <div class="about-photo-wrap reveal">
+          <div class="photo-accent"></div>
+          <div class="about-photo-frame">
+            <img src="img/foto12.png" alt="Merson Muhammad" />
+            <div class="experience-badge">
+              <div class="num">2+</div>
+              <div class="label">Years of Experience</div>
+            </div>
+          </div>
+        </div>
+        <div class="about-info reveal reveal-delay-2">
+          <span class="section-label">About Me</span>
+          <h2 class="section-title">
+            UI/UX Designer<br />&amp;
+            <span style="color: var(--accent)">Web Developer</span>
+          </h2>
+          <p class="section-desc">
+            I'm Merson Muhammad, a passionate Full-Stack Developer and UI/UX
+            Designer from Rantepao, South Sulawesi. I build beautiful,
+            performant web applications with a focus on clean code and great
+            user experiences.
           </p>
-          <p class="exp">Email: <span>mer***@gmail.com</span></p>
-          <p class="exp">Phone: <span>082***</span></p>
-          <p class="exp">Freelance: <span>Available</span></p>
-          <p class="exp">Sertification:</p>
-          <ul>
-            <li>
+          <div class="info-grid">
+            <div class="info-item">
+              <div class="info-label">Specialty</div>
+              <div class="info-value">Product Designer, Developer</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Location</div>
+              <div class="info-value">Rantepao, South Sulawesi</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Email</div>
+              <div class="info-value">mer***@gmail.com</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Freelance Status</div>
+              <div class="info-value available">✓ Available</div>
+            </div>
+          </div>
+
+          <div class="cert-list">
+            <a href="img/sertif1.jpg" target="_blank" class="cert-item">
+              <span>🏅 Certified Developer</span>
+              <i class="ri-external-link-line"></i>
+            </a>
+            <a href="img/sertif2.jpg" target="_blank" class="cert-item">
+              <span>☁️ Apsara Clouder – Cloud Computing</span>
+              <i class="ri-external-link-line"></i>
+            </a>
+            <a
+              href="https://www.codepolitan.com/c/MERRD0A/"
+              target="_blank"
+              class="cert-item"
+            >
+              <span>⚡ Certified JavaScript Developer</span>
+              <i class="ri-external-link-line"></i>
+            </a>
+          </div>
+
+          <div style="margin-top: 32px">
+            <a href="#portfolio" class="btn-primary"
+              ><i class="ri-eye-line"></i> View My Projects</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SKILLS ==================== -->
+    <section id="skills">
+      <div class="section-header centered">
+        <span class="section-label reveal">Tech Stack</span>
+        <h2 class="section-title reveal reveal-delay-1">
+          My <span style="color: var(--accent)">Skills</span>
+        </h2>
+        <p class="section-desc reveal reveal-delay-2">
+          Technologies I work with to bring ideas to life
+        </p>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-card reveal reveal-delay-1">
+          <div class="skill-icon">
+            <img src="img/HTML5_logo.jpeg" alt="HTML5" />
+          </div>
+          <div class="skill-name">HTML5</div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" style="width: 95%"></div>
+          </div>
+        </div>
+        <div class="skill-card reveal reveal-delay-1">
+          <div class="skill-icon">
+            <img src="img/CSS3_logo.jpeg" alt="CSS3" />
+          </div>
+          <div class="skill-name">CSS3</div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" style="width: 90%"></div>
+          </div>
+        </div>
+        <div class="skill-card reveal reveal-delay-2">
+          <div class="skill-icon">
+            <img src="img/JS_logo.jpeg" alt="JavaScript" />
+          </div>
+          <div class="skill-name">JavaScript</div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" style="width: 85%"></div>
+          </div>
+        </div>
+        <div class="skill-card reveal reveal-delay-2">
+          <div class="skill-icon">
+            <img src="img/PHP_logo.jpeg" alt="PHP" />
+          </div>
+          <div class="skill-name">PHP</div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" style="width: 80%"></div>
+          </div>
+        </div>
+        <div class="skill-card reveal reveal-delay-3">
+          <div class="skill-icon">
+            <img src="img/laravel_logo.jpeg" alt="Laravel" />
+          </div>
+          <div class="skill-name">Laravel</div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" style="width: 78%"></div>
+          </div>
+        </div>
+        <div class="skill-card reveal reveal-delay-3">
+          <div class="skill-icon">
+            <img src="img/tailwind_logo.jpeg" alt="Tailwind" />
+          </div>
+          <div class="skill-name">Tailwind CSS</div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" style="width: 88%"></div>
+          </div>
+        </div>
+        <div class="skill-card reveal reveal-delay-4">
+          <div class="skill-icon">
+            <img src="img/bootstrap_logo.jpeg" alt="Bootstrap" />
+          </div>
+          <div class="skill-name">Bootstrap</div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" style="width: 88%"></div>
+          </div>
+        </div>
+        <div class="skill-card reveal reveal-delay-4">
+          <div class="skill-icon">
+            <img src="img/mysql_logo.jpeg" alt="MySQL" />
+          </div>
+          <div class="skill-name">MySQL</div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" style="width: 82%"></div>
+          </div>
+        </div>
+        <div class="skill-card reveal reveal-delay-4">
+          <div class="skill-icon">
+            <img src="img/vscode_logo.jpeg" alt="VS Code" />
+          </div>
+          <div class="skill-name">VS Code</div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" style="width: 95%"></div>
+          </div>
+        </div>
+        <div class="skill-card reveal reveal-delay-4">
+          <div class="skill-icon">
+            <img src="img/figma_logo.jpeg" alt="Figma" />
+          </div>
+          <div class="skill-name">Figma</div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar" style="width: 80%"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SERVICES ==================== -->
+    <section id="services">
+      <div class="section-header centered">
+        <span class="section-label reveal">What I Offer</span>
+        <h2 class="section-title reveal reveal-delay-1">
+          My <span style="color: var(--accent)">Services</span>
+        </h2>
+        <p class="section-desc reveal reveal-delay-2">
+          End-to-end solutions from design to deployment
+        </p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card reveal reveal-delay-1">
+          <span class="service-emoji">🎨</span>
+          <div class="service-title">UI/UX Design</div>
+          <p class="service-desc">
+            Creating intuitive, visually stunning interfaces that delight users.
+            From wireframes to high-fidelity prototypes in Figma.
+          </p>
+          <span class="service-tag">2+ Years Exp.</span>
+        </div>
+        <div class="service-card reveal reveal-delay-2">
+          <span class="service-emoji">🌐</span>
+          <div class="service-title">Web Development</div>
+          <p class="service-desc">
+            Building responsive, performant websites using modern frontend
+            technologies. Fast, SEO-friendly, and pixel-perfect.
+          </p>
+          <span class="service-tag">2+ Years Exp.</span>
+        </div>
+        <div class="service-card reveal reveal-delay-3">
+          <span class="service-emoji">⚡</span>
+          <div class="service-title">Fullstack Development</div>
+          <p class="service-desc">
+            End-to-end application development with Laravel, PHP, MySQL, and
+            modern JS frameworks. Secure, scalable architecture.
+          </p>
+          <span class="service-tag">2+ Years Exp.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PORTFOLIO ==================== -->
+    <section id="portfolio">
+      <div class="section-header centered">
+        <span class="section-label reveal">My Work</span>
+        <h2 class="section-title reveal reveal-delay-1">
+          Featured <span style="color: var(--accent)">Projects</span>
+        </h2>
+        <p class="section-desc reveal reveal-delay-2">
+          A selection of projects I've built and shipped
+        </p>
+      </div>
+
+      <div class="portfolio-grid">
+        <div class="project-card reveal reveal-delay-1">
+          <div class="project-thumb">
+            <img src="img/sc2.png" alt="Instagram Unfollowers Checker" />
+            <div class="project-overlay">
               <a
-                class="example-image-link"
-                href="img/sertif1.jpg"
-                data-lightbox="example-1"
-                data-title="Certified Developer"
-                ><span>Certified Developer</span>
-                <i class="ri-arrow-right-line"></i
+                href="https://laravel-unfollowers-checker-production.up.railway.app/"
+                target="_blank"
+                ><i class="ri-external-link-line"></i
               ></a>
-            </li>
-            <li>
-              <a
-                class="example-image-link"
-                href="img/sertif2.jpg"
-                data-lightbox="example-2"
-                data-title="Apsara Clauder - Cloud Computing"
-                ><span>Apsara Clauder - Cloud Computing</span>
-                <i class="ri-arrow-right-line"></i
+            </div>
+          </div>
+          <div class="project-info">
+            <div class="project-type">Web Development</div>
+            <div class="project-name">Instagram Unfollowers Checker</div>
+          </div>
+        </div>
+
+        <div class="project-card reveal reveal-delay-2">
+          <div class="project-thumb">
+            <img src="img/sc1.png" alt="E-Kuesioner" />
+            <div class="project-overlay">
+              <a href="maintenance.html"
+                ><i class="ri-external-link-line"></i
               ></a>
-            </li>
-            <li>
-              <a href="https://www.codepolitan.com/c/MERRD0A/"
-                ><span>Certified Javascript</span>
-                <i class="ri-arrow-right-line"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
-        <a href="#portfolio" class="btn">View All Project's</a>
-      </div>
-    </section>
-
-    <!-- Skills -->
-    <section class="skills" id="skills">
-      <div class="center-text" data-aos="fade-down">
-        <h2>My <span>Skills</span></h2>
-      </div>
-      <div class="skills-content" data-aos="zoom-in-down">
-        <img src="img/HTML5_logo.jpeg" alt="" />
-        <img src="img/CSS3_logo.jpeg" alt="" />
-        <img src="img/JS_logo.jpeg" alt="" />
-        <img src="img/PHP_logo.jpeg" alt="" />
-        <img src="img/laravel_logo.jpeg" alt="" />
-        <img src="img/tailwind_logo.jpeg" alt="" />
-        <img src="img/bootstrap_logo.jpeg" alt="" />
-        <img src="img/mysql_logo.jpeg" alt="" />
-        <img src="img/vscode_logo.jpeg" alt="" />
-        <img src="img/figma_logo.jpeg" alt="" />
-      </div>
-    </section>
-
-    <!-- Services -->
-    <section class="services" id="services">
-      <div class="center-text" data-aos="fade-down">
-        <h2>My <span>Services</span></h2>
-      </div>
-      <div class="services-content" data-aos="zoom-in-down">
-        <div class="box">
-          <img src="img/uiux.jpeg" alt="" />
-          <h3>UI/UX Design</h3>
-          <p>2+ years of experience as a UI/UX designer.</p>
-        </div>
-
-        <div class="box">
-          <img src="img/webdeveloper.jpeg" alt="" />
-          <h3>Web Developer</h3>
-          <p>2+ years of experience as a Website Developer.</p>
-        </div>
-
-        <div class="box">
-          <img src="img/fullstackdev.jpeg" alt="" />
-          <h3>Fullstack Developer</h3>
-          <p>2+ years of experience as a Fullstack Developer.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Portfolio -->
-    <section class="portfolio" id="portfolio">
-      <div class="center-text" data-aos="fade-down">
-        <h2>My <span>Portfolio</span></h2>
-      </div>
-      <div class="portfolio-content" data-aos="zoom-in-down">
-        <div class="row">
-          <a
-            href="https://laravel-unfollowers-checker-production.up.railway.app/"
-          >
-            <img src="img/sc2.png" alt="" />
-          </a>
-          <div class="main-row">
-            <div class="row-text">
-              <h5>Website Development</h5>
-            </div>
-            <div class="row-icon">
-              <i class="ri-github-fill"></i>
             </div>
           </div>
-          <h4>Instagram Unfollowers Checker</h4>
+          <div class="project-info">
+            <div class="project-type">Web Development</div>
+            <div class="project-name">E-Kuesioner UKI Toraja</div>
+          </div>
         </div>
 
-        <div class="row">
-          <a href="maintenance.html">
-            <img src="img/sc1.png" alt="" />
-          </a>
-          <div class="main-row">
-            <div class="row-text">
-              <h5>Website Development</h5>
-            </div>
-            <div class="row-icon">
-              <i class="ri-github-fill"></i>
+        <div class="project-card reveal reveal-delay-3">
+          <div class="project-thumb">
+            <img src="img/sc4.png" alt="Tourism System" />
+            <div class="project-overlay">
+              <a href="maintenance.html"
+                ><i class="ri-external-link-line"></i
+              ></a>
             </div>
           </div>
-          <h4>E-Kuesioner UKI Toraja</h4>
+          <div class="project-info">
+            <div class="project-type">Web Development</div>
+            <div class="project-name">
+              Integrated Tourism Information System – North Toraja
+            </div>
+          </div>
         </div>
 
-        <div class="row">
-          <a href="maintenance.html">
-            <img src="img/sc4.png" alt="" />
-          </a>
-          <div class="main-row">
-            <div class="row-text">
-              <h5>Website Development</h5>
-            </div>
-            <div class="row-icon">
-              <i class="ri-github-fill"></i>
+        <div class="project-card reveal reveal-delay-1">
+          <div class="project-thumb">
+            <img src="img/sc3.png" alt="Zoning System" />
+            <div class="project-overlay">
+              <a href="maintenance.html"
+                ><i class="ri-external-link-line"></i
+              ></a>
             </div>
           </div>
-          <h4>
-            Integrated Tourism Attraction Information System in North Toraja
-          </h4>
+          <div class="project-info">
+            <div class="project-type">Web Development</div>
+            <div class="project-name">
+              Zoning System for Junior High School Admissions
+            </div>
+          </div>
         </div>
 
-        <div class="row">
-          <a href="maintenance.html">
-            <img src="img/sc3.png" alt="" />
-          </a>
-          <div class="main-row">
-            <div class="row-text">
-              <h5>Website Development</h5>
-            </div>
-            <div class="row-icon">
-              <i class="ri-github-fill"></i>
+        <div class="project-card reveal reveal-delay-2">
+          <div class="project-thumb">
+            <img src="img/img100.JPG" alt="PM Wedding" />
+            <div class="project-overlay">
+              <a href="https://merson31.github.io/pm_wedding/" target="_blank"
+                ><i class="ri-external-link-line"></i
+              ></a>
             </div>
           </div>
-          <h4>Zoning System for Junior High School Student Admissions</h4>
+          <div class="project-info">
+            <div class="project-type">Web Design</div>
+            <div class="project-name">PM Wedding Website</div>
+          </div>
         </div>
 
-        <div class="row">
-          <a href="https://merson31.github.io/pm_wedding/">
-            <img src="img/img100.JPG" alt="" />
-          </a>
-          <div class="main-row">
-            <div class="row-text">
-              <h5>Website Design</h5>
-            </div>
-            <div class="row-icon">
-              <i class="ri-github-fill"></i>
+        <div class="project-card reveal reveal-delay-3">
+          <div class="project-thumb">
+            <img src="img/img101.JPG" alt="Toraja Wanderlust" />
+            <div class="project-overlay">
+              <a href="maintenance.html"
+                ><i class="ri-external-link-line"></i
+              ></a>
             </div>
           </div>
-          <h4>Website Development For PM Wedding</h4>
-        </div>
-
-        <div class="row">
-          <a href="maintenance.html">
-            <img src="img/img101.JPG" alt="" />
-          </a>
-          <div class="main-row">
-            <div class="row-text">
-              <h5>Website Design</h5>
-            </div>
-            <div class="row-icon">
-              <i class="ri-github-fill"></i>
-            </div>
+          <div class="project-info">
+            <div class="project-type">Web Design</div>
+            <div class="project-name">Toraja Wanderlust Tourism Website</div>
           </div>
-          <h4>Website Development For Toraja Wanderlust</h4>
-        </div>
-
-        <div class="row">
-          <a href="maintenance.html">
-            <img src="img/img103.JPG" alt="" />
-          </a>
-          <div class="main-row">
-            <div class="row-text">
-              <h5>Website Design</h5>
-            </div>
-            <div class="row-icon">
-              <i class="ri-github-fill"></i>
-            </div>
-          </div>
-          <h4>Website Development For API Keys Nasa</h4>
         </div>
       </div>
     </section>
 
-    <section class="contact" id="contact">
-      <div class="center-text" data-aos="fade-down">
-        <h2>Contact <span>Me</span></h2>
+    <!-- ==================== AI CHAT SECTION ==================== -->
+    <section id="ai-section">
+      <div class="section-header centered">
+        <span class="section-label reveal">AI-Powered</span>
+        <h2 class="section-title reveal reveal-delay-1">
+          Ask Me <span style="color: var(--accent)">Anything</span>
+        </h2>
+        <p class="section-desc reveal reveal-delay-2">
+          Chat with my AI assistant to learn more about my work, skills, and
+          availability
+        </p>
       </div>
-      <div class="contact-form" data-aos="zoom-in">
-        <form
-          method="POST"
-          action="https://script.google.com/macros/s/AKfycbyTVkXMOu_6KJolUMXRiQk1TmpueeQgOtcSqraQVF00-i5c9fUU1xi8s0CYXm_FPWKEbg/exec"
-          id="my-form"
-        >
-          <input type="hidden" name="returnUrl" id="returnUrlInput" value="" />
-          <input type="text" placeholder="Your Name" name="nama" required />
+      <div class="ai-widget-wrap reveal reveal-delay-2">
+        <div class="ai-header">
+          <div class="ai-avatar"><i class="ri-robot-2-line"></i></div>
+          <div>
+            <div class="ai-name">Merson's AI Assistant</div>
+            <div class="ai-status">● Online</div>
+          </div>
+          <div style="margin-left: auto">
+            <span class="ai-indicator"></span>
+          </div>
+        </div>
+        <div class="chat-area" id="chatArea">
+          <div class="msg bot">
+            👋 Hi there! I'm Merson's AI assistant. Ask me anything about his
+            skills, projects, availability, or how to get in touch!
+          </div>
+        </div>
+        <div class="chat-input-area">
           <input
-            type="email"
-            placeholder="Email Address"
-            name="email"
-            required
+            class="chat-input"
+            id="chatInput"
+            type="text"
+            placeholder="Ask about Merson's skills, projects, or availability..."
           />
-          <textarea
-            name="pesan"
-            id=""
-            cols="30"
-            rows="10"
-            placeholder="Write Message Here"
-            required
-          ></textarea>
-          <button type="submit" class="send-btn">Send Message</button>
-        </form>
+          <button class="chat-send" id="chatSend">
+            <i class="ri-send-plane-fill"></i>
+          </button>
+        </div>
       </div>
     </section>
 
-    <div class="footer">
-      <div class="copyright">
-        <p>&copy; 2025 SonixDev. All Rights Reserved.</p>
+    <!-- ==================== CONTACT ==================== -->
+    <section id="contact">
+      <div class="section-header centered">
+        <span class="section-label reveal">Get In Touch</span>
+        <h2 class="section-title reveal reveal-delay-1">
+          Let's <span style="color: var(--accent)">Work Together</span>
+        </h2>
+        <p
+          class="section-desc reveal reveal-delay-2"
+          style="margin-bottom: 40px"
+        >
+          Have a project in mind? I'd love to help bring your vision to life.
+          Reach out and let's talk.
+        </p>
       </div>
-      <a href="#home" class="scroll-top"><i class="ri-arrow-up-s-fill"></i></a>
-    </div>
+      <div class="contact-grid">
+        <div>
+          <div class="reveal reveal-delay-2">
+            <div class="contact-item">
+              <div class="contact-item-icon">
+                <i class="ri-map-pin-line"></i>
+              </div>
+              <div>
+                <div class="contact-item-label">Location</div>
+                <div class="contact-item-value">
+                  Rantepao, South Sulawesi, Indonesia
+                </div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon"><i class="ri-mail-line"></i></div>
+              <div>
+                <div class="contact-item-label">Email</div>
+                <div class="contact-item-value">mer***@gmail.com</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon"><i class="ri-phone-line"></i></div>
+              <div>
+                <div class="contact-item-label">Phone</div>
+                <div class="contact-item-value">082***</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon"><i class="ri-time-line"></i></div>
+              <div>
+                <div class="contact-item-label">Availability</div>
+                <div class="contact-item-value" style="color: var(--accent3)">
+                  ✓ Open for Freelance
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-    <!-- JS Link -->
-    <script src="js/script.js"></script>
+        <div class="contact-form reveal reveal-delay-3">
+          <form
+            method="POST"
+            action="https://script.google.com/macros/s/AKfycbyTVkXMOu_6KJolUMXRiQk1TmpueeQgOtcSqraQVF00-i5c9fUU1xi8s0CYXm_FPWKEbg/exec"
+            id="my-form"
+          >
+            <input
+              type="hidden"
+              name="returnUrl"
+              id="returnUrlInput"
+              value=""
+            />
+            <div class="form-group">
+              <input type="text" name="nama" placeholder="Your Name" required />
+            </div>
+            <div class="form-group">
+              <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <textarea
+                name="pesan"
+                placeholder="Tell me about your project…"
+                required
+              ></textarea>
+            </div>
+            <button type="submit" class="form-submit">
+              <i class="ri-send-plane-fill"></i> Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer>
+      <div class="footer-left">
+        © 2025 <span>SonixDev</span>. All rights reserved.
+      </div>
+      <div class="footer-right">
+        <a href="https://www.facebook.com/merson.muhammad?mibextid=ZbWKwL"
+          ><i class="ri-facebook-fill"></i
+        ></a>
+        <a href="https://www.instagram.com/mer_son31?igsh=MWJ1aW1oNTk1YmV4eA=="
+          ><i class="ri-instagram-fill"></i
+        ></a>
+        <a href="https://x.com/MersonMuhammad?s=08"
+          ><i class="ri-twitter-x-fill"></i
+        ></a>
+        <a href="https://youtube.com/@mersonmuhammad6596?si=jn6rLHN5K9xBEjrU"
+          ><i class="ri-youtube-fill"></i
+        ></a>
+      </div>
+    </footer>
+
+    <button
+      id="scroll-top"
+      onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+    >
+      <i class="ri-arrow-up-line"></i>
+    </button>
 
     <script>
+      /* ---- CURSOR ---- */
+      const cursor = document.getElementById("cursor");
+      const follower = document.getElementById("cursor-follower");
+      let mx = 0,
+        my = 0,
+        fx = 0,
+        fy = 0;
+      document.addEventListener("mousemove", (e) => {
+        mx = e.clientX;
+        my = e.clientY;
+        cursor.style.left = mx + "px";
+        cursor.style.top = my + "px";
+      });
+      (function loop() {
+        fx += (mx - fx) * 0.12;
+        fy += (my - fy) * 0.12;
+        follower.style.left = fx + "px";
+        follower.style.top = fy + "px";
+        requestAnimationFrame(loop);
+      })();
+      document
+        .querySelectorAll("a,button,.project-card,.service-card,.skill-card")
+        .forEach((el) => {
+          el.addEventListener("mouseenter", () => {
+            cursor.style.width = "20px";
+            cursor.style.height = "20px";
+            follower.style.width = "60px";
+            follower.style.height = "60px";
+          });
+          el.addEventListener("mouseleave", () => {
+            cursor.style.width = "12px";
+            cursor.style.height = "12px";
+            follower.style.width = "36px";
+            follower.style.height = "36px";
+          });
+        });
+
+      /* ---- CANVAS PARTICLES ---- */
+      const canvas = document.getElementById("canvas-bg");
+      const ctx = canvas.getContext("2d");
+      let W,
+        H,
+        particles = [];
+      function resize() {
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener("resize", resize);
+
+      class Particle {
+        constructor() {
+          this.reset();
+        }
+        reset() {
+          this.x = Math.random() * W;
+          this.y = Math.random() * H;
+          this.r = Math.random() * 1.5 + 0.3;
+          this.vx = (Math.random() - 0.5) * 0.3;
+          this.vy = (Math.random() - 0.5) * 0.3;
+          this.alpha = Math.random() * 0.5 + 0.1;
+          this.color =
+            Math.random() > 0.5
+              ? `rgba(79,140,255,${this.alpha})`
+              : `rgba(167,139,250,${this.alpha})`;
+        }
+        update() {
+          this.x += this.vx;
+          this.y += this.vy;
+          if (this.x < 0 || this.x > W || this.y < 0 || this.y > H)
+            this.reset();
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.fill();
+        }
+      }
+
+      for (let i = 0; i < 120; i++) particles.push(new Particle());
+
+      function drawConnections() {
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x,
+              dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 100) {
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = `rgba(79,140,255,${(1 - dist / 100) * 0.08})`;
+              ctx.lineWidth = 0.5;
+              ctx.stroke();
+            }
+          }
+        }
+      }
+
+      function animateCanvas() {
+        ctx.clearRect(0, 0, W, H);
+        particles.forEach((p) => {
+          p.update();
+          p.draw();
+        });
+        drawConnections();
+        requestAnimationFrame(animateCanvas);
+      }
+      animateCanvas();
+
+      /* ---- HEADER STICKY ---- */
+      const header = document.getElementById("header");
+      window.addEventListener("scroll", () => {
+        header.classList.toggle("scrolled", window.scrollY > 60);
+        document
+          .getElementById("scroll-top")
+          .classList.toggle("visible", window.scrollY > 400);
+      });
+
+      /* ---- MOBILE NAV ---- */
+      const menuBtn = document.getElementById("menuBtn");
+      const mobileNav = document.getElementById("mobileNav");
+      menuBtn.addEventListener("click", () =>
+        mobileNav.classList.toggle("open"),
+      );
+      function closeMobileNav() {
+        mobileNav.classList.remove("open");
+      }
+
+      /* ---- REVEAL ON SCROLL ---- */
+      const reveals = document.querySelectorAll(".reveal");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) e.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.1 },
+      );
+      reveals.forEach((el) => observer.observe(el));
+
+      /* ---- COUNTER ANIMATION ---- */
+      function animateCounters() {
+        document.querySelectorAll("[data-count]").forEach((el) => {
+          const target = +el.dataset.count;
+          let current = 0;
+          const step = target / 40;
+          const t = setInterval(() => {
+            current += step;
+            if (current >= target) {
+              current = target;
+              clearInterval(t);
+            }
+            el.textContent = Math.floor(current) + (target >= 7 ? "+" : "+");
+          }, 40);
+        });
+      }
+      const heroSection = document.getElementById("home");
+      const counterObserver = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting) {
+            animateCounters();
+            counterObserver.disconnect();
+          }
+        },
+        { threshold: 0.3 },
+      );
+      counterObserver.observe(heroSection);
+
+      /* ---- TYPED NAME EFFECT ---- */
+      const names = [
+        "Merson Muhammad",
+        "a UI/UX Designer",
+        "a Web Developer",
+        "a Fullstack Dev",
+      ];
+      let ni = 0,
+        ci = 0,
+        deleting = false;
+      const typedEl = document.getElementById("typed-name");
+      function typeEffect() {
+        const current = names[ni];
+        if (!deleting) {
+          typedEl.textContent = current.substring(0, ci + 1);
+          ci++;
+          if (ci === current.length) {
+            deleting = true;
+            setTimeout(typeEffect, 2000);
+            return;
+          }
+        } else {
+          typedEl.textContent = current.substring(0, ci - 1);
+          ci--;
+          if (ci === 0) {
+            deleting = false;
+            ni = (ni + 1) % names.length;
+          }
+        }
+        setTimeout(typeEffect, deleting ? 60 : 110);
+      }
+      typeEffect();
+
+      /* ---- CONTACT FORM ---- */
       document.getElementById("returnUrlInput").value =
         window.location.href.split("#")[0];
-    </script>
 
-    <!-- AOS Animation Script -->
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-      AOS.init({
-        offset: 300,
-        duration: 1400,
+      /* ---- AI CHAT ---- */
+      const chatArea = document.getElementById("chatArea");
+      const chatInput = document.getElementById("chatInput");
+      const chatSend = document.getElementById("chatSend");
+
+      const systemPrompt = `You are Merson Muhammad's friendly AI portfolio assistant. Merson is a Full-Stack Developer and UI/UX Designer from Rantepao, South Sulawesi, Indonesia with 2+ years of experience. His skills include HTML5, CSS3, JavaScript, PHP, Laravel, Tailwind CSS, Bootstrap, MySQL, Figma, and VS Code. His projects include: Instagram Unfollowers Checker (Laravel), E-Kuesioner UKI Toraja, Tourism Information System for North Toraja, Zoning System for Junior High School Admissions, PM Wedding Website, and Toraja Wanderlust. He has certifications in web development, Apsara Clouder Cloud Computing, and JavaScript. He is currently available for freelance work. Keep answers friendly, concise (2-4 sentences), and professional. If asked about contact, direct them to the contact section of the page.`;
+
+      function appendMsg(text, type) {
+        const div = document.createElement("div");
+        div.className = `msg ${type}`;
+        div.textContent = text;
+        chatArea.appendChild(div);
+        chatArea.scrollTop = chatArea.scrollHeight;
+        return div;
+      }
+
+      async function sendChat() {
+        const text = chatInput.value.trim();
+        if (!text) return;
+        chatInput.value = "";
+        appendMsg(text, "user");
+        const typing = appendMsg("Thinking…", "bot typing");
+
+        try {
+          const res = await fetch("https://api.anthropic.com/v1/messages", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              model: "claude-sonnet-4-20250514",
+              max_tokens: 1000,
+              system: systemPrompt,
+              messages: [{ role: "user", content: text }],
+            }),
+          });
+          const data = await res.json();
+          const reply =
+            data.content?.[0]?.text || "Sorry, I could not get a response.";
+          typing.textContent = reply;
+          typing.classList.remove("typing");
+        } catch (e) {
+          typing.textContent = "Sorry, something went wrong. Please try again!";
+          typing.classList.remove("typing");
+        }
+      }
+
+      chatSend.addEventListener("click", sendChat);
+      chatInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") sendChat();
+      });
+
+      /* ---- SMOOTH SCROLL FOR NAV ---- */
+      document.querySelectorAll('a[href^="#"]').forEach((a) => {
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          const t = document.querySelector(a.getAttribute("href"));
+          if (t) t.scrollIntoView({ behavior: "smooth" });
+        });
       });
     </script>
-
-    <!-- Typeitjs Animation Script -->
-    <script src="https://unpkg.com/typeit@8.7.1/dist/index.umd.js"></script>
-
-    <script>
-      new TypeIt("#name", {
-        speed: 100,
-        waitUntilVisible: true,
-        loop: true,
-      })
-        .type("I'm <span>Merson Muhammad</span>", { delay: 2500 })
-        .delete(15, { delay: 500 })
-        .type("a <span>UI/UX Designer<span>", { delay: 2500 })
-        .delete(15, { delay: 500 })
-        .type("<span>Web Developer<span>", { delay: 2500 })
-        .go();
-    </script>
-
-    <!-- Lightbox Script -->
-    <script src="js/lightbox-plus-jquery.min.js"></script>
   </body>
 </html>
