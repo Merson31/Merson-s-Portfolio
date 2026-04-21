@@ -3,97 +3,135 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Merson Muhammad — Portfolio</title>
+    <title>Merson Muhammad — Full-Stack Developer & UI/UX Designer</title>
+    <meta name="description" content="Merson Muhammad — Full-Stack Developer & UI/UX Designer from Rantepao, South Sulawesi. Building secure, scalable web solutions." />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    <!-- Styles -->
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <div id="cursor"></div>
-    <div id="cursor-follower"></div>
+
+    <!-- ==================== CURSOR ==================== -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+    <div id="cursor-trail"></div>
+
+    <!-- ==================== CANVAS ==================== -->
     <canvas id="canvas-bg"></canvas>
+
+    <!-- Scroll progress bar -->
+    <div id="scroll-progress"></div>
+
+    <!-- Ambient cursor glow -->
+    <div id="ambient-glow"></div>
+
+    <!-- Floating orbs -->
+    <div class="orb" style="width:500px;height:500px;background:radial-gradient(circle,rgba(0,245,255,0.15),transparent 70%);top:10%;left:-5%;--drift:22s;--dx:60px;--dy:-40px;--max-opacity:0.08"></div>
+    <div class="orb" style="width:400px;height:400px;background:radial-gradient(circle,rgba(255,0,110,0.12),transparent 70%);top:50%;right:-8%;--drift:18s;--dx:-50px;--dy:50px;--max-opacity:0.07"></div>
+    <div class="orb" style="width:300px;height:300px;background:radial-gradient(circle,rgba(128,255,68,0.10),transparent 70%);bottom:15%;left:30%;--drift:25s;--dx:30px;--dy:30px;--max-opacity:0.05"></div>
+
+    <!-- ==================== LOADER ==================== -->
+    <div id="loader">
+      <div class="loader-logo">SonixDev<span>.</span></div>
+      <div class="loader-bar-wrap">
+        <div class="loader-bar" id="loaderBar"></div>
+      </div>
+      <div class="loader-percent" id="loaderPct">000%</div>
+      <div class="loader-text">Initializing Portfolio</div>
+    </div>
 
     <!-- ==================== HEADER ==================== -->
     <header id="header">
-      <a href="#home" class="logo">Sonix<span>Dev</span></a>
+      <a href="#home" class="logo">
+        <span class="logo-bracket">[</span>
+        <span class="logo-name">SonixDev</span>
+        <span class="logo-bracket">]</span>
+        <span class="logo-cursor">_</span>
+      </a>
+
       <nav>
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#services">Services</a>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#contact">Contact</a>
+        <a href="#home"><span class="nav-num">01.</span>Home</a>
+        <a href="#about"><span class="nav-num">02.</span>About</a>
+        <a href="#skills"><span class="nav-num">03.</span>Skills</a>
+        <a href="#services"><span class="nav-num">04.</span>Services</a>
+        <a href="#portfolio"><span class="nav-num">05.</span>Work</a>
         <a href="#contact" class="nav-cta">Hire Me</a>
       </nav>
-      <div class="menu-btn" id="menuBtn"><i class="ri-menu-3-line"></i></div>
+
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+        <i class="ri-menu-3-line"></i>
+      </button>
     </header>
 
     <!-- Mobile Nav -->
     <div class="mobile-nav" id="mobileNav">
-      <a href="#home" onclick="closeMobileNav()">Home</a>
-      <a href="#about" onclick="closeMobileNav()">About</a>
-      <a href="#skills" onclick="closeMobileNav()">Skills</a>
-      <a href="#services" onclick="closeMobileNav()">Services</a>
-      <a href="#portfolio" onclick="closeMobileNav()">Portfolio</a>
-      <a href="#contact" onclick="closeMobileNav()">Contact</a>
+      <a href="#home"     onclick="closeMobileNav()"><span class="nav-num">01.</span>Home</a>
+      <a href="#about"    onclick="closeMobileNav()"><span class="nav-num">02.</span>About</a>
+      <a href="#skills"   onclick="closeMobileNav()"><span class="nav-num">03.</span>Skills</a>
+      <a href="#services" onclick="closeMobileNav()"><span class="nav-num">04.</span>Services</a>
+      <a href="#portfolio" onclick="closeMobileNav()"><span class="nav-num">05.</span>Work</a>
+      <a href="#contact"  onclick="closeMobileNav()"><span class="nav-num">06.</span>Contact</a>
     </div>
 
     <!-- ==================== HERO ==================== -->
     <section id="home">
-      <div class="hero-glow"></div>
-      <div class="hero-glow2"></div>
       <div class="hero-content">
-        <div class="badge">
-          <span class="badge-dot"></span>
+        <div class="hero-badge">
+          <span class="badge-pulse"></span>
           Available for Freelance Work
         </div>
+
         <h1 class="hero-title">
-          <span class="line">Hi, I'm</span>
-          <span class="line gradient-text" id="typed-name"
-            >Merson Muhammad</span
-          >
+          <span class="hi">// Hello, World</span>
+          <span class="line">
+            <span class="glitch-wrap">
+              <span class="glitch" data-text="Merson Muhammad">I am Merson Muhammad</span>
+            </span>
+          </span>
         </h1>
-        <p class="hero-sub">
+
+        <div class="hero-sub-wrap">
+          <span class="prompt-sym">&gt;_</span>
+          <span id="typed-name"></span>
+          <span class="typed-cursor"></span>
+        </div>
+
+        <p class="hero-desc">
           Full-Stack Developer &amp; UI/UX Designer with 2+ years of experience
-          crafting innovative digital experiences. Building secure, scalable web
-          solutions that help companies grow.
+          crafting immersive digital experiences. Building secure, scalable
+          web solutions that help companies grow.
         </p>
+
         <div class="hero-actions">
-          <a href="apply_form.html" class="btn-primary"
-            ><i class="ri-send-plane-fill"></i> Hire Me</a
-          >
-          <a href="files/cv.pdf" target="_blank" class="btn-outline"
-            ><i class="ri-download-2-line"></i> Download CV</a
-          >
+          <a href="apply_form.html" class="btn-primary">
+            <i class="ri-send-plane-fill"></i> Hire Me
+          </a>
+          <a href="files/cv.pdf" target="_blank" class="btn-outline">
+            <i class="ri-download-2-line"></i> Download CV
+          </a>
         </div>
+
         <div class="hero-socials">
-          <a
-            href="https://www.facebook.com/merson.muhammad?mibextid=ZbWKwL"
-            aria-label="Facebook"
-            ><i class="ri-facebook-fill"></i
-          ></a>
-          <a
-            href="https://www.instagram.com/mer_son31?igsh=MWJ1aW1oNTk1YmV4eA=="
-            aria-label="Instagram"
-            ><i class="ri-instagram-fill"></i
-          ></a>
-          <a href="https://x.com/MersonMuhammad?s=08" aria-label="X/Twitter"
-            ><i class="ri-twitter-x-fill"></i
-          ></a>
-          <a
-            href="https://youtube.com/@mersonmuhammad6596?si=jn6rLHN5K9xBEjrU"
-            aria-label="YouTube"
-            ><i class="ri-youtube-fill"></i
-          ></a>
+          <a href="https://www.facebook.com/merson.muhammad?mibextid=ZbWKwL" aria-label="Facebook">
+            <i class="ri-facebook-fill"></i>
+          </a>
+          <a href="https://www.instagram.com/mer_son31?igsh=MWJ1aW1oNTk1YmV4eA==" aria-label="Instagram">
+            <i class="ri-instagram-fill"></i>
+          </a>
+          <a href="https://x.com/MersonMuhammad?s=08" aria-label="X/Twitter">
+            <i class="ri-twitter-x-fill"></i>
+          </a>
+          <a href="https://youtube.com/@mersonmuhammad6596?si=jn6rLHN5K9xBEjrU" aria-label="YouTube">
+            <i class="ri-youtube-fill"></i>
+          </a>
         </div>
+
         <div class="hero-stats">
           <div class="stat-item">
             <div class="stat-num" data-count="2">0</div>
@@ -109,33 +147,77 @@
           </div>
         </div>
       </div>
+
+      <!-- HUD decorations -->
+      <div class="hero-hud">
+        <div class="hud-line">SYS.ONLINE</div>
+        <div class="hud-bar"></div>
+        <div class="hud-line">PORTFOLIO v2.0</div>
+        <div class="hud-bar"></div>
+        <div class="hud-line" id="hud-time">00:00:00</div>
+      </div>
     </section>
 
+    <!-- ==================== MARQUEE ==================== -->
+    <div class="marquee-strip">
+      <div class="marquee-track" id="marqueeTrack">
+        <span class="marquee-item"><span class="dot"></span>UI/UX Design</span>
+        <span class="marquee-item"><span class="dot"></span>Web Development</span>
+        <span class="marquee-item"><span class="dot"></span>Fullstack Dev</span>
+        <span class="marquee-item"><span class="dot"></span>Laravel</span>
+        <span class="marquee-item"><span class="dot"></span>React</span>
+        <span class="marquee-item"><span class="dot"></span>MySQL</span>
+        <span class="marquee-item"><span class="dot"></span>Figma</span>
+        <span class="marquee-item"><span class="dot"></span>Tailwind CSS</span>
+        <span class="marquee-item"><span class="dot"></span>PHP</span>
+        <span class="marquee-item"><span class="dot"></span>JavaScript</span>
+        <span class="marquee-item"><span class="dot"></span>Creative Coding</span>
+        <span class="marquee-item"><span class="dot"></span>Open for Work</span>
+        <!-- Duplicate for seamless loop -->
+        <span class="marquee-item"><span class="dot"></span>UI/UX Design</span>
+        <span class="marquee-item"><span class="dot"></span>Web Development</span>
+        <span class="marquee-item"><span class="dot"></span>Fullstack Dev</span>
+        <span class="marquee-item"><span class="dot"></span>Laravel</span>
+        <span class="marquee-item"><span class="dot"></span>React</span>
+        <span class="marquee-item"><span class="dot"></span>MySQL</span>
+        <span class="marquee-item"><span class="dot"></span>Figma</span>
+        <span class="marquee-item"><span class="dot"></span>Tailwind CSS</span>
+        <span class="marquee-item"><span class="dot"></span>PHP</span>
+        <span class="marquee-item"><span class="dot"></span>JavaScript</span>
+        <span class="marquee-item"><span class="dot"></span>Creative Coding</span>
+        <span class="marquee-item"><span class="dot"></span>Open for Work</span>
+      </div>
+    </div>
+
     <!-- ==================== ABOUT ==================== -->
-    <section id="about">
+    <section id="about" style="position:relative">
       <div class="about-grid">
         <div class="about-photo-wrap reveal">
-          <div class="photo-accent"></div>
           <div class="about-photo-frame">
             <img src="img/foto12.png" alt="Merson Muhammad" />
+            <div class="frame-overlay"></div>
             <div class="experience-badge">
               <div class="num">2+</div>
-              <div class="label">Years of Experience</div>
+              <div class="lbl">Years of Experience</div>
             </div>
           </div>
+          <div class="photo-corner tl"></div>
+          <div class="photo-corner br"></div>
         </div>
+
         <div class="about-info reveal reveal-delay-2">
-          <span class="section-label">About Me</span>
+          <div class="section-tag">About Me</div>
           <h2 class="section-title">
-            UI/UX Designer<br />&amp;
-            <span style="color: var(--accent)">Web Developer</span>
+            UI/UX Designer<br>&amp;
+            <span class="accent">Web Developer</span>
           </h2>
-          <p class="section-desc">
+          <p class="section-desc" style="margin-bottom:0">
             I'm Merson Muhammad, a passionate Full-Stack Developer and UI/UX
             Designer from Rantepao, South Sulawesi. I build beautiful,
             performant web applications with a focus on clean code and great
             user experiences.
           </p>
+
           <div class="info-grid">
             <div class="info-item">
               <div class="info-label">Specialty</div>
@@ -164,20 +246,16 @@
               <span>☁️ Apsara Clouder – Cloud Computing</span>
               <i class="ri-external-link-line"></i>
             </a>
-            <a
-              href="https://www.codepolitan.com/c/MERRD0A/"
-              target="_blank"
-              class="cert-item"
-            >
+            <a href="https://www.codepolitan.com/c/MERRD0A/" target="_blank" class="cert-item">
               <span>⚡ Certified JavaScript Developer</span>
               <i class="ri-external-link-line"></i>
             </a>
           </div>
 
           <div style="margin-top: 32px">
-            <a href="#portfolio" class="btn-primary"
-              ><i class="ri-eye-line"></i> View My Projects</a
-            >
+            <a href="#portfolio" class="btn-primary">
+              <i class="ri-eye-line"></i> View My Projects
+            </a>
           </div>
         </div>
       </div>
@@ -186,9 +264,9 @@
     <!-- ==================== SKILLS ==================== -->
     <section id="skills">
       <div class="section-header centered">
-        <span class="section-label reveal">Tech Stack</span>
+        <div class="section-tag reveal">Tech Stack</div>
         <h2 class="section-title reveal reveal-delay-1">
-          My <span style="color: var(--accent)">Skills</span>
+          My <span class="accent">Skills</span>
         </h2>
         <p class="section-desc reveal reveal-delay-2">
           Technologies I work with to bring ideas to life
@@ -197,94 +275,64 @@
 
       <div class="skills-grid">
         <div class="skill-card reveal reveal-delay-1">
-          <div class="skill-icon">
-            <img src="img/HTML5_logo.jpeg" alt="HTML5" />
-          </div>
+          <div class="skill-icon"><img src="img/HTML5_logo.jpeg" alt="HTML5" /></div>
           <div class="skill-name">HTML5</div>
-          <div class="skill-bar-wrap">
-            <div class="skill-bar" style="width: 95%"></div>
-          </div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:95%"></div></div>
+          <div class="skill-pct">95%</div>
         </div>
         <div class="skill-card reveal reveal-delay-1">
-          <div class="skill-icon">
-            <img src="img/CSS3_logo.jpeg" alt="CSS3" />
-          </div>
+          <div class="skill-icon"><img src="img/CSS3_logo.jpeg" alt="CSS3" /></div>
           <div class="skill-name">CSS3</div>
-          <div class="skill-bar-wrap">
-            <div class="skill-bar" style="width: 90%"></div>
-          </div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div>
+          <div class="skill-pct">90%</div>
         </div>
         <div class="skill-card reveal reveal-delay-2">
-          <div class="skill-icon">
-            <img src="img/JS_logo.jpeg" alt="JavaScript" />
-          </div>
+          <div class="skill-icon"><img src="img/JS_logo.jpeg" alt="JavaScript" /></div>
           <div class="skill-name">JavaScript</div>
-          <div class="skill-bar-wrap">
-            <div class="skill-bar" style="width: 85%"></div>
-          </div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div>
+          <div class="skill-pct">85%</div>
         </div>
         <div class="skill-card reveal reveal-delay-2">
-          <div class="skill-icon">
-            <img src="img/PHP_logo.jpeg" alt="PHP" />
-          </div>
+          <div class="skill-icon"><img src="img/PHP_logo.jpeg" alt="PHP" /></div>
           <div class="skill-name">PHP</div>
-          <div class="skill-bar-wrap">
-            <div class="skill-bar" style="width: 80%"></div>
-          </div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div>
+          <div class="skill-pct">80%</div>
         </div>
         <div class="skill-card reveal reveal-delay-3">
-          <div class="skill-icon">
-            <img src="img/laravel_logo.jpeg" alt="Laravel" />
-          </div>
+          <div class="skill-icon"><img src="img/laravel_logo.jpeg" alt="Laravel" /></div>
           <div class="skill-name">Laravel</div>
-          <div class="skill-bar-wrap">
-            <div class="skill-bar" style="width: 78%"></div>
-          </div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:78%"></div></div>
+          <div class="skill-pct">78%</div>
         </div>
         <div class="skill-card reveal reveal-delay-3">
-          <div class="skill-icon">
-            <img src="img/tailwind_logo.jpeg" alt="Tailwind" />
-          </div>
+          <div class="skill-icon"><img src="img/tailwind_logo.jpeg" alt="Tailwind" /></div>
           <div class="skill-name">Tailwind CSS</div>
-          <div class="skill-bar-wrap">
-            <div class="skill-bar" style="width: 88%"></div>
-          </div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div>
+          <div class="skill-pct">88%</div>
         </div>
         <div class="skill-card reveal reveal-delay-4">
-          <div class="skill-icon">
-            <img src="img/bootstrap_logo.jpeg" alt="Bootstrap" />
-          </div>
+          <div class="skill-icon"><img src="img/bootstrap_logo.jpeg" alt="Bootstrap" /></div>
           <div class="skill-name">Bootstrap</div>
-          <div class="skill-bar-wrap">
-            <div class="skill-bar" style="width: 88%"></div>
-          </div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div>
+          <div class="skill-pct">88%</div>
         </div>
         <div class="skill-card reveal reveal-delay-4">
-          <div class="skill-icon">
-            <img src="img/mysql_logo.jpeg" alt="MySQL" />
-          </div>
+          <div class="skill-icon"><img src="img/mysql_logo.jpeg" alt="MySQL" /></div>
           <div class="skill-name">MySQL</div>
-          <div class="skill-bar-wrap">
-            <div class="skill-bar" style="width: 82%"></div>
-          </div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:82%"></div></div>
+          <div class="skill-pct">82%</div>
         </div>
         <div class="skill-card reveal reveal-delay-4">
-          <div class="skill-icon">
-            <img src="img/vscode_logo.jpeg" alt="VS Code" />
-          </div>
+          <div class="skill-icon"><img src="img/vscode_logo.jpeg" alt="VS Code" /></div>
           <div class="skill-name">VS Code</div>
-          <div class="skill-bar-wrap">
-            <div class="skill-bar" style="width: 95%"></div>
-          </div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:95%"></div></div>
+          <div class="skill-pct">95%</div>
         </div>
         <div class="skill-card reveal reveal-delay-4">
-          <div class="skill-icon">
-            <img src="img/figma_logo.jpeg" alt="Figma" />
-          </div>
+          <div class="skill-icon"><img src="img/figma_logo.jpeg" alt="Figma" /></div>
           <div class="skill-name">Figma</div>
-          <div class="skill-bar-wrap">
-            <div class="skill-bar" style="width: 80%"></div>
-          </div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div>
+          <div class="skill-pct">80%</div>
         </div>
       </div>
     </section>
@@ -292,9 +340,9 @@
     <!-- ==================== SERVICES ==================== -->
     <section id="services">
       <div class="section-header centered">
-        <span class="section-label reveal">What I Offer</span>
+        <div class="section-tag reveal">What I Offer</div>
         <h2 class="section-title reveal reveal-delay-1">
-          My <span style="color: var(--accent)">Services</span>
+          My <span class="accent">Services</span>
         </h2>
         <p class="section-desc reveal reveal-delay-2">
           End-to-end solutions from design to deployment
@@ -303,7 +351,8 @@
 
       <div class="services-grid">
         <div class="service-card reveal reveal-delay-1">
-          <span class="service-emoji">🎨</span>
+          <span class="service-num">01</span>
+          <span class="service-icon">🎨</span>
           <div class="service-title">UI/UX Design</div>
           <p class="service-desc">
             Creating intuitive, visually stunning interfaces that delight users.
@@ -312,7 +361,8 @@
           <span class="service-tag">2+ Years Exp.</span>
         </div>
         <div class="service-card reveal reveal-delay-2">
-          <span class="service-emoji">🌐</span>
+          <span class="service-num">02</span>
+          <span class="service-icon">🌐</span>
           <div class="service-title">Web Development</div>
           <p class="service-desc">
             Building responsive, performant websites using modern frontend
@@ -321,7 +371,8 @@
           <span class="service-tag">2+ Years Exp.</span>
         </div>
         <div class="service-card reveal reveal-delay-3">
-          <span class="service-emoji">⚡</span>
+          <span class="service-num">03</span>
+          <span class="service-icon">⚡</span>
           <div class="service-title">Fullstack Development</div>
           <p class="service-desc">
             End-to-end application development with Laravel, PHP, MySQL, and
@@ -335,9 +386,9 @@
     <!-- ==================== PORTFOLIO ==================== -->
     <section id="portfolio">
       <div class="section-header centered">
-        <span class="section-label reveal">My Work</span>
+        <div class="section-tag reveal">My Work</div>
         <h2 class="section-title reveal reveal-delay-1">
-          Featured <span style="color: var(--accent)">Projects</span>
+          Featured <span class="accent">Projects</span>
         </h2>
         <p class="section-desc reveal reveal-delay-2">
           A selection of projects I've built and shipped
@@ -349,11 +400,9 @@
           <div class="project-thumb">
             <img src="img/sc2.png" alt="Instagram Unfollowers Checker" />
             <div class="project-overlay">
-              <a
-                href="https://laravel-unfollowers-checker-production.up.railway.app/"
-                target="_blank"
-                ><i class="ri-external-link-line"></i
-              ></a>
+              <a href="https://laravel-unfollowers-checker-production.up.railway.app/" target="_blank">
+                <i class="ri-external-link-line"></i>
+              </a>
             </div>
           </div>
           <div class="project-info">
@@ -366,9 +415,7 @@
           <div class="project-thumb">
             <img src="img/sc1.png" alt="E-Kuesioner" />
             <div class="project-overlay">
-              <a href="maintenance.html"
-                ><i class="ri-external-link-line"></i
-              ></a>
+              <a href="maintenance.html"><i class="ri-external-link-line"></i></a>
             </div>
           </div>
           <div class="project-info">
@@ -381,16 +428,12 @@
           <div class="project-thumb">
             <img src="img/sc4.png" alt="Tourism System" />
             <div class="project-overlay">
-              <a href="maintenance.html"
-                ><i class="ri-external-link-line"></i
-              ></a>
+              <a href="maintenance.html"><i class="ri-external-link-line"></i></a>
             </div>
           </div>
           <div class="project-info">
             <div class="project-type">Web Development</div>
-            <div class="project-name">
-              Integrated Tourism Information System – North Toraja
-            </div>
+            <div class="project-name">Integrated Tourism Information System – North Toraja</div>
           </div>
         </div>
 
@@ -398,16 +441,12 @@
           <div class="project-thumb">
             <img src="img/sc3.png" alt="Zoning System" />
             <div class="project-overlay">
-              <a href="maintenance.html"
-                ><i class="ri-external-link-line"></i
-              ></a>
+              <a href="maintenance.html"><i class="ri-external-link-line"></i></a>
             </div>
           </div>
           <div class="project-info">
             <div class="project-type">Web Development</div>
-            <div class="project-name">
-              Zoning System for Junior High School Admissions
-            </div>
+            <div class="project-name">Zoning System for Junior High School Admissions</div>
           </div>
         </div>
 
@@ -415,9 +454,9 @@
           <div class="project-thumb">
             <img src="img/img100.JPG" alt="PM Wedding" />
             <div class="project-overlay">
-              <a href="https://merson31.github.io/pm_wedding/" target="_blank"
-                ><i class="ri-external-link-line"></i
-              ></a>
+              <a href="https://merson31.github.io/pm_wedding/" target="_blank">
+                <i class="ri-external-link-line"></i>
+              </a>
             </div>
           </div>
           <div class="project-info">
@@ -430,9 +469,7 @@
           <div class="project-thumb">
             <img src="img/img101.JPG" alt="Toraja Wanderlust" />
             <div class="project-overlay">
-              <a href="maintenance.html"
-                ><i class="ri-external-link-line"></i
-              ></a>
+              <a href="maintenance.html"><i class="ri-external-link-line"></i></a>
             </div>
           </div>
           <div class="project-info">
@@ -443,33 +480,33 @@
       </div>
     </section>
 
-    <!-- ==================== AI CHAT SECTION ==================== -->
+    <!-- ==================== AI CHAT ==================== -->
     <section id="ai-section">
       <div class="section-header centered">
-        <span class="section-label reveal">AI-Powered</span>
+        <div class="section-tag reveal">AI-Powered</div>
         <h2 class="section-title reveal reveal-delay-1">
-          Ask Me <span style="color: var(--accent)">Anything</span>
+          Ask Me <span class="accent">Anything</span>
         </h2>
         <p class="section-desc reveal reveal-delay-2">
-          Chat with my AI assistant to learn more about my work, skills, and
-          availability
+          Chat with my AI assistant to learn more about my work, skills,
+          and availability
         </p>
       </div>
-      <div class="ai-widget-wrap reveal reveal-delay-2">
+
+      <div class="ai-terminal reveal reveal-delay-2">
         <div class="ai-header">
-          <div class="ai-avatar"><i class="ri-robot-2-line"></i></div>
-          <div>
-            <div class="ai-name">Merson's AI Assistant</div>
-            <div class="ai-status">● Online</div>
+          <div class="terminal-dots">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot ylw"></div>
+            <div class="terminal-dot grn"></div>
           </div>
-          <div style="margin-left: auto">
-            <span class="ai-indicator"></span>
-          </div>
+          <div class="ai-name">MERSON.AI — ASSISTANT_v1.0</div>
+          <div class="ai-status"><span class="ai-indicator"></span> &nbsp;ONLINE</div>
         </div>
         <div class="chat-area" id="chatArea">
           <div class="msg bot">
-            👋 Hi there! I'm Merson's AI assistant. Ask me anything about his
-            skills, projects, availability, or how to get in touch!
+            👾 System initialized. I'm Merson's AI assistant.
+            Ask me anything about his skills, projects, availability, or contact info!
           </div>
         </div>
         <div class="chat-input-area">
@@ -477,7 +514,7 @@
             class="chat-input"
             id="chatInput"
             type="text"
-            placeholder="Ask about Merson's skills, projects, or availability..."
+            placeholder="> Type your query..."
           />
           <button class="chat-send" id="chatSend">
             <i class="ri-send-plane-fill"></i>
@@ -489,87 +526,62 @@
     <!-- ==================== CONTACT ==================== -->
     <section id="contact">
       <div class="section-header centered">
-        <span class="section-label reveal">Get In Touch</span>
+        <div class="section-tag reveal">Get In Touch</div>
         <h2 class="section-title reveal reveal-delay-1">
-          Let's <span style="color: var(--accent)">Work Together</span>
+          Let's <span class="accent">Work Together</span>
         </h2>
-        <p
-          class="section-desc reveal reveal-delay-2"
-          style="margin-bottom: 40px"
-        >
+        <p class="section-desc reveal reveal-delay-2" style="margin-bottom: 64px">
           Have a project in mind? I'd love to help bring your vision to life.
-          Reach out and let's talk.
         </p>
       </div>
-      <div class="contact-grid">
-        <div>
-          <div class="reveal reveal-delay-2">
-            <div class="contact-item">
-              <div class="contact-item-icon">
-                <i class="ri-map-pin-line"></i>
-              </div>
-              <div>
-                <div class="contact-item-label">Location</div>
-                <div class="contact-item-value">
-                  Rantepao, South Sulawesi, Indonesia
-                </div>
-              </div>
+
+      <div class="contact-grid reveal reveal-delay-2">
+        <div class="contact-left">
+          <div class="contact-item">
+            <div class="contact-item-icon"><i class="ri-map-pin-line"></i></div>
+            <div>
+              <div class="contact-item-label">Location</div>
+              <div class="contact-item-value">Rantepao, South Sulawesi, Indonesia</div>
             </div>
-            <div class="contact-item">
-              <div class="contact-item-icon"><i class="ri-mail-line"></i></div>
-              <div>
-                <div class="contact-item-label">Email</div>
-                <div class="contact-item-value">mer***@gmail.com</div>
-              </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon"><i class="ri-mail-line"></i></div>
+            <div>
+              <div class="contact-item-label">Email</div>
+              <div class="contact-item-value">mer***@gmail.com</div>
             </div>
-            <div class="contact-item">
-              <div class="contact-item-icon"><i class="ri-phone-line"></i></div>
-              <div>
-                <div class="contact-item-label">Phone</div>
-                <div class="contact-item-value">082***</div>
-              </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon"><i class="ri-phone-line"></i></div>
+            <div>
+              <div class="contact-item-label">Phone</div>
+              <div class="contact-item-value">082***</div>
             </div>
-            <div class="contact-item">
-              <div class="contact-item-icon"><i class="ri-time-line"></i></div>
-              <div>
-                <div class="contact-item-label">Availability</div>
-                <div class="contact-item-value" style="color: var(--accent3)">
-                  ✓ Open for Freelance
-                </div>
-              </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon"><i class="ri-time-line"></i></div>
+            <div>
+              <div class="contact-item-label">Availability</div>
+              <div class="contact-item-value" style="color:var(--lime)">✓ Open for Freelance</div>
             </div>
           </div>
         </div>
 
-        <div class="contact-form reveal reveal-delay-3">
+        <div class="contact-form">
           <form
             method="POST"
             action="https://script.google.com/macros/s/AKfycbyTVkXMOu_6KJolUMXRiQk1TmpueeQgOtcSqraQVF00-i5c9fUU1xi8s0CYXm_FPWKEbg/exec"
             id="my-form"
           >
-            <input
-              type="hidden"
-              name="returnUrl"
-              id="returnUrlInput"
-              value=""
-            />
+            <input type="hidden" name="returnUrl" id="returnUrlInput" value="" />
             <div class="form-group">
-              <input type="text" name="nama" placeholder="Your Name" required />
+              <input type="text" name="nama" placeholder="> Your Name" required />
             </div>
             <div class="form-group">
-              <input
-                type="email"
-                name="email"
-                placeholder="Email Address"
-                required
-              />
+              <input type="email" name="email" placeholder="> Email Address" required />
             </div>
             <div class="form-group">
-              <textarea
-                name="pesan"
-                placeholder="Tell me about your project…"
-                required
-              ></textarea>
+              <textarea name="pesan" placeholder="> Tell me about your project…" required></textarea>
             </div>
             <button type="submit" class="form-submit">
               <i class="ri-send-plane-fill"></i> Send Message
@@ -582,297 +594,543 @@
     <!-- ==================== FOOTER ==================== -->
     <footer>
       <div class="footer-left">
-        © 2025 <span>SonixDev</span>. All rights reserved.
+        © 2025 <span>SonixDev</span> — Merson Muhammad. All rights reserved.
       </div>
       <div class="footer-right">
-        <a href="https://www.facebook.com/merson.muhammad?mibextid=ZbWKwL"
-          ><i class="ri-facebook-fill"></i
-        ></a>
-        <a href="https://www.instagram.com/mer_son31?igsh=MWJ1aW1oNTk1YmV4eA=="
-          ><i class="ri-instagram-fill"></i
-        ></a>
-        <a href="https://x.com/MersonMuhammad?s=08"
-          ><i class="ri-twitter-x-fill"></i
-        ></a>
-        <a href="https://youtube.com/@mersonmuhammad6596?si=jn6rLHN5K9xBEjrU"
-          ><i class="ri-youtube-fill"></i
-        ></a>
+        <a href="https://www.facebook.com/merson.muhammad?mibextid=ZbWKwL"><i class="ri-facebook-fill"></i></a>
+        <a href="https://www.instagram.com/mer_son31?igsh=MWJ1aW1oNTk1YmV4eA=="><i class="ri-instagram-fill"></i></a>
+        <a href="https://x.com/MersonMuhammad?s=08"><i class="ri-twitter-x-fill"></i></a>
+        <a href="https://youtube.com/@mersonmuhammad6596?si=jn6rLHN5K9xBEjrU"><i class="ri-youtube-fill"></i></a>
       </div>
     </footer>
 
-    <button
-      id="scroll-top"
-      onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
-    >
+    <button id="scroll-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
       <i class="ri-arrow-up-line"></i>
     </button>
 
+    <!-- ==================== SCRIPTS ==================== -->
     <script>
-      /* ---- CURSOR ---- */
-      const cursor = document.getElementById("cursor");
-      const follower = document.getElementById("cursor-follower");
-      let mx = 0,
-        my = 0,
-        fx = 0,
-        fy = 0;
-      document.addEventListener("mousemove", (e) => {
-        mx = e.clientX;
-        my = e.clientY;
-        cursor.style.left = mx + "px";
-        cursor.style.top = my + "px";
+    /* ============================================================
+       LOADER
+       ============================================================ */
+    const loader = document.getElementById('loader');
+    const loaderBar = document.getElementById('loaderBar');
+    const loaderPct = document.getElementById('loaderPct');
+    let pct = 0;
+    const loaderInterval = setInterval(() => {
+      pct += Math.random() * 8 + 2;
+      if (pct >= 100) {
+        pct = 100;
+        clearInterval(loaderInterval);
+        setTimeout(() => loader.classList.add('hidden'), 400);
+      }
+      loaderBar.style.width = pct + '%';
+      loaderPct.textContent = String(Math.floor(pct)).padStart(3, '0') + '%';
+    }, 60);
+
+    /* ============================================================
+       CURSOR
+       ============================================================ */
+    const dot   = document.getElementById('cursor-dot');
+    const ring  = document.getElementById('cursor-ring');
+    const trail = document.getElementById('cursor-trail');
+    let mx = 0, my = 0, rx = 0, ry = 0, tx = 0, ty = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx + 'px';
+      dot.style.top  = my + 'px';
+    });
+    (function loopCursor() {
+      rx += (mx - rx) * 0.15;
+      ry += (my - ry) * 0.15;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      tx += (mx - tx) * 0.06;
+      ty += (my - ty) * 0.06;
+      trail.style.left = tx + 'px';
+      trail.style.top  = ty + 'px';
+      requestAnimationFrame(loopCursor);
+    })();
+
+    document.querySelectorAll('a, button, .project-card, .service-card, .skill-card, input, textarea').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    });
+
+    /* ============================================================
+       CANVAS PARTICLE SYSTEM (REACTIVE)
+       ============================================================ */
+    const canvas = document.getElementById('canvas-bg');
+    const ctx = canvas.getContext('2d');
+    let W, H, particles = [];
+    let mouseX = -1000, mouseY = -1000;
+
+    document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+
+    function resize() {
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', () => { resize(); initParticles(); });
+
+    class Particle {
+      constructor() { this.reset(true); }
+      reset(rand) {
+        this.x  = rand ? Math.random() * W : Math.random() * W;
+        this.y  = rand ? Math.random() * H : Math.random() * H;
+        this.r  = Math.random() * 1.2 + 0.3;
+        this.vx = (Math.random() - 0.5) * 0.25;
+        this.vy = (Math.random() - 0.5) * 0.25;
+        this.alpha = Math.random() * 0.4 + 0.05;
+        this.hue = Math.random() > 0.6 ? 185 : (Math.random() > 0.5 ? 330 : 90);
+        this.life = 0;
+        this.maxLife = 200 + Math.random() * 400;
+      }
+      update() {
+        const dx = mouseX - this.x;
+        const dy = mouseY - this.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 140) {
+          const force = (140 - dist) / 140 * 0.012;
+          this.vx -= dx * force;
+          this.vy -= dy * force;
+        }
+        this.vx *= 0.99;
+        this.vy *= 0.99;
+        this.x += this.vx;
+        this.y += this.vy;
+        this.life++;
+        if (this.x < 0 || this.x > W || this.y < 0 || this.y > H || this.life > this.maxLife) {
+          this.reset(false);
+        }
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+        ctx.fillStyle = `hsla(${this.hue}, 100%, 70%, ${this.alpha})`;
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particles = [];
+      const count = Math.min(120, Math.floor(W * H / 12000));
+      for (let i = 0; i < count; i++) particles.push(new Particle());
+    }
+    initParticles();
+
+    function drawConnections() {
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i+1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const d  = Math.sqrt(dx*dx + dy*dy);
+          if (d < 90) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            const a = (1 - d/90) * 0.06;
+            ctx.strokeStyle = `rgba(0,245,255,${a})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function drawMouseGlow() {
+      if (mouseX < 0) return;
+      const g = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 200);
+      g.addColorStop(0, 'rgba(0,245,255,0.025)');
+      g.addColorStop(1, 'transparent');
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(mouseX, mouseY, 200, 0, Math.PI*2);
+      ctx.fill();
+    }
+
+    function animateCanvas() {
+      ctx.clearRect(0, 0, W, H);
+      drawMouseGlow();
+      particles.forEach(p => { p.update(); p.draw(); });
+      drawConnections();
+      requestAnimationFrame(animateCanvas);
+    }
+    animateCanvas();
+
+    /* ============================================================
+       HEADER SCROLL
+       ============================================================ */
+    const header = document.getElementById('header');
+    const scrollTopBtn = document.getElementById('scroll-top');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 60);
+      scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
+    });
+
+    /* ============================================================
+       MOBILE NAV
+       ============================================================ */
+    const menuBtn   = document.getElementById('menuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    menuBtn.addEventListener('click', () => mobileNav.classList.toggle('open'));
+    function closeMobileNav() { mobileNav.classList.remove('open'); }
+
+    /* ============================================================
+       INTERSECTION REVEAL
+       ============================================================ */
+    const revealObs = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.08 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    /* ============================================================
+       COUNTER ANIMATION
+       ============================================================ */
+    function animateCounters() {
+      document.querySelectorAll('[data-count]').forEach(el => {
+        const target = +el.dataset.count;
+        let cur = 0;
+        const tickMs = 40;
+        const step = target / 40;
+        const t = setInterval(() => {
+          cur = Math.min(cur + step, target);
+          el.textContent = Math.floor(cur) + '+';
+          if (cur >= target) clearInterval(t);
+        }, tickMs);
       });
-      (function loop() {
-        fx += (mx - fx) * 0.12;
-        fy += (my - fy) * 0.12;
-        follower.style.left = fx + "px";
-        follower.style.top = fy + "px";
-        requestAnimationFrame(loop);
-      })();
-      document
-        .querySelectorAll("a,button,.project-card,.service-card,.skill-card")
-        .forEach((el) => {
-          el.addEventListener("mouseenter", () => {
-            cursor.style.width = "20px";
-            cursor.style.height = "20px";
-            follower.style.width = "60px";
-            follower.style.height = "60px";
-          });
-          el.addEventListener("mouseleave", () => {
-            cursor.style.width = "12px";
-            cursor.style.height = "12px";
-            follower.style.width = "36px";
-            follower.style.height = "36px";
-          });
+    }
+    const counterObs = new IntersectionObserver(
+      entries => { if (entries[0].isIntersecting) { animateCounters(); counterObs.disconnect(); } },
+      { threshold: 0.3 }
+    );
+    counterObs.observe(document.getElementById('home'));
+
+    /* ============================================================
+       TYPED NAME EFFECT
+       ============================================================ */
+    const names = ['Full-Stack Developer', 'UI/UX Designer', 'Web Craftsman', 'Creative Coder'];
+    let ni = 0, ci = 0, deleting = false;
+    const typedEl = document.getElementById('typed-name');
+
+    function typeEffect() {
+      const curr = names[ni];
+      if (!deleting) {
+        typedEl.textContent = curr.substring(0, ci + 1);
+        ci++;
+        if (ci === curr.length) { deleting = true; setTimeout(typeEffect, 2200); return; }
+        setTimeout(typeEffect, 65);
+      } else {
+        typedEl.textContent = curr.substring(0, ci - 1);
+        ci--;
+        if (ci === 0) { deleting = false; ni = (ni + 1) % names.length; setTimeout(typeEffect, 400); return; }
+        setTimeout(typeEffect, 35);
+      }
+    }
+    typeEffect();
+
+    /* ============================================================
+       HUD CLOCK
+       ============================================================ */
+    const hudTime = document.getElementById('hud-time');
+    setInterval(() => {
+      const d = new Date();
+      hudTime.textContent = [d.getHours(), d.getMinutes(), d.getSeconds()]
+        .map(n => String(n).padStart(2, '0')).join(':');
+    }, 1000);
+
+    /* ============================================================
+       FORM SETUP
+       ============================================================ */
+    document.getElementById('returnUrlInput').value = window.location.href;
+
+    /* ============================================================
+       AI CHAT
+       ============================================================ */
+    const chatArea  = document.getElementById('chatArea');
+    const chatInput = document.getElementById('chatInput');
+    const chatSend  = document.getElementById('chatSend');
+
+    const responses = {
+      skills:      "Merson is proficient in HTML5, CSS3, JavaScript, PHP, Laravel, MySQL, Tailwind CSS, Bootstrap, and Figma. He's a versatile full-stack developer! 💻",
+      project:     "He has built 7+ projects including an Instagram Unfollowers Checker, E-Kuesioner system, Tourism Info System, and several web design projects. View the Portfolio section!",
+      contact:     "You can reach Merson via the contact form below, or through his social media (Facebook, Instagram, X, YouTube). He's based in Rantepao, South Sulawesi.",
+      hire:        "Merson is currently available for freelance work! Click the 'Hire Me' button or use the contact form to get in touch. He responds quickly! ⚡",
+      experience:  "Merson has 2+ years of professional experience in full-stack development and UI/UX design with 3 certifications to his name.",
+      laravel:     "Yes! Laravel is one of Merson's core technologies. He uses it for building scalable backend systems with MySQL.",
+      hello:       "Hello! 👋 How can I help you today? Ask me about Merson's skills, projects, availability, or anything else!",
+      default:     "That's a great question! For specific inquiries, please use the contact form to reach Merson directly. He'll get back to you promptly. 🚀"
+    };
+
+    function getBotReply(msg) {
+      const m = msg.toLowerCase();
+      if (m.match(/skill|tech|know|language|stack/)) return responses.skills;
+      if (m.match(/project|work|portfolio|built|build/)) return responses.project;
+      if (m.match(/contact|reach|email|phone|location/)) return responses.contact;
+      if (m.match(/hire|freelanc|available|price|cost/)) return responses.hire;
+      if (m.match(/experience|year|certif/)) return responses.experience;
+      if (m.match(/laravel|php|mysql|backend/)) return responses.laravel;
+      if (m.match(/hello|hi|hey|halo|hey/)) return responses.hello;
+      return responses.default;
+    }
+
+    function addMsg(text, who) {
+      const d = document.createElement('div');
+      d.className = 'msg ' + who;
+      d.textContent = text;
+      chatArea.appendChild(d);
+      chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    function sendChat() {
+      const v = chatInput.value.trim();
+      if (!v) return;
+      addMsg(v, 'user');
+      chatInput.value = '';
+      setTimeout(() => addMsg(getBotReply(v), 'bot'), 600);
+    }
+
+    chatSend.addEventListener('click', sendChat);
+    chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendChat(); });
+    </script>
+
+    <script>
+    /* ============================================================
+       ADVANCED ANIMATIONS — Active Theory Inspired
+       ============================================================ */
+
+    /* ---- SCROLL PROGRESS BAR ---- */
+    const scrollProg = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', () => {
+      const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+      scrollProg.style.width = pct + '%';
+    });
+
+    /* ---- AMBIENT GLOW FOLLOWS CURSOR ---- */
+    const ambientGlow = document.getElementById('ambient-glow');
+    let agx = 0, agy = 0, tagx = 0, tagy = 0;
+    document.addEventListener('mousemove', e => { tagx = e.clientX; tagy = e.clientY; });
+    (function ambientLoop() {
+      agx += (tagx - agx) * 0.04;
+      agy += (tagy - agy) * 0.04;
+      ambientGlow.style.left = agx + 'px';
+      ambientGlow.style.top  = agy + 'px';
+      requestAnimationFrame(ambientLoop);
+    })();
+
+    /* ---- HERO MOUSE PARALLAX ---- */
+    const heroSection  = document.getElementById('home');
+    const heroContent  = document.querySelector('.hero-content');
+    const heroHud      = document.querySelector('.hero-hud');
+    let plx = 0, ply = 0, tplx = 0, tply = 0;
+    heroSection.addEventListener('mousemove', e => {
+      const rect = heroSection.getBoundingClientRect();
+      tplx = ((e.clientX - rect.left) / rect.width  - 0.5) * 24;
+      tply = ((e.clientY - rect.top)  / rect.height - 0.5) * 16;
+    });
+    heroSection.addEventListener('mouseleave', () => { tplx = 0; tply = 0; });
+    (function parallaxLoop() {
+      plx += (tplx - plx) * 0.06;
+      ply += (tply - ply) * 0.06;
+      if (heroContent)
+        heroContent.style.transform = `translate(${plx * 0.4}px, ${ply * 0.3}px)`;
+      if (heroHud)
+        heroHud.style.transform = `translate(${-plx * 0.6}px, ${-ply * 0.4}px)`;
+      requestAnimationFrame(parallaxLoop);
+    })();
+
+    /* ---- MAGNETIC BUTTONS ---- */
+    function initMagnetic() {
+      document.querySelectorAll('.btn-primary, .btn-outline, .nav-cta').forEach(btn => {
+        btn.addEventListener('mousemove', e => {
+          const r = btn.getBoundingClientRect();
+          const cx = r.left + r.width  / 2;
+          const cy = r.top  + r.height / 2;
+          const dx = (e.clientX - cx) * 0.3;
+          const dy = (e.clientY - cy) * 0.3;
+          btn.style.transform = `translate(${dx}px, ${dy}px)`;
         });
-
-      /* ---- CANVAS PARTICLES ---- */
-      const canvas = document.getElementById("canvas-bg");
-      const ctx = canvas.getContext("2d");
-      let W,
-        H,
-        particles = [];
-      function resize() {
-        W = canvas.width = window.innerWidth;
-        H = canvas.height = window.innerHeight;
-      }
-      resize();
-      window.addEventListener("resize", resize);
-
-      class Particle {
-        constructor() {
-          this.reset();
-        }
-        reset() {
-          this.x = Math.random() * W;
-          this.y = Math.random() * H;
-          this.r = Math.random() * 1.5 + 0.3;
-          this.vx = (Math.random() - 0.5) * 0.3;
-          this.vy = (Math.random() - 0.5) * 0.3;
-          this.alpha = Math.random() * 0.5 + 0.1;
-          this.color =
-            Math.random() > 0.5
-              ? `rgba(79,140,255,${this.alpha})`
-              : `rgba(167,139,250,${this.alpha})`;
-        }
-        update() {
-          this.x += this.vx;
-          this.y += this.vy;
-          if (this.x < 0 || this.x > W || this.y < 0 || this.y > H)
-            this.reset();
-        }
-        draw() {
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-          ctx.fillStyle = this.color;
-          ctx.fill();
-        }
-      }
-
-      for (let i = 0; i < 120; i++) particles.push(new Particle());
-
-      function drawConnections() {
-        for (let i = 0; i < particles.length; i++) {
-          for (let j = i + 1; j < particles.length; j++) {
-            const dx = particles[i].x - particles[j].x,
-              dy = particles[i].y - particles[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 100) {
-              ctx.beginPath();
-              ctx.moveTo(particles[i].x, particles[i].y);
-              ctx.lineTo(particles[j].x, particles[j].y);
-              ctx.strokeStyle = `rgba(79,140,255,${(1 - dist / 100) * 0.08})`;
-              ctx.lineWidth = 0.5;
-              ctx.stroke();
-            }
-          }
-        }
-      }
-
-      function animateCanvas() {
-        ctx.clearRect(0, 0, W, H);
-        particles.forEach((p) => {
-          p.update();
-          p.draw();
+        btn.addEventListener('mouseleave', () => {
+          btn.style.transform = 'translate(0,0)';
         });
-        drawConnections();
-        requestAnimationFrame(animateCanvas);
-      }
-      animateCanvas();
-
-      /* ---- HEADER STICKY ---- */
-      const header = document.getElementById("header");
-      window.addEventListener("scroll", () => {
-        header.classList.toggle("scrolled", window.scrollY > 60);
-        document
-          .getElementById("scroll-top")
-          .classList.toggle("visible", window.scrollY > 400);
       });
+    }
+    initMagnetic();
 
-      /* ---- MOBILE NAV ---- */
-      const menuBtn = document.getElementById("menuBtn");
-      const mobileNav = document.getElementById("mobileNav");
-      menuBtn.addEventListener("click", () =>
-        mobileNav.classList.toggle("open"),
-      );
-      function closeMobileNav() {
-        mobileNav.classList.remove("open");
-      }
-
-      /* ---- REVEAL ON SCROLL ---- */
-      const reveals = document.querySelectorAll(".reveal");
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) e.target.classList.add("visible");
-          });
-        },
-        { threshold: 0.1 },
-      );
-      reveals.forEach((el) => observer.observe(el));
-
-      /* ---- COUNTER ANIMATION ---- */
-      function animateCounters() {
-        document.querySelectorAll("[data-count]").forEach((el) => {
-          const target = +el.dataset.count;
-          let current = 0;
-          const step = target / 40;
-          const t = setInterval(() => {
-            current += step;
-            if (current >= target) {
-              current = target;
-              clearInterval(t);
-            }
-            el.textContent = Math.floor(current) + (target >= 7 ? "+" : "+");
-          }, 40);
+    /* ---- 3D CARD TILT ---- */
+    function initTilt() {
+      document.querySelectorAll('.project-card, .service-card, .skill-card').forEach(card => {
+        // Add shine element if not present
+        if (!card.querySelector('.tilt-shine')) {
+          const shine = document.createElement('div');
+          shine.className = 'tilt-shine';
+          card.style.position = 'relative';
+          card.appendChild(shine);
+        }
+        card.addEventListener('mousemove', e => {
+          const r = card.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width;
+          const y = (e.clientY - r.top)  / r.height;
+          const rx =  (y - 0.5) * -12;
+          const ry =  (x - 0.5) *  12;
+          card.style.transform = `perspective(600px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
+          const shine = card.querySelector('.tilt-shine');
+          if (shine) {
+            shine.style.background = `radial-gradient(circle at ${x*100}% ${y*100}%, rgba(0,245,255,0.1) 0%, transparent 60%)`;
+            shine.style.opacity = '1';
+          }
         });
-      }
-      const heroSection = document.getElementById("home");
-      const counterObserver = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].isIntersecting) {
-            animateCounters();
-            counterObserver.disconnect();
-          }
-        },
-        { threshold: 0.3 },
-      );
-      counterObserver.observe(heroSection);
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(600px) rotateX(0) rotateY(0) scale(1)';
+          const shine = card.querySelector('.tilt-shine');
+          if (shine) shine.style.opacity = '0';
+        });
+        card.addEventListener('mouseenter', () => {
+          card.style.transition = 'transform 0.1s ease, box-shadow 0.3s';
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transition = 'transform 0.5s var(--ease-out-expo), box-shadow 0.3s';
+        });
+      });
+    }
+    initTilt();
 
-      /* ---- TYPED NAME EFFECT ---- */
-      const names = [
-        "Merson Muhammad",
-        "a UI/UX Designer",
-        "a Web Developer",
-        "a Fullstack Dev",
-      ];
-      let ni = 0,
-        ci = 0,
-        deleting = false;
-      const typedEl = document.getElementById("typed-name");
-      function typeEffect() {
-        const current = names[ni];
-        if (!deleting) {
-          typedEl.textContent = current.substring(0, ci + 1);
-          ci++;
-          if (ci === current.length) {
-            deleting = true;
-            setTimeout(typeEffect, 2000);
-            return;
-          }
+    /* ---- CHAR SPLIT REVEAL ---- */
+    function splitChars(el) {
+      const txt = el.textContent;
+      el.textContent = '';
+      el.classList.add('char-reveal');
+      [...txt].forEach((ch, i) => {
+        if (ch === ' ') {
+          const sp = document.createElement('span');
+          sp.className = 'space';
+          el.appendChild(sp);
         } else {
-          typedEl.textContent = current.substring(0, ci - 1);
-          ci--;
-          if (ci === 0) {
-            deleting = false;
-            ni = (ni + 1) % names.length;
-          }
+          const span = document.createElement('span');
+          span.className = 'char';
+          span.textContent = ch;
+          span.style.transitionDelay = (i * 0.03) + 's';
+          el.appendChild(span);
         }
-        setTimeout(typeEffect, deleting ? 60 : 110);
+      });
+    }
+    // Apply to section titles
+    document.querySelectorAll('.section-title').forEach(el => {
+      // Skip if has nested HTML (sub-spans with colors)
+      if (el.children.length === 0) splitChars(el);
+    });
+    // Observe char reveals
+    const charObs = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.2 }
+    );
+    document.querySelectorAll('.char-reveal').forEach(el => charObs.observe(el));
+
+    /* ---- NUMBER SCRAMBLE ON COUNTERS ---- */
+    const CHARS = '0123456789';
+    function scrambleNum(el, target, duration) {
+      const start = performance.now();
+      el.classList.add('scrambling');
+      function frame(now) {
+        const elapsed = now - start;
+        const prog    = Math.min(elapsed / duration, 1);
+        if (prog < 1) {
+          el.textContent = CHARS[Math.floor(Math.random() * CHARS.length)] + '+';
+          requestAnimationFrame(frame);
+        } else {
+          el.textContent = target + '+';
+          el.classList.remove('scrambling');
+        }
       }
-      typeEffect();
-
-      /* ---- CONTACT FORM ---- */
-      document.getElementById("returnUrlInput").value =
-        window.location.href.split("#")[0];
-
-      /* ---- AI CHAT ---- */
-      const chatArea = document.getElementById("chatArea");
-      const chatInput = document.getElementById("chatInput");
-      const chatSend = document.getElementById("chatSend");
-
-      const systemPrompt = `You are Merson Muhammad's friendly AI portfolio assistant. Merson is a Full-Stack Developer and UI/UX Designer from Rantepao, South Sulawesi, Indonesia with 2+ years of experience. His skills include HTML5, CSS3, JavaScript, PHP, Laravel, Tailwind CSS, Bootstrap, MySQL, Figma, and VS Code. His projects include: Instagram Unfollowers Checker (Laravel), E-Kuesioner UKI Toraja, Tourism Information System for North Toraja, Zoning System for Junior High School Admissions, PM Wedding Website, and Toraja Wanderlust. He has certifications in web development, Apsara Clouder Cloud Computing, and JavaScript. He is currently available for freelance work. Keep answers friendly, concise (2-4 sentences), and professional. If asked about contact, direct them to the contact section of the page.`;
-
-      function appendMsg(text, type) {
-        const div = document.createElement("div");
-        div.className = `msg ${type}`;
-        div.textContent = text;
-        chatArea.appendChild(div);
-        chatArea.scrollTop = chatArea.scrollHeight;
-        return div;
-      }
-
-      async function sendChat() {
-        const text = chatInput.value.trim();
-        if (!text) return;
-        chatInput.value = "";
-        appendMsg(text, "user");
-        const typing = appendMsg("Thinking…", "bot typing");
-
-        try {
-          const res = await fetch("https://api.anthropic.com/v1/messages", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              model: "claude-sonnet-4-20250514",
-              max_tokens: 1000,
-              system: systemPrompt,
-              messages: [{ role: "user", content: text }],
-            }),
+      requestAnimationFrame(frame);
+    }
+    // Override counter animation with scramble
+    const scrambleObs = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting) {
+          document.querySelectorAll('[data-count]').forEach((el, i) => {
+            const t = +el.dataset.count;
+            setTimeout(() => scrambleNum(el, t, 800 + i * 200), i * 150);
           });
-          const data = await res.json();
-          const reply =
-            data.content?.[0]?.text || "Sorry, I could not get a response.";
-          typing.textContent = reply;
-          typing.classList.remove("typing");
-        } catch (e) {
-          typing.textContent = "Sorry, something went wrong. Please try again!";
-          typing.classList.remove("typing");
+          scrambleObs.disconnect();
         }
+      }, { threshold: 0.3 }
+    );
+    scrambleObs.observe(document.getElementById('home'));
+
+    /* ---- NAV ACTIVE SECTION HIGHLIGHT ---- */
+    const navLinks = document.querySelectorAll('nav a:not(.nav-cta)');
+    const sections = ['home','about','skills','services','portfolio','ai-section','contact']
+      .map(id => document.getElementById(id)).filter(Boolean);
+    function updateNavActive() {
+      const scrollMid = window.scrollY + window.innerHeight * 0.4;
+      let active = sections[0];
+      sections.forEach(sec => {
+        if (sec.offsetTop <= scrollMid) active = sec;
+      });
+      navLinks.forEach(a => {
+        const href = a.getAttribute('href').replace('#','');
+        a.classList.toggle('nav-active', href === active.id);
+      });
+    }
+    window.addEventListener('scroll', updateNavActive);
+    updateNavActive();
+
+    /* ---- STAGGER CHILDREN OBSERVER ---- */
+    // Add stagger class to grids
+    document.querySelectorAll('.skills-grid, .services-grid, .portfolio-grid').forEach(el => {
+      el.classList.add('stagger-children');
+    });
+    const staggerObs = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.06 }
+    );
+    document.querySelectorAll('.stagger-children').forEach(el => staggerObs.observe(el));
+
+    /* ---- SECTION DIVIDERS ---- */
+    document.querySelectorAll('section').forEach(sec => {
+      if (!sec.querySelector('.section-divider')) {
+        const div = document.createElement('div');
+        div.className = 'section-divider';
+        sec.appendChild(div);
       }
+    });
 
-      chatSend.addEventListener("click", sendChat);
-      chatInput.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") sendChat();
+    /* ---- SMOOTH SCROLL LERP (override native anchor clicks) ---- */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href').slice(1);
+        const target = document.getElementById(id);
+        if (!target) return;
+        e.preventDefault();
+        const start   = window.scrollY;
+        const end     = target.getBoundingClientRect().top + window.scrollY - 80;
+        const dist    = end - start;
+        const t0      = performance.now();
+        const dur     = Math.min(1200, Math.abs(dist) * 0.6);
+        function easeInOutExpo(t) {
+          return t === 0 ? 0 : t === 1 ? 1 :
+            t < 0.5 ? Math.pow(2, 20 * t - 10) / 2 : (2 - Math.pow(2, -20 * t + 10)) / 2;
+        }
+        function step(now) {
+          const elapsed = Math.min((now - t0) / dur, 1);
+          window.scrollTo(0, start + dist * easeInOutExpo(elapsed));
+          if (elapsed < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
       });
+    });
 
-      /* ---- SMOOTH SCROLL FOR NAV ---- */
-      document.querySelectorAll('a[href^="#"]').forEach((a) => {
-        a.addEventListener("click", (e) => {
-          e.preventDefault();
-          const t = document.querySelector(a.getAttribute("href"));
-          if (t) t.scrollIntoView({ behavior: "smooth" });
-        });
-      });
+    /* ---- PAGE ENTER ANIMATION (after loader) ---- */
+    document.getElementById('loader').addEventListener('transitionend', () => {
+      document.body.style.overflow = 'auto';
+    });
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => { document.body.style.overflow = 'auto'; }, 2500);
+
     </script>
   </body>
 </html>

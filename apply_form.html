@@ -3,111 +3,1027 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Client Intake Form</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="build/css/intlTelInput.css" />
-    <link rel="stylesheet" href="build/css/demo.css" />
+    <title>Client Intake Form — SonixDev</title>
+    <meta name="description" content="Start your project with Merson Muhammad. Fill out the client intake form to get started." />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+
+    <style>
+      /* ============================================================
+         DESIGN TOKENS
+         ============================================================ */
+      :root {
+        --bg:        #020408;
+        --bg2:       #060c12;
+        --surface:   rgba(0, 245, 255, 0.03);
+        --surface2:  rgba(0, 245, 255, 0.06);
+        --border:    rgba(0, 245, 255, 0.10);
+        --border2:   rgba(0, 245, 255, 0.22);
+        --cyan:      #00f5ff;
+        --pink:      #ff006e;
+        --lime:      #80ff44;
+        --white:     #e8f4f8;
+        --muted:     #4a6572;
+        --muted2:    #2a3844;
+        --glow-cyan: rgba(0, 245, 255, 0.35);
+        --font-display: 'Syne', sans-serif;
+        --font-mono:    'JetBrains Mono', monospace;
+        --font-body:    'DM Sans', sans-serif;
+        --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      /* ============================================================
+         RESET
+         ============================================================ */
+      *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        font-family: var(--font-body);
+        background: var(--bg);
+        color: var(--white);
+        min-height: 100vh;
+        overflow-x: hidden;
+        cursor: none;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ---- Scanlines ---- */
+      body::before {
+        content: '';
+        position: fixed; inset: 0;
+        background: repeating-linear-gradient(
+          0deg, transparent, transparent 2px,
+          rgba(0, 245, 255, 0.010) 2px,
+          rgba(0, 245, 255, 0.010) 4px
+        );
+        pointer-events: none;
+        z-index: 9990;
+        animation: scanMove 10s linear infinite;
+      }
+      @keyframes scanMove {
+        0%   { background-position: 0 0; }
+        100% { background-position: 0 100px; }
+      }
+
+      /* ---- Noise ---- */
+      body::after {
+        content: '';
+        position: fixed; inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 9991;
+        opacity: 0.5;
+      }
+
+      /* ============================================================
+         CURSOR
+         ============================================================ */
+      #cursor-dot {
+        position: fixed;
+        width: 6px; height: 6px;
+        background: var(--cyan);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 10px var(--cyan), 0 0 20px var(--cyan);
+        transition: background 0.2s, width 0.2s, height 0.2s;
+      }
+      #cursor-ring {
+        position: fixed;
+        width: 40px; height: 40px;
+        border: 1px solid rgba(0, 245, 255, 0.45);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9998;
+        transform: translate(-50%, -50%);
+        transition: width 0.3s var(--ease-out-expo),
+                    height 0.3s var(--ease-out-expo),
+                    border-color 0.3s;
+      }
+      body.cursor-hover #cursor-dot {
+        width: 10px; height: 10px;
+        background: var(--pink);
+        box-shadow: 0 0 12px var(--pink), 0 0 24px var(--pink);
+      }
+      body.cursor-hover #cursor-ring {
+        width: 64px; height: 64px;
+        border-color: rgba(255, 0, 110, 0.45);
+      }
+
+      /* ============================================================
+         CANVAS
+         ============================================================ */
+      #canvas-bg {
+        position: fixed; inset: 0;
+        z-index: 0; pointer-events: none;
+      }
+
+      /* ============================================================
+         NAV HEADER
+         ============================================================ */
+      header {
+        position: fixed; top: 0; left: 0; right: 0;
+        z-index: 500;
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 22px 48px;
+        background: rgba(2, 4, 8, 0.88);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+      }
+      header::before, header::after {
+        content: '';
+        position: absolute;
+        width: 10px; height: 10px;
+        border-color: var(--cyan);
+        border-style: solid;
+        opacity: 0.35;
+      }
+      header::before { top: 12px; left: 28px; border-width: 1px 0 0 1px; }
+      header::after  { top: 12px; right: 28px; border-width: 1px 1px 0 0; }
+
+      .logo {
+        font-family: var(--font-mono);
+        font-size: 16px; font-weight: 700;
+        color: var(--white); text-decoration: none;
+        letter-spacing: 1px;
+        display: flex; align-items: center; gap: 8px;
+      }
+      .logo-bracket { color: var(--cyan); }
+      .logo-cursor  { color: var(--cyan); animation: blink 1s step-end infinite; }
+      @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+      .back-btn {
+        font-family: var(--font-mono);
+        font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+        color: var(--muted); text-decoration: none;
+        display: flex; align-items: center; gap: 8px;
+        transition: color 0.3s;
+      }
+      .back-btn:hover { color: var(--cyan); }
+      .back-btn i { font-size: 14px; }
+
+      /* ============================================================
+         MAIN LAYOUT
+         ============================================================ */
+      main {
+        position: relative; z-index: 1;
+        padding: 120px 6% 80px;
+        max-width: 1100px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1.6fr;
+        gap: 64px;
+        align-items: start;
+      }
+
+      /* ---- LEFT: INFO PANEL ---- */
+      .info-panel {
+        position: sticky;
+        top: 120px;
+      }
+      .info-tag {
+        font-family: var(--font-mono);
+        font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+        color: var(--cyan);
+        display: flex; align-items: center; gap: 10px;
+        margin-bottom: 20px;
+      }
+      .info-tag::before {
+        content: ''; width: 28px; height: 1px;
+        background: var(--cyan); box-shadow: 0 0 6px var(--cyan);
+      }
+      .info-title {
+        font-family: var(--font-display);
+        font-size: clamp(28px, 3vw, 44px);
+        font-weight: 800; line-height: 1.05;
+        letter-spacing: -1.5px;
+        margin-bottom: 16px;
+      }
+      .info-title span { color: var(--cyan); }
+      .info-desc {
+        font-size: 14px; color: var(--muted);
+        line-height: 1.75;
+        margin-bottom: 40px;
+      }
+
+      /* Steps */
+      .steps { display: flex; flex-direction: column; gap: 0; }
+      .step {
+        display: flex; align-items: flex-start; gap: 16px;
+        padding: 18px 0;
+        border-bottom: 1px solid var(--border);
+        position: relative;
+      }
+      .step:first-child { border-top: 1px solid var(--border); }
+      .step-num {
+        font-family: var(--font-mono);
+        font-size: 10px; letter-spacing: 1px;
+        color: var(--cyan); min-width: 28px;
+        margin-top: 2px;
+      }
+      .step-text { font-size: 13px; color: var(--muted); line-height: 1.5; }
+      .step-text strong { color: var(--white); display: block; margin-bottom: 2px; }
+
+      /* Status badge */
+      .status-badge {
+        display: inline-flex; align-items: center; gap: 10px;
+        padding: 10px 18px;
+        border: 1px solid rgba(128, 255, 68, 0.3);
+        background: rgba(128, 255, 68, 0.05);
+        font-family: var(--font-mono);
+        font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+        color: var(--lime);
+        margin-top: 32px;
+        display: flex;
+      }
+      .badge-dot {
+        width: 6px; height: 6px; border-radius: 50%;
+        background: var(--lime); box-shadow: 0 0 8px var(--lime);
+        animation: pulse 2s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%,100%{transform:scale(1);opacity:1}
+        50%{transform:scale(1.5);opacity:0.5}
+      }
+
+      /* ---- RIGHT: FORM ---- */
+      .form-wrap {
+        border: 1px solid var(--border);
+        position: relative;
+      }
+      /* HUD corner brackets */
+      .form-wrap::before, .form-wrap::after {
+        content: '';
+        position: absolute;
+        width: 16px; height: 16px;
+        border-color: var(--cyan); border-style: solid;
+      }
+      .form-wrap::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+      .form-wrap::after  { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+      /* Form header */
+      .form-header {
+        padding: 18px 28px;
+        border-bottom: 1px solid var(--border);
+        background: rgba(0, 245, 255, 0.02);
+        display: flex; align-items: center; gap: 12px;
+      }
+      .terminal-dots { display: flex; gap: 6px; }
+      .td { width: 10px; height: 10px; border-radius: 50%; }
+      .td.r { background: #ff5f57; }
+      .td.y { background: #febc2e; }
+      .td.g { background: #28c840; }
+      .form-header-title {
+        font-family: var(--font-mono);
+        font-size: 11px; letter-spacing: 2px; color: var(--cyan);
+        margin-left: 4px;
+      }
+      .form-header-step {
+        margin-left: auto;
+        font-family: var(--font-mono);
+        font-size: 10px; color: var(--muted); letter-spacing: 1px;
+      }
+
+      /* Progress bar across top */
+      .form-progress {
+        height: 2px;
+        background: var(--muted2);
+        position: relative;
+      }
+      .form-progress-fill {
+        height: 100%; width: 0%;
+        background: var(--cyan);
+        box-shadow: 0 0 8px var(--cyan);
+        transition: width 0.5s var(--ease-out-expo);
+      }
+
+      /* Fieldsets */
+      form { display: block; }
+      fieldset { border: none; padding: 0; }
+      .fs-section {
+        padding: 28px;
+        border-bottom: 1px solid var(--border);
+        display: none;
+        animation: fadeIn 0.4s var(--ease-out-expo) both;
+      }
+      .fs-section.active { display: block; }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(12px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      legend, .fs-legend {
+        font-family: var(--font-mono);
+        font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+        color: var(--cyan);
+        margin-bottom: 24px;
+        display: flex; align-items: center; gap: 10px;
+      }
+      legend::after, .fs-legend::after {
+        content: '';
+        flex: 1; height: 1px;
+        background: linear-gradient(to right, rgba(0,245,255,0.2), transparent);
+      }
+
+      .field-group { margin-bottom: 18px; }
+      .field-group:last-child { margin-bottom: 0; }
+      .field-group label {
+        display: block;
+        font-family: var(--font-mono);
+        font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+        color: var(--muted); margin-bottom: 8px;
+      }
+
+      /* Inputs */
+      .field-group input,
+      .field-group textarea,
+      .field-group select {
+        width: 100%;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        padding: 13px 16px;
+        font-family: var(--font-mono);
+        font-size: 13px; color: var(--white);
+        outline: none; border-radius: 0;
+        transition: border-color 0.3s, box-shadow 0.3s;
+        appearance: none;
+        -webkit-appearance: none;
+      }
+      .field-group input::placeholder,
+      .field-group textarea::placeholder { color: var(--muted); }
+      .field-group input:focus,
+      .field-group textarea:focus,
+      .field-group select:focus {
+        border-color: rgba(0,245,255,0.4);
+        box-shadow: 0 0 0 1px rgba(0,245,255,0.1), inset 0 0 12px rgba(0,245,255,0.03);
+      }
+      .field-group textarea { resize: vertical; min-height: 100px; }
+
+      /* Select wrapper */
+      .select-wrapper { position: relative; }
+      .select-wrapper select { padding-right: 40px; cursor: pointer; }
+      .dropdown-icon {
+        position: absolute; right: 14px; top: 50%;
+        transform: translateY(-50%);
+        width: 16px; height: 16px;
+        color: var(--cyan); pointer-events: none;
+      }
+      .field-group select option { background: #060c12; }
+
+      /* Flex row */
+      .flex-row { display: grid; grid-template-columns: 1fr 1.5fr; gap: 14px; }
+
+      /* Radio / Checkbox options */
+      .options-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      .option-label {
+        display: flex; align-items: center; gap: 10px;
+        padding: 12px 16px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        cursor: pointer;
+        transition: all 0.3s;
+        font-family: var(--font-mono);
+        font-size: 12px; color: var(--muted);
+      }
+      .option-label:hover { border-color: rgba(0,245,255,0.3); color: var(--white); }
+      .option-label input { display: none; }
+      .option-label.selected {
+        border-color: var(--cyan);
+        background: rgba(0,245,255,0.06);
+        color: var(--cyan);
+        box-shadow: inset 0 0 12px rgba(0,245,255,0.05);
+      }
+      .opt-check {
+        width: 14px; height: 14px;
+        border: 1px solid var(--muted);
+        border-radius: 0;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0; font-size: 9px;
+        transition: all 0.2s;
+      }
+      .option-label.selected .opt-check {
+        border-color: var(--cyan);
+        background: var(--cyan);
+        color: var(--bg);
+      }
+
+      /* ---- NAVIGATION BUTTONS ---- */
+      .form-nav {
+        padding: 20px 28px;
+        display: flex; align-items: center; justify-content: space-between;
+        border-top: 1px solid var(--border);
+        background: rgba(0,245,255,0.01);
+      }
+      .btn-back {
+        font-family: var(--font-mono);
+        font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+        color: var(--muted);
+        background: transparent; border: 1px solid var(--border);
+        padding: 11px 24px; cursor: pointer;
+        transition: all 0.3s;
+      }
+      .btn-back:hover { color: var(--white); border-color: var(--border2); }
+      .btn-next {
+        font-family: var(--font-mono);
+        font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+        color: var(--bg);
+        background: var(--cyan); border: none;
+        padding: 11px 32px; cursor: pointer;
+        transition: all 0.3s;
+        display: flex; align-items: center; gap: 8px;
+        position: relative; overflow: hidden;
+      }
+      .btn-next::before {
+        content: '';
+        position: absolute; inset: 0;
+        background: rgba(255,255,255,0.15);
+        transform: translateX(-110%) skewX(-20deg);
+        transition: transform 0.4s var(--ease-out-expo);
+      }
+      .btn-next:hover { box-shadow: 0 0 20px var(--glow-cyan); }
+      .btn-next:hover::before { transform: translateX(110%) skewX(-20deg); }
+      .btn-next:disabled { opacity: 0.35; cursor: not-allowed; box-shadow: none; }
+      .btn-next:disabled::before { display: none; }
+
+      /* Step indicator */
+      .step-indicator {
+        font-family: var(--font-mono);
+        font-size: 10px; color: var(--muted); letter-spacing: 1px;
+      }
+      .step-indicator span { color: var(--cyan); }
+
+      /* ---- SUCCESS STATE ---- */
+      .form-success {
+        display: none;
+        padding: 64px 28px;
+        text-align: center;
+        flex-direction: column; align-items: center; gap: 20px;
+      }
+      .form-success.visible {
+        display: flex;
+        animation: fadeIn 0.6s var(--ease-out-expo) both;
+      }
+      .success-icon {
+        width: 72px; height: 72px;
+        border: 1px solid rgba(128,255,68,0.4);
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 28px;
+        color: var(--lime);
+        box-shadow: 0 0 30px rgba(128,255,68,0.15);
+        animation: scaleIn 0.5s var(--ease-out-expo) 0.2s both;
+      }
+      @keyframes scaleIn {
+        from { transform: scale(0.5); opacity: 0; }
+        to   { transform: scale(1);   opacity: 1; }
+      }
+      .success-title {
+        font-family: var(--font-display);
+        font-size: 28px; font-weight: 800; letter-spacing: -1px;
+        color: var(--white);
+      }
+      .success-desc {
+        font-family: var(--font-mono);
+        font-size: 12px; color: var(--muted); line-height: 1.7;
+        max-width: 340px;
+      }
+      .success-code {
+        font-family: var(--font-mono);
+        font-size: 11px; color: var(--cyan); letter-spacing: 2px;
+        padding: 8px 20px; border: 1px solid rgba(0,245,255,0.2);
+      }
+
+      /* ============================================================
+         RESPONSIVE
+         ============================================================ */
+      @media (max-width: 860px) {
+        main { grid-template-columns: 1fr; gap: 40px; padding: 100px 24px 60px; }
+        .info-panel { position: static; }
+        .flex-row { grid-template-columns: 1fr 1fr; }
+      }
+      @media (max-width: 520px) {
+        header { padding: 16px 20px; }
+        .options-grid { grid-template-columns: 1fr; }
+        .flex-row { grid-template-columns: 1fr; }
+      }
+    </style>
   </head>
 
   <body>
-  <div class="container">
-    <h1>Client Intake <span>Form</span></h1>
-    <form class="apply-form" action="#" novalidate>
-      <fieldset class="section contact">
-        <legend>Contact Information</legend>
-        <div class="field-group">
-          <label for="name">Name</label>
-          <input id="name" type="text" placeholder="Your Name" required />
-        </div>
-        <div class="field-group">
-          <label for="email">Email</label>
-          <input id="email" type="email" placeholder="Your Email" required />
-        </div>
-        <div class="field-group">
-          <label for="phone">Phone</label>
-          <input id="phone" type="tel" placeholder="Phone Number" required />
-        </div>
-      </fieldset>
+    <!-- Cursor -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+    <canvas id="canvas-bg"></canvas>
 
-      <fieldset class="section project">
-        <legend>Project Info</legend>
-        <div class="field-group">
-          <label for="project">Type</label>
-          <div class="select-wrapper">
-            <select id="project">
-              <option>UI/UX Design</option>
-              <option>Web Development</option>
-              <option>Fullstack Development</option>
-            </select>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="dropdown-icon">
-              <path d="m7 10 5 5 5-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-            </svg>
-          </div>
-        </div>
-        <div class="field-group">
-          <label for="detail">Details</label>
-          <input id="detail" type="text" placeholder="Explain Project Details" />
-        </div>
-      </fieldset>
+    <!-- Scroll progress -->
+    <div id="scroll-progress" style="position:fixed;top:0;left:0;height:2px;background:#00f5ff;box-shadow:0 0 8px #00f5ff;z-index:9994;width:0;transition:width 0.1s linear"></div>
 
-      <fieldset class="section budget">
-        <legend>Budget & Timeline</legend>
-        <div class="flex-row">
-          <div class="field-group">
-            <label for="currency">Currency</label>
-            <div class="select-wrapper">
-              <select id="currency">
-                <option>USD</option>
-                <option>IDR</option>
-                <option>EUR</option>
-            </select>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="dropdown-icon">
-              <path d="m7 10 5 5 5-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-            </svg>
+    <!-- Ambient cursor glow -->
+    <div id="ambient-glow" style="position:fixed;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(0,245,255,0.04) 0%,rgba(0,245,255,0.01) 40%,transparent 70%);pointer-events:none;z-index:0;transform:translate(-50%,-50%);mix-blend-mode:screen"></div>
+
+    <!-- Floating orbs -->
+    <div style="position:fixed;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(0,245,255,0.10),transparent 70%);top:5%;right:-10%;filter:blur(80px);opacity:0.06;pointer-events:none;z-index:0;animation:orbDriftForm 20s ease-in-out infinite alternate"></div>
+    <div style="position:fixed;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(255,0,110,0.10),transparent 70%);bottom:10%;left:-8%;filter:blur(80px);opacity:0.05;pointer-events:none;z-index:0;animation:orbDriftForm 25s ease-in-out infinite alternate-reverse"></div>
+    <style>
+      @keyframes orbDriftForm {
+        from { transform: translate(0,0); }
+        to   { transform: translate(40px,-40px); }
+      }
+      /* Input focus scanline effect */
+      .field-group input:focus,
+      .field-group textarea:focus,
+      .field-group select:focus {
+        animation: inputPulse 0.4s ease;
+      }
+      @keyframes inputPulse {
+        0%   { box-shadow: 0 0 0 0 rgba(0,245,255,0.3); }
+        50%  { box-shadow: 0 0 0 6px rgba(0,245,255,0.08); }
+        100% { box-shadow: 0 0 0 1px rgba(0,245,255,0.1), inset 0 0 12px rgba(0,245,255,0.03); }
+      }
+      /* Step slide transition */
+      .fs-section.slide-out {
+        animation: slideOut 0.3s var(--ease-out-expo) forwards;
+      }
+      @keyframes slideOut {
+        to { opacity:0; transform: translateX(-30px); }
+      }
+      /* Form wrap glow on hover */
+      .form-wrap {
+        transition: box-shadow 0.4s;
+      }
+      .form-wrap:hover {
+        box-shadow: 0 0 60px rgba(0,245,255,0.04), 0 0 120px rgba(0,245,255,0.02);
+      }
+      /* Step highlight in info panel */
+      .step { transition: border-color 0.3s, background 0.3s; }
+      .step.active-step {
+        background: rgba(0,245,255,0.03);
+      }
+      .step.active-step .step-num { color: var(--cyan); text-shadow: 0 0 8px var(--cyan); }
+      .step.active-step .step-text strong { color: var(--cyan); }
+    </style>
+
+    <!-- Header -->
+    <header>
+      <a href="index.html" class="logo">
+        <span class="logo-bracket">[</span>
+        SonixDev
+        <span class="logo-bracket">]</span>
+        <span class="logo-cursor">_</span>
+      </a>
+      <a href="index.html" class="back-btn">
+        <i class="ri-arrow-left-line"></i> Back to Portfolio
+      </a>
+    </header>
+
+    <!-- Main -->
+    <main>
+      <!-- LEFT: Info Panel -->
+      <aside class="info-panel">
+        <div class="info-tag">New Project</div>
+        <h1 class="info-title">
+          Start Your<br><span>Project</span>
+        </h1>
+        <p class="info-desc">
+          Tell me about your project and I'll get back to you within 24 hours
+          with a proposal tailored to your needs.
+        </p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">01</div>
+            <div class="step-text">
+              <strong>Contact Info</strong>
+              Your name, email and phone number
             </div>
           </div>
-          <div class="field-group">
-            <label for="amount">Amount</label>
-            <input id="amount" type="number" placeholder="Budget" />
+          <div class="step">
+            <div class="step-num">02</div>
+            <div class="step-text">
+              <strong>Project Details</strong>
+              Type of work and description
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <div class="step-text">
+              <strong>Budget &amp; Timeline</strong>
+              Preferred currency, amount and schedule
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">04</div>
+            <div class="step-text">
+              <strong>Additional Info</strong>
+              References, platform and extra questions
+            </div>
           </div>
         </div>
-        <div class="field-group">
-          <label for="timeline">Timeline</label>
-          <input id="timeline" type="text" placeholder="Project Timeline" />
-        </div>
-      </fieldset>
 
-      <fieldset class="section extra">
-        <legend>Additional</legend>
-        <div class="field-group">
-          <label for="reference">Reference</label>
-          <input id="reference" type="text" placeholder="Project Reference" />
+        <div class="status-badge">
+          <span class="badge-dot"></span>
+          Available for New Projects
         </div>
-        <div class="field-group">
-          <label for="platform">Platform / Tech</label>
-          <input id="platform" type="text" placeholder="Platform Used" />
-        </div>
-        <div class="field-group full-width">
-          <label for="questions">Other Questions</label>
-          <textarea id="questions" rows="4" placeholder="Ask Question"></textarea>
-        </div>
-      </fieldset>
+      </aside>
 
-      <div class="actions">
-        <a href="index.html">Cancel</a>
-        <button type="submit" class="btn">Submit</button>
+      <!-- RIGHT: Form -->
+      <div class="form-wrap">
+        <!-- Terminal-style header -->
+        <div class="form-header">
+          <div class="terminal-dots">
+            <div class="td r"></div>
+            <div class="td y"></div>
+            <div class="td g"></div>
+          </div>
+          <div class="form-header-title">CLIENT_INTAKE_FORM.exe</div>
+          <div class="form-header-step" id="headerStep">STEP 1 / 4</div>
+        </div>
+
+        <!-- Progress bar -->
+        <div class="form-progress">
+          <div class="form-progress-fill" id="progressFill"></div>
+        </div>
+
+        <form id="intakeForm" novalidate>
+
+          <!-- STEP 1: Contact Info -->
+          <fieldset class="fs-section active" id="step1">
+            <div class="fs-legend">Contact Information</div>
+
+            <div class="field-group">
+              <label for="name">Full Name *</label>
+              <input id="name" name="name" type="text" placeholder="> Your Name" required />
+            </div>
+            <div class="field-group">
+              <label for="email">Email Address *</label>
+              <input id="email" name="email" type="email" placeholder="> your@email.com" required />
+            </div>
+            <div class="field-group">
+              <label for="phone">Phone Number</label>
+              <input id="phone" name="phone" type="tel" placeholder="> +62 xxx-xxxx-xxxx" />
+            </div>
+          </fieldset>
+
+          <!-- STEP 2: Project Info -->
+          <fieldset class="fs-section" id="step2">
+            <div class="fs-legend">Project Information</div>
+
+            <div class="field-group">
+              <label>Project Type *</label>
+              <div class="options-grid" id="typeGrid">
+                <label class="option-label" data-value="UI/UX Design">
+                  <input type="radio" name="project_type" value="UI/UX Design" />
+                  <span class="opt-check"><i class="ri-check-line"></i></span>
+                  🎨 UI/UX Design
+                </label>
+                <label class="option-label" data-value="Web Development">
+                  <input type="radio" name="project_type" value="Web Development" />
+                  <span class="opt-check"><i class="ri-check-line"></i></span>
+                  🌐 Web Development
+                </label>
+                <label class="option-label" data-value="Fullstack Development">
+                  <input type="radio" name="project_type" value="Fullstack Development" />
+                  <span class="opt-check"><i class="ri-check-line"></i></span>
+                  ⚡ Fullstack Dev
+                </label>
+                <label class="option-label" data-value="Other">
+                  <input type="radio" name="project_type" value="Other" />
+                  <span class="opt-check"><i class="ri-check-line"></i></span>
+                  🔧 Other
+                </label>
+              </div>
+            </div>
+            <div class="field-group" style="margin-top:18px">
+              <label for="detail">Project Description *</label>
+              <textarea id="detail" name="detail" placeholder="> Describe your project in detail…" rows="4" required></textarea>
+            </div>
+          </fieldset>
+
+          <!-- STEP 3: Budget & Timeline -->
+          <fieldset class="fs-section" id="step3">
+            <div class="fs-legend">Budget &amp; Timeline</div>
+
+            <div class="flex-row">
+              <div class="field-group">
+                <label for="currency">Currency</label>
+                <div class="select-wrapper">
+                  <select id="currency" name="currency">
+                    <option value="IDR">IDR</option>
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                  </select>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="dropdown-icon">
+                    <path d="m7 10 5 5 5-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="field-group">
+                <label for="amount">Budget Amount</label>
+                <input id="amount" name="amount" type="number" placeholder="> e.g. 5000000" />
+              </div>
+            </div>
+            <div class="field-group">
+              <label for="timeline">Preferred Timeline</label>
+              <input id="timeline" name="timeline" type="text" placeholder="> e.g. 2 weeks, 1 month" />
+            </div>
+          </fieldset>
+
+          <!-- STEP 4: Additional -->
+          <fieldset class="fs-section" id="step4">
+            <div class="fs-legend">Additional Info</div>
+
+            <div class="field-group">
+              <label for="reference">Reference / Inspiration</label>
+              <input id="reference" name="reference" type="text" placeholder="> URL or description of similar sites" />
+            </div>
+            <div class="field-group">
+              <label for="platform">Platform / Technology</label>
+              <input id="platform" name="platform" type="text" placeholder="> e.g. Laravel, WordPress, Next.js" />
+            </div>
+            <div class="field-group">
+              <label for="questions">Additional Notes or Questions</label>
+              <textarea id="questions" name="questions" rows="4" placeholder="> Anything else you'd like to share..."></textarea>
+            </div>
+          </fieldset>
+
+          <!-- Success State -->
+          <div class="form-success" id="formSuccess">
+            <div class="success-icon"><i class="ri-check-line"></i></div>
+            <div class="success-title">Request Sent!</div>
+            <p class="success-desc">
+              Your project request has been received. I'll review the details
+              and get back to you within 24 hours.
+            </p>
+            <div class="success-code">REQ-#<span id="reqId">000000</span></div>
+            <a href="index.html" style="margin-top:8px; font-family:var(--font-mono); font-size:11px; color:var(--cyan); letter-spacing:2px; text-transform:uppercase; text-decoration:none;">
+              ← Back to Portfolio
+            </a>
+          </div>
+
+          <!-- Footer nav -->
+          <div class="form-nav" id="formNav">
+            <div>
+              <button type="button" class="btn-back" id="btnBack" style="display:none">
+                <i class="ri-arrow-left-line"></i> Back
+              </button>
+            </div>
+            <div class="step-indicator">
+              Step <span id="stepNum">1</span> of <span>4</span>
+            </div>
+            <button type="button" class="btn-next" id="btnNext">
+              Next <i class="ri-arrow-right-line"></i>
+            </button>
+          </div>
+        </form>
       </div>
-    </form>
-  </div>
+    </main>
 
-  <script src="build/js/intlTelInput.js"></script>
-  <script>
-    const phoneInput = document.querySelector("#phone");
-    window.intlTelInput(phoneInput, {
-      initialCountry: "us",
-      utilsScript: "/intl-tel-input/js/utils.js",
-      separateDialCode: true
+    <script>
+    /* ============================================================
+       CURSOR
+       ============================================================ */
+    const dot  = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    let mx=0, my=0, rx=0, ry=0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx+'px'; dot.style.top = my+'px';
     });
-  </script>
-</body>
+    (function loop() {
+      rx += (mx-rx)*0.14; ry += (my-ry)*0.14;
+      ring.style.left = rx+'px'; ring.style.top = ry+'px';
+      requestAnimationFrame(loop);
+    })();
+    document.querySelectorAll('a,button,label.option-label,input,select,textarea').forEach(el=>{
+      el.addEventListener('mouseenter', ()=>document.body.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave', ()=>document.body.classList.remove('cursor-hover'));
+    });
+
+    /* ============================================================
+       CANVAS PARTICLES
+       ============================================================ */
+    const canvas = document.getElementById('canvas-bg');
+    const ctx = canvas.getContext('2d');
+    let W, H, particles=[];
+    function resize(){ W=canvas.width=window.innerWidth; H=canvas.height=window.innerHeight; }
+    resize();
+    window.addEventListener('resize', ()=>{ resize(); initP(); });
+
+    class P {
+      constructor(){ this.reset(true); }
+      reset(r){ this.x=r?Math.random()*W:Math.random()*W; this.y=r?Math.random()*H:Math.random()*H; this.r=Math.random()*1+0.2; this.vx=(Math.random()-.5)*.2; this.vy=(Math.random()-.5)*.2; this.a=Math.random()*.3+.03; this.hue=Math.random()>.6?185:330; }
+      update(){ this.x+=this.vx; this.y+=this.vy; if(this.x<0||this.x>W||this.y<0||this.y>H)this.reset(false); }
+      draw(){ ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2); ctx.fillStyle=`hsla(${this.hue},100%,70%,${this.a})`; ctx.fill(); }
+    }
+    function initP(){ particles=[]; let n=Math.min(80,Math.floor(W*H/15000)); for(let i=0;i<n;i++)particles.push(new P()); }
+    initP();
+    function animC(){ ctx.clearRect(0,0,W,H); particles.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animC); }
+    animC();
+
+    /* ============================================================
+       MULTI-STEP FORM
+       ============================================================ */
+    const steps = [
+      document.getElementById('step1'),
+      document.getElementById('step2'),
+      document.getElementById('step3'),
+      document.getElementById('step4'),
+    ];
+    const progressFill = document.getElementById('progressFill');
+    const headerStep   = document.getElementById('headerStep');
+    const stepNumEl    = document.getElementById('stepNum');
+    const btnNext      = document.getElementById('btnNext');
+    const btnBack      = document.getElementById('btnBack');
+    const formNav      = document.getElementById('formNav');
+    const formSuccess  = document.getElementById('formSuccess');
+
+    let current = 0;
+
+    function goTo(n) {
+      steps[current].classList.remove('active');
+      current = n;
+      if (current < steps.length) {
+        steps[current].classList.add('active');
+      }
+      // Progress
+      const pct = ((current) / steps.length) * 100;
+      progressFill.style.width = pct + '%';
+      headerStep.textContent = `STEP ${current+1} / 4`;
+      stepNumEl.textContent  = current+1;
+      btnBack.style.display  = current > 0 ? 'inline-flex' : 'none';
+      // Last step: change button
+      if (current === steps.length - 1) {
+        btnNext.innerHTML = '<i class="ri-send-plane-fill"></i> Submit';
+      } else {
+        btnNext.innerHTML = 'Next <i class="ri-arrow-right-line"></i>';
+      }
+    }
+
+    function validateStep() {
+      const s = steps[current];
+      const required = s.querySelectorAll('[required]');
+      let ok = true;
+      required.forEach(el => {
+        el.style.borderColor = '';
+        if (!el.value.trim()) {
+          el.style.borderColor = 'rgba(255,0,110,0.6)';
+          el.style.boxShadow   = '0 0 0 1px rgba(255,0,110,0.15)';
+          ok = false;
+        } else {
+          el.style.boxShadow = '';
+        }
+      });
+      // For step2 radio
+      if (current === 1) {
+        const checked = document.querySelector('input[name="project_type"]:checked');
+        if (!checked) ok = false;
+      }
+      return ok;
+    }
+
+    btnNext.addEventListener('click', () => {
+      if (!validateStep()) return;
+      if (current < steps.length - 1) {
+        goTo(current + 1);
+      } else {
+        // Submit
+        progressFill.style.width = '100%';
+        steps[current].classList.remove('active');
+        formNav.style.display = 'none';
+        formSuccess.classList.add('visible');
+        document.getElementById('reqId').textContent = Math.floor(100000 + Math.random() * 900000);
+      }
+    });
+    btnBack.addEventListener('click', () => {
+      if (current > 0) goTo(current - 1);
+    });
+
+    // Option grid radio
+    document.querySelectorAll('.option-label').forEach(lbl => {
+      lbl.addEventListener('click', () => {
+        document.querySelectorAll('.option-label').forEach(l => l.classList.remove('selected'));
+        lbl.classList.add('selected');
+        lbl.querySelector('input').checked = true;
+      });
+    });
+
+    // Init progress
+    progressFill.style.width = '0%';
+    </script>
+
+    <script>
+    /* ============================================================
+       ADVANCED ANIMATIONS — Apply Form
+       ============================================================ */
+
+    /* ---- AMBIENT GLOW ---- */
+    const ag = document.getElementById('ambient-glow');
+    let agx=0, agy=0, tagx=0, tagy=0;
+    document.addEventListener('mousemove', e => { tagx=e.clientX; tagy=e.clientY; });
+    (function al() {
+      agx += (tagx-agx)*0.04; agy += (tagy-agy)*0.04;
+      ag.style.left = agx+'px'; ag.style.top = agy+'px';
+      requestAnimationFrame(al);
+    })();
+
+    /* ---- MAGNETIC NEXT BUTTON ---- */
+    const btnNextEl = document.getElementById('btnNext');
+    if (btnNextEl) {
+      btnNextEl.addEventListener('mousemove', e => {
+        const r = btnNextEl.getBoundingClientRect();
+        const dx = (e.clientX - (r.left + r.width/2)) * 0.25;
+        const dy = (e.clientY - (r.top  + r.height/2)) * 0.25;
+        btnNextEl.style.transform = `translate(${dx}px,${dy}px)`;
+      });
+      btnNextEl.addEventListener('mouseleave', () => {
+        btnNextEl.style.transform = 'translate(0,0)';
+        btnNextEl.style.transition = 'transform 0.5s cubic-bezier(0.23,1,0.32,1)';
+      });
+    }
+
+    /* ---- FORM WRAP 3D TILT on MOUSEMOVE ---- */
+    const formWrap = document.querySelector('.form-wrap');
+    if (formWrap) {
+      formWrap.addEventListener('mousemove', e => {
+        const r   = formWrap.getBoundingClientRect();
+        const x   = (e.clientX - r.left) / r.width;
+        const y   = (e.clientY - r.top)  / r.height;
+        const rx  = (y - 0.5) * -4;
+        const ry  = (x - 0.5) *  4;
+        formWrap.style.transform = `perspective(1200px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+      });
+      formWrap.addEventListener('mouseleave', () => {
+        formWrap.style.transform = 'perspective(1200px) rotateX(0) rotateY(0)';
+        formWrap.style.transition = 'transform 0.8s cubic-bezier(0.23,1,0.32,1), box-shadow 0.4s';
+      });
+      formWrap.addEventListener('mouseenter', () => {
+        formWrap.style.transition = 'transform 0.1s ease, box-shadow 0.4s';
+      });
+    }
+
+    /* ---- ACTIVE STEP HIGHLIGHT (left panel) ---- */
+    const stepEls = document.querySelectorAll('.step');
+    function updateStepHighlight(n) {
+      stepEls.forEach((s, i) => s.classList.toggle('active-step', i === n));
+    }
+    // Patch goTo to also update highlight
+    const origGoTo = window.goTo || (() => {});
+    // Re-observe step changes via MutationObserver on form sections
+    const stepObs = new MutationObserver(() => {
+      const active = [...document.querySelectorAll('.fs-section')]
+        .findIndex(s => s.classList.contains('active'));
+      if (active >= 0) updateStepHighlight(active);
+    });
+    document.querySelectorAll('.fs-section').forEach(s =>
+      stepObs.observe(s, { attributes: true, attributeFilter: ['class'] })
+    );
+    updateStepHighlight(0);
+
+    /* ---- INFO PANEL STAGGER REVEAL ---- */
+    const infoItems = document.querySelectorAll('.step, .status-badge, .info-title, .info-desc');
+    infoItems.forEach((el, i) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = `opacity 0.6s cubic-bezier(0.16,1,0.3,1) ${0.1 + i*0.07}s, transform 0.6s cubic-bezier(0.16,1,0.3,1) ${0.1 + i*0.07}s`;
+      setTimeout(() => { el.style.opacity='1'; el.style.transform='translateY(0)'; }, 100 + i*70);
+    });
+
+    /* ---- FORM SECTION SLIDE-IN ---- */
+    const origSections = document.querySelectorAll('.fs-section');
+    origSections.forEach(s => {
+      s.style.transition = 'opacity 0.0s';
+    });
+
+    /* ---- BACK BTN MAGNETIC ---- */
+    const backBtn = document.querySelector('.back-btn');
+    if (backBtn) {
+      backBtn.addEventListener('mousemove', e => {
+        const r = backBtn.getBoundingClientRect();
+        const dx = (e.clientX - (r.left+r.width/2)) * 0.2;
+        const dy = (e.clientY - (r.top+r.height/2)) * 0.2;
+        backBtn.style.transform = `translate(${dx}px,${dy}px)`;
+      });
+      backBtn.addEventListener('mouseleave', () => {
+        backBtn.style.transform = '';
+      });
+    }
+
+    /* ---- CURSOR HOVER STATES ---- */
+    document.querySelectorAll('a,button,label.option-label,.form-wrap').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    });
+    </script>
+  </body>
 </html>
