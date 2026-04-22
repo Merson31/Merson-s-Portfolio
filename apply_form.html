@@ -488,6 +488,7 @@
         from { transform: scale(0.5); opacity: 0; }
         to   { transform: scale(1);   opacity: 1; }
       }
+      @keyframes spin { 100% { transform: rotate(360deg); } }
       .success-title {
         font-family: var(--font-display);
         font-size: 28px; font-weight: 800; letter-spacing: -1px;
@@ -572,6 +573,29 @@
       }
       .step.active-step .step-num { color: var(--cyan); text-shadow: 0 0 8px var(--cyan); }
       .step.active-step .step-text strong { color: var(--cyan); }
+
+      /* RESPONSIVE DESIGN */
+      @media (max-width: 992px) {
+        main { grid-template-columns: 1fr; gap: 40px; padding-top: 100px; }
+        .info-panel { position: relative; top: 0; }
+        .steps { flex-direction: row; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; }
+        .step { padding: 10px; flex: 1; min-width: 200px; border: 1px solid var(--border); }
+      }
+
+      @media (max-width: 768px) {
+        header { padding: 16px 24px; }
+        header::before { top: 8px; left: 16px; }
+        header::after { top: 8px; right: 16px; }
+        
+        main { padding: 80px 5% 60px; }
+        .steps { flex-direction: column; }
+        
+        .option-grid { grid-template-columns: 1fr; }
+        .form-nav { flex-direction: column; gap: 16px; }
+        .form-nav button { width: 100%; justify-content: center; }
+        #btnBack { order: 2; }
+        #btnNext { order: 1; }
+      }
     </style>
 
     <!-- Header -->
@@ -898,11 +922,26 @@
         goTo(current + 1);
       } else {
         // Submit
-        progressFill.style.width = '100%';
-        steps[current].classList.remove('active');
-        formNav.style.display = 'none';
-        formSuccess.classList.add('visible');
-        document.getElementById('reqId').textContent = Math.floor(100000 + Math.random() * 900000);
+        const form = document.getElementById('intakeForm');
+        const data = new FormData(form);
+        const originalBtnText = btnNext.innerHTML;
+        btnNext.innerHTML = '<i class="ri-loader-4-line" style="animation: spin 1s linear infinite;"></i> Sending...';
+        btnNext.disabled = true;
+
+        fetch("https://script.google.com/macros/s/AKfycbyTVkXMOu_6KJolUMXRiQk1TmpueeQgOtcSqraQVF00-i5c9fUU1xi8s0CYXm_FPWKEbg/exec", {
+          method: "POST",
+          body: data,
+        }).then(() => {
+          progressFill.style.width = '100%';
+          steps[current].classList.remove('active');
+          formNav.style.display = 'none';
+          formSuccess.classList.add('visible');
+          document.getElementById('reqId').textContent = Math.floor(100000 + Math.random() * 900000);
+        }).catch(err => {
+          alert("Sorry, there was an error sending your request.");
+          btnNext.innerHTML = originalBtnText;
+          btnNext.disabled = false;
+        });
       }
     });
     btnBack.addEventListener('click', () => {

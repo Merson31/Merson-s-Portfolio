@@ -1709,3 +1709,345 @@ nav a.nav-active::after { width: 100%; }
 .stagger-children.visible > *:nth-child(5) { transition-delay: 0.33s; opacity:1; transform:none; }
 .stagger-children.visible > *:nth-child(6) { transition-delay: 0.40s; opacity:1; transform:none; }
 .stagger-children.visible > *:nth-child(n+7) { transition-delay: 0.47s; opacity:1; transform:none; }
+
+/* ============================================================
+   PERSPECTIVE GRID FLOOR (hero)
+   ============================================================ */
+.hero-grid-floor {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 55%;
+  background-image:
+    linear-gradient(rgba(0,245,255,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,245,255,0.06) 1px, transparent 1px);
+  background-size: 52px 52px;
+  transform: perspective(500px) rotateX(72deg);
+  transform-origin: bottom center;
+  mask-image: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 80%);
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 80%);
+  pointer-events: none;
+  z-index: 1;
+  animation: gridShift 6s linear infinite;
+}
+@keyframes gridShift {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: 0 52px, 0 0; }
+}
+
+/* ============================================================
+   MORPHING BLOB ACCENTS
+   ============================================================ */
+.morph-blob {
+  position: absolute;
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  filter: blur(40px);
+  pointer-events: none;
+  animation: morphShape 10s ease-in-out infinite alternate,
+             orbDrift 20s ease-in-out infinite alternate;
+  z-index: 0;
+}
+@keyframes morphShape {
+  0%   { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  20%  { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  40%  { border-radius: 50% 50% 30% 70% / 30% 40% 70% 60%; }
+  60%  { border-radius: 40% 60% 60% 40% / 70% 30% 50% 55%; }
+  80%  { border-radius: 55% 45% 40% 60% / 40% 65% 45% 60%; }
+  100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+}
+
+/* ============================================================
+   HOLOGRAPHIC SKILL ICON
+   ============================================================ */
+.skill-card {
+  overflow: hidden;
+  position: relative;
+}
+.skill-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(0,245,255,0.06) 48%,
+    rgba(255,0,110,0.06) 52%,
+    transparent 70%
+  );
+  background-size: 200% 200%;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: 5;
+  animation: holoShift 2s linear infinite paused;
+  border-radius: inherit;
+}
+.skill-card:hover::before {
+  opacity: 1;
+  animation-play-state: running;
+}
+@keyframes holoShift {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ============================================================
+   3D SECTION REVEAL (rotateX perspective)
+   ============================================================ */
+.reveal-3d {
+  opacity: 0;
+  transform: perspective(900px) rotateX(18deg) translateY(36px);
+  transition: opacity 0.9s var(--ease-out-expo),
+              transform 0.9s var(--ease-out-expo);
+}
+.reveal-3d.visible {
+  opacity: 1;
+  transform: perspective(900px) rotateX(0deg) translateY(0);
+}
+.reveal-3d.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-3d.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-3d.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ============================================================
+   ANIMATED NEON BORDER (service cards)
+   ============================================================ */
+.service-card {
+  position: relative;
+  overflow: hidden;
+}
+.service-card::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: conic-gradient(
+    from var(--angle, 0deg),
+    transparent 70%,
+    var(--cyan) 80%,
+    var(--pink) 90%,
+    transparent 100%
+  );
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s;
+  animation: spinBorder 3s linear infinite paused;
+}
+.service-card:hover::after {
+  opacity: 1;
+  animation-play-state: running;
+}
+@property --angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes spinBorder {
+  to { --angle: 360deg; }
+}
+
+/* ============================================================
+   SCROLL SKEW WRAPPER
+   ============================================================ */
+#skew-wrap {
+  will-change: transform;
+  transform-origin: center top;
+}
+
+/* ============================================================
+   DEPTH CARD GLOW (project cards on hover)
+   ============================================================ */
+.project-card {
+  transition: transform 0.12s ease,
+              box-shadow 0.4s ease;
+}
+.project-card:hover {
+  box-shadow:
+    0 0  20px rgba(0,245,255,0.07),
+    0 0  60px rgba(0,245,255,0.04),
+    0 30px 80px rgba(0,0,0,0.5);
+}
+
+/* ============================================================
+   FLOATING EXPERIENCE BADGE (3D bob)
+   ============================================================ */
+.experience-badge {
+  animation: badge3DFloat 4s ease-in-out infinite;
+}
+@keyframes badge3DFloat {
+  0%,100% { transform: translateY(0) rotateY(0deg); }
+  30%     { transform: translateY(-8px) rotateY(4deg); }
+  70%     { transform: translateY(-4px) rotateY(-4deg); }
+}
+
+/* ============================================================
+   ANIMATED GRADIENT TEXT (hero-title accent)
+   ============================================================ */
+.gradient-text {
+  background: linear-gradient(
+    90deg,
+    var(--cyan) 0%,
+    #fff 30%,
+    var(--pink) 60%,
+    var(--cyan) 100%
+  );
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientFlow 5s linear infinite;
+}
+@keyframes gradientFlow {
+  0%   { background-position: 0% center; }
+  100% { background-position: 300% center; }
+}
+
+/* ============================================================
+   NEON LINE DRAW (section headings underline)
+   ============================================================ */
+.section-tag::after {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 1px;
+  background: var(--cyan);
+  box-shadow: 0 0 6px var(--cyan);
+  vertical-align: middle;
+  margin-left: 10px;
+  transition: width 0.8s var(--ease-out-expo) 0.4s;
+}
+.section-tag.visible::after { width: 36px; }
+
+/* ============================================================
+   GLOWING SKILL ICON ON HOVER
+   ============================================================ */
+.skill-icon {
+  transition: filter 0.3s, transform 0.3s;
+}
+.skill-card:hover .skill-icon {
+  filter: drop-shadow(0 0 8px var(--cyan)) brightness(1.4);
+  transform: scale(1.15) translateY(-2px);
+}
+
+/* ============================================================
+   3D PERSPECTIVE ABOUT PHOTO
+   ============================================================ */
+.about-photo-frame {
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease;
+}
+.about-photo-wrap:hover .about-photo-frame {
+  transform: perspective(900px) rotateY(-6deg) rotateX(3deg);
+}
+
+/* ============================================================
+   HERO DEPTH LAYERS (for JS parallax)
+   ============================================================ */
+.hero-layer-back  { will-change: transform; }
+.hero-layer-mid   { will-change: transform; }
+.hero-layer-front { will-change: transform; }
+
+/* ============================================================
+   ANIMATED STAT NUMBERS (bigger glow on scramble)
+   ============================================================ */
+.stat-num {
+  transition: text-shadow 0.2s;
+  will-change: contents;
+}
+.stat-num:not(.scrambling) {
+  text-shadow: 0 0 30px rgba(0,245,255,0.4);
+}
+
+/* ============================================================
+   CURSOR GLOW PULSE ON CLICK
+   ============================================================ */
+#cursor-dot.clicking {
+  transform: translate(-50%,-50%) scale(3);
+  opacity: 0;
+  transition: transform 0.4s, opacity 0.4s;
+}
+
+/* ============================================================
+   HERO SCANLINE SWEEP
+   ============================================================ */
+#home::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0,245,255,0.15) 40%,
+    rgba(0,245,255,0.4) 50%,
+    rgba(0,245,255,0.15) 60%,
+    transparent 100%
+  );
+  animation: heroSweep 6s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 3;
+}
+@keyframes heroSweep {
+  0%   { top: -2%; }
+  100% { top: 102%; }
+}
+
+/* ============================================================
+   GLITCH DEPTH LAYERS (hero name extra layer)
+   ============================================================ */
+.glitch::before { mix-blend-mode: hard-light; }
+.glitch::after  { mix-blend-mode: hard-light; }
+
+/* ============================================================
+   RESPONSIVE DESIGN (Tablets & Mobiles)
+   ============================================================ */
+@media (max-width: 992px) {
+  /* Tablet adjustments */
+  section { padding: 100px 5%; }
+  
+  .skills-grid { grid-template-columns: repeat(3, 1fr); }
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+  
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .about-photo-wrap { max-width: 400px; margin: 0 auto; }
+  .hero-title { font-size: 52px; }
+  .stat-num { font-size: 32px; }
+}
+
+@media (max-width: 768px) {
+  /* Mobile Navigation */
+  nav { display: none; }
+  .menu-btn { display: block; }
+  header { padding: 16px 24px; }
+  header.scrolled { padding: 12px 24px; }
+  
+  /* Sections */
+  section { padding: 80px 5%; }
+  .section-title { font-size: 36px; }
+  
+  /* Hero */
+  #home { align-items: flex-start; padding-top: 140px; }
+  .hero-title { font-size: 42px; line-height: 1.1; }
+  .hero-desc { font-size: 14px; margin-bottom: 32px; }
+  .hero-stats { margin-top: 40px; flex-wrap: wrap; gap: 24px; border-top: none; padding-top: 0; }
+  .stat-item { padding: 0; margin: 0; border-right: none; width: 45%; }
+  .hero-hud { bottom: 20px; right: 20px; }
+  
+  /* Grids */
+  .skills-grid { grid-template-columns: repeat(2, 1fr); }
+  .services-grid { grid-template-columns: 1fr; }
+  .portfolio-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  
+  /* Specific Elements */
+  .info-grid { grid-template-columns: 1fr; }
+  .info-item { border-right: none; border-bottom: 1px solid var(--border); }
+  .info-item:last-child { border-bottom: none; }
+  
+  /* Footer */
+  footer { flex-direction: column; gap: 20px; text-align: center; }
+  
+  /* Terminal / Chat */
+  .ai-terminal { border-left: none; border-right: none; }
+  .chat-input-area { flex-direction: column; }
+  .chat-send { border-left: none; border-top: 1px solid rgba(0,245,255,0.1); width: 100%; }
+}
