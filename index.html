@@ -1581,9 +1581,9 @@
           const clamped = Math.max(-1, Math.min(1, rel));
           const rotX = clamped * 3.5;
           const scale = 1 - Math.abs(clamped) * 0.035;
-          const blur  = Math.abs(clamped) * 1.5;
+          const blur  = Math.abs(clamped) * 0.5;
           sec.style.transform = `perspective(1400px) rotateX(${rotX}deg) scale(${scale})`;
-          sec.style.filter    = blur > 0.3 ? `blur(${blur}px)` : '';
+          sec.style.filter    = blur > 0.2 ? `blur(${blur}px)` : '';
           sec.style.transformOrigin = 'center center';
         });
       }
@@ -2275,25 +2275,6 @@
 
     /* ---- NEBULA CLUSTER BACKGROUND ---- */
     (function() {
-      const s = document.createElement('style');
-      s.textContent = `
-        .nebula {
-          position: fixed;
-          border-radius: 50%;
-          pointer-events: none;
-          z-index: 0;
-          filter: blur(70px);
-          mix-blend-mode: screen;
-          animation: nebulaPulse 8s ease-in-out infinite alternate;
-        }
-        @keyframes nebulaPulse {
-          0%   { opacity: var(--nbase); transform: scale(1) translate(0,0); }
-          50%  { opacity: calc(var(--nbase) * 1.6); transform: scale(1.15) translate(var(--ndx), var(--ndy)); }
-          100% { opacity: var(--nbase); transform: scale(0.9) translate(calc(var(--ndx)*-0.5), calc(var(--ndy)*-0.5)); }
-        }
-      `;
-      document.head.appendChild(s);
-
       const clusters = [
         { w:600, h:300, bg:'radial-gradient(ellipse,rgba(0,245,255,0.08),transparent 70%)',   top:'8%',  left:'-5%', base:0.5, dx:'30px', dy:'-20px', delay:0 },
         { w:500, h:500, bg:'radial-gradient(circle,rgba(255,0,110,0.07),transparent 70%)',    top:'40%', right:'-8%', base:0.4, dx:'-25px', dy:'30px', delay:'-3s' },
@@ -2323,66 +2304,12 @@
     /* ---- SKILL BAR LASER SCAN ---- */
     (function() {
       const skillBars = document.querySelectorAll('.skill-bar-fill');
-      if (!skillBars.length) return;
-
-      const s = document.createElement('style');
-      s.textContent = `
-        .skill-bar-fill {
-          position: relative;
-          overflow: hidden;
-        }
-        .skill-bar-fill::after {
-          content: '';
-          position: absolute;
-          top: 0; bottom: 0;
-          width: 30px;
-          background: linear-gradient(90deg,
-            transparent, rgba(255,255,255,0.5), rgba(0,245,255,0.8), transparent);
-          animation: laserScan 2.2s linear infinite;
-          animation-delay: var(--ls-delay, 0s);
-        }
-        @keyframes laserScan {
-          from { left: -30px; }
-          to   { left: 110%; }
-        }
-      `;
-      document.head.appendChild(s);
-
       skillBars.forEach((bar, i) => {
         bar.style.setProperty('--ls-delay', `${(i * 0.18) % 2}s`);
       });
     })();
 
     /* ---- HUD CORNER DECORATION on each section ---- */
-    (function() {
-      const s = document.createElement('style');
-      s.textContent = `
-        section { position: relative; }
-        section > .hud-corner-tl,
-        section > .hud-corner-br {
-          position: absolute;
-          width: 28px; height: 28px;
-          pointer-events: none;
-          opacity: 0.3;
-          z-index: 10;
-        }
-        section > .hud-corner-tl {
-          top: 12px; left: 12px;
-          border-top: 1px solid var(--cyan);
-          border-left: 1px solid var(--cyan);
-        }
-        section > .hud-corner-br {
-          bottom: 12px; right: 12px;
-          border-bottom: 1px solid var(--cyan);
-          border-right: 1px solid var(--cyan);
-        }
-        section:nth-child(even) > .hud-corner-tl,
-        section:nth-child(even) > .hud-corner-br {
-          border-color: var(--pink);
-        }
-      `;
-      document.head.appendChild(s);
-
       document.querySelectorAll('section').forEach(sec => {
         const tl = document.createElement('div');
         tl.className = 'hud-corner-tl';
@@ -2393,21 +2320,7 @@
       });
     })();
 
-    /* ---- SECTION ENTRY FLASH ---- */
     (function() {
-      const s = document.createElement('style');
-      s.textContent = `
-        @keyframes sectionFlash {
-          0%   { box-shadow: inset 0 0 0 1px rgba(0,245,255,0.4); }
-          50%  { box-shadow: inset 0 0 40px 2px rgba(0,245,255,0.08); }
-          100% { box-shadow: inset 0 0 0 0 transparent; }
-        }
-        section.flash-in {
-          animation: sectionFlash 1.2s ease-out;
-        }
-      `;
-      document.head.appendChild(s);
-
       const flashObs = new IntersectionObserver(entries => {
         entries.forEach(e => {
           if (e.isIntersecting && !e.target.dataset.flashed) {

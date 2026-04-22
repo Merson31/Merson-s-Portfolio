@@ -1997,6 +1997,85 @@ nav a.nav-active::after { width: 100%; }
 .glitch::after  { mix-blend-mode: hard-light; }
 
 /* ============================================================
+   HUD CORNER DECORATION ON SECTIONS
+   ============================================================ */
+section { position: relative; }
+section > .hud-corner-tl,
+section > .hud-corner-br {
+  position: absolute;
+  width: 28px; height: 28px;
+  pointer-events: none;
+  opacity: 0.3;
+  z-index: 10;
+}
+section > .hud-corner-tl {
+  top: 12px; left: 12px;
+  border-top: 1px solid var(--cyan);
+  border-left: 1px solid var(--cyan);
+}
+section > .hud-corner-br {
+  bottom: 12px; right: 12px;
+  border-bottom: 1px solid var(--cyan);
+  border-right: 1px solid var(--cyan);
+}
+section:nth-child(even) > .hud-corner-tl,
+section:nth-child(even) > .hud-corner-br {
+  border-color: var(--pink);
+}
+
+/* ============================================================
+   SKILL BAR LASER SCAN
+   ============================================================ */
+.skill-bar-fill {
+  position: relative;
+  overflow: hidden;
+}
+.skill-bar-fill::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 30px;
+  background: linear-gradient(90deg,
+    transparent, rgba(255,255,255,0.5), rgba(0,245,255,0.8), transparent);
+  animation: laserScan 2.2s linear infinite;
+  animation-delay: var(--ls-delay, 0s);
+}
+@keyframes laserScan {
+  from { left: -30px; }
+  to   { left: 110%; }
+}
+
+/* ============================================================
+   SECTION ENTRY FLASH
+   ============================================================ */
+@keyframes sectionFlash {
+  0%   { box-shadow: inset 0 0 0 1px rgba(0,245,255,0.4); }
+  50%  { box-shadow: inset 0 0 40px 2px rgba(0,245,255,0.08); }
+  100% { box-shadow: inset 0 0 0 0 transparent; }
+}
+section.flash-in {
+  animation: sectionFlash 1.2s ease-out;
+}
+
+/* ============================================================
+   NEBULA CLUSTER BACKGROUND
+   ============================================================ */
+.nebula {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(70px);
+  mix-blend-mode: screen;
+  animation: nebulaPulse 8s ease-in-out infinite alternate;
+}
+@keyframes nebulaPulse {
+  0%   { opacity: var(--nbase); transform: scale(1) translate(0,0); }
+  50%  { opacity: calc(var(--nbase) * 1.6); transform: scale(1.15) translate(var(--ndx), var(--ndy)); }
+  100% { opacity: var(--nbase); transform: scale(0.9) translate(calc(var(--ndx)*-0.5), calc(var(--ndy)*-0.5)); }
+}
+
+/* ============================================================
    RESPONSIVE DESIGN (Tablets & Mobiles)
    ============================================================ */
 @media (max-width: 992px) {
