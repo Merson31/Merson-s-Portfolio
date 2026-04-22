@@ -86,43 +86,72 @@ body::after {
   position: fixed;
   width: 6px; height: 6px;
   background: var(--cyan);
-  border-radius: 50%;
+  border-radius: 0;
   pointer-events: none;
   z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: transform 0.05s, width 0.2s, height 0.2s, background 0.2s;
+  transform: translate(-50%, -50%) rotate(45deg);
+  transition: width 0.2s, height 0.2s, background 0.2s, box-shadow 0.2s, transform 0.2s;
   box-shadow: 0 0 10px var(--cyan), 0 0 20px var(--cyan);
 }
 #cursor-ring {
   position: fixed;
-  width: 40px; height: 40px;
-  border: 1px solid rgba(0, 245, 255, 0.5);
+  width: 45px; height: 45px;
+  border: 1px solid transparent;
+  border-top: 1.5px solid var(--cyan);
+  border-bottom: 1.5px solid var(--cyan);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9998;
-  transform: translate(-50%, -50%);
+  animation: cursorSpin 5s linear infinite;
   transition: width 0.3s var(--ease-out-expo),
               height 0.3s var(--ease-out-expo),
-              border-color 0.3s,
-              border-width 0.3s;
+              border-color 0.3s;
+}
+#cursor-ring::before {
+  content: '';
+  position: absolute;
+  top: 3px; left: 3px; right: 3px; bottom: 3px;
+  border: 1px dashed rgba(0, 245, 255, 0.4);
+  border-radius: 50%;
+  animation: cursorSpinReverse 8s linear infinite;
+}
+@keyframes cursorSpin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+@keyframes cursorSpinReverse {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
 }
 #cursor-trail {
   position: fixed;
-  width: 100px; height: 100px;
+  width: 120px; height: 120px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,245,255,0.06) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(0,245,255,0.08) 0%, transparent 60%);
   pointer-events: none;
   z-index: 9996;
-  transform: translate(-50%, -50%);
+  animation: trailPulse 2s ease-in-out infinite alternate;
+}
+@keyframes trailPulse {
+  0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.7; }
+  100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
 }
 body.cursor-hover #cursor-dot {
-  width: 10px; height: 10px;
-  background: var(--pink);
-  box-shadow: 0 0 12px var(--pink), 0 0 24px var(--pink);
+  width: 14px; height: 14px;
+  background: transparent;
+  border: 2px solid var(--pink);
+  box-shadow: 0 0 12px var(--pink), inset 0 0 8px var(--pink);
+  transform: translate(-50%, -50%) rotate(90deg);
 }
 body.cursor-hover #cursor-ring {
-  width: 70px; height: 70px;
+  width: 65px; height: 65px;
+  border-top-color: var(--pink);
+  border-bottom-color: var(--pink);
+  animation-duration: 1.5s;
+}
+body.cursor-hover #cursor-ring::before {
   border-color: rgba(255, 0, 110, 0.5);
+  animation-duration: 2.5s;
 }
 
 /* ============================================================
@@ -802,6 +831,22 @@ section {
   inset: 0;
   background: linear-gradient(180deg, transparent 50%, rgba(2,4,8,0.9));
   pointer-events: none;
+}
+.about-photo-frame .holo-scan {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 5px;
+  background: linear-gradient(to bottom, rgba(0, 245, 255, 0.8), transparent);
+  box-shadow: 0 0 15px var(--cyan);
+  z-index: 2;
+  animation: photoScan 4s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes photoScan {
+  0% { top: -10%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 105%; opacity: 0; }
 }
 
 /* Corner lines decorating */
@@ -1959,7 +2004,7 @@ nav a.nav-active::after { width: 100%; }
    CURSOR GLOW PULSE ON CLICK
    ============================================================ */
 #cursor-dot.clicking {
-  transform: translate(-50%,-50%) scale(3);
+  transform: translate(-50%,-50%) scale(3) rotate(45deg);
   opacity: 0;
   transition: transform 0.4s, opacity 0.4s;
 }
@@ -2026,11 +2071,11 @@ section:nth-child(even) > .hud-corner-br {
 /* ============================================================
    SKILL BAR LASER SCAN
    ============================================================ */
-.skill-bar-fill {
+.skill-bar {
   position: relative;
   overflow: hidden;
 }
-.skill-bar-fill::after {
+.skill-bar::after {
   content: '';
   position: absolute;
   top: 0; bottom: 0;
