@@ -33,6 +33,35 @@
   --ease-in-out:   cubic-bezier(0.65, 0, 0.35, 1);
 }
 
+/* ---- THEMES ---- */
+[data-theme="matrix"] {
+  --bg:        #000a02;
+  --bg2:       #001404;
+  --surface:   rgba(0, 255, 65, 0.03);
+  --surface2:  rgba(0, 255, 65, 0.06);
+  --border:    rgba(0, 255, 65, 0.15);
+  --border2:   rgba(0, 255, 65, 0.25);
+
+  --cyan:      #00ff41; /* Primary */
+  --pink:      #008f11; /* Secondary */
+  --glow-cyan: rgba(0, 255, 65, 0.4);
+  --glow-pink: rgba(0, 143, 17, 0.4);
+}
+
+[data-theme="wasteland"] {
+  --bg:        #0f0b05;
+  --bg2:       #1a1208;
+  --surface:   rgba(255, 170, 0, 0.03);
+  --surface2:  rgba(255, 170, 0, 0.06);
+  --border:    rgba(255, 170, 0, 0.15);
+  --border2:   rgba(255, 170, 0, 0.25);
+
+  --cyan:      #ffaa00; /* Primary */
+  --pink:      #ff4400; /* Secondary */
+  --glow-cyan: rgba(255, 170, 0, 0.4);
+  --glow-pink: rgba(255, 68, 0, 0.4);
+}
+
 /* ---- RESET ---- */
 *, *::before, *::after {
   margin: 0; padding: 0; box-sizing: border-box;
@@ -2174,4 +2203,115 @@ section.flash-in {
   .ai-terminal { border-left: none; border-right: none; }
   .chat-input-area { flex-direction: column; }
   .chat-send { border-left: none; border-top: 1px solid rgba(0,245,255,0.1); width: 100%; }
+}
+
+/* ============================================================
+   ULTIMATE UPGRADES CSS
+   ============================================================ */
+
+/* ---- FLOATING CONTROLS ---- */
+.floating-controls {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
+  pointer-events: auto;
+}
+.control-btn {
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--cyan);
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 8px 12px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  backdrop-filter: blur(4px);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 245, 255, 0.1);
+}
+.control-btn:hover {
+  background: var(--cyan);
+  color: #000;
+  box-shadow: 0 0 15px var(--cyan);
+}
+[data-theme="matrix"] .control-btn {
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.1);
+}
+[data-theme="wasteland"] .control-btn {
+  box-shadow: 0 0 10px rgba(255, 170, 0, 0.1);
+}
+
+/* ---- GLITCH TRANSITION ---- */
+body.glitch-active::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: var(--bg);
+  pointer-events: none;
+  animation: globalGlitch 0.3s steps(10) forwards;
+  opacity: 0.8;
+}
+@keyframes globalGlitch {
+  0% { clip-path: inset(10% 0 80% 0); transform: translate(-10px, 5px); }
+  20% { clip-path: inset(80% 0 10% 0); transform: translate(10px, -5px); }
+  40% { clip-path: inset(40% 0 40% 0); transform: translate(-10px, 5px); }
+  60% { clip-path: inset(20% 0 60% 0); transform: translate(10px, -5px); }
+  80% { clip-path: inset(60% 0 20% 0); transform: translate(-10px, 5px); }
+  100% { clip-path: inset(0 0 0 0); transform: translate(0); opacity: 0; }
+}
+
+/* ---- TERMINAL EASTER EGG ---- */
+#cyber-terminal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 5, 2, 0.95);
+  z-index: 10001;
+  font-family: var(--font-mono);
+  color: var(--cyan);
+  padding: 40px;
+  overflow-y: auto;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  flex-direction: column;
+  justify-content: flex-end;
+  backdrop-filter: blur(10px);
+}
+#cyber-terminal.active {
+  display: flex;
+  opacity: 1;
+}
+#terminal-output {
+  margin-bottom: 20px;
+  line-height: 1.5;
+  font-size: 1rem;
+  text-shadow: 0 0 5px var(--cyan);
+  white-space: pre-wrap;
+}
+.terminal-line { margin-bottom: 5px; }
+.terminal-line.error { color: var(--pink); text-shadow: 0 0 5px var(--pink); }
+#terminal-input-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+}
+#terminal-input-line span { color: var(--cyan); }
+#terminal-input {
+  background: transparent;
+  border: none;
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  flex: 1;
+  outline: none;
+  text-shadow: 0 0 5px var(--cyan);
+  caret-color: var(--cyan);
 }
