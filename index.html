@@ -77,13 +77,15 @@
       </a>
 
       <nav>
-        <a href="#home"><span class="nav-num">01.</span>Home</a>
-        <a href="#about"><span class="nav-num">02.</span>About</a>
-        <a href="#skills"><span class="nav-num">03.</span>Skills</a>
-        <a href="#services"><span class="nav-num">04.</span>Services</a>
-        <a href="#portfolio"><span class="nav-num">05.</span>Work</a>
-        <a href="#contact" class="nav-cta">Hire Me</a>
+        <a href="#home"><span class="nav-num">01.</span><span data-i18n="nav.home">Home</span></a>
+        <a href="#about"><span class="nav-num">02.</span><span data-i18n="nav.about">About</span></a>
+        <a href="#skills"><span class="nav-num">03.</span><span data-i18n="nav.skills">Skills</span></a>
+        <a href="#services"><span class="nav-num">04.</span><span data-i18n="nav.services">Services</span></a>
+        <a href="#portfolio"><span class="nav-num">05.</span><span data-i18n="nav.work">Work</span></a>
+        <a href="#testimonials"><span class="nav-num">06.</span><span data-i18n="nav.testi">Reviews</span></a>
+        <a href="#contact" class="nav-cta" data-i18n="nav.hire">Hire Me</a>
         <div class="nav-controls" style="display:flex;gap:10px;margin-left:20px;border-left:1px solid var(--border);padding-left:20px;">
+          <button class="control-btn lang-toggle-btn" title="Toggle Language">LANG: EN</button>
           <button class="control-btn audio-toggle-btn" title="Toggle Audio">AUDIO: OFF</button>
           <button class="control-btn theme-toggle-btn" title="Toggle Theme">THEME: NEON</button>
         </div>
@@ -96,13 +98,15 @@
 
     <!-- Mobile Nav -->
     <div class="mobile-nav" id="mobileNav">
-      <a href="#home"     onclick="closeMobileNav()"><span class="nav-num">01.</span>Home</a>
-      <a href="#about"    onclick="closeMobileNav()"><span class="nav-num">02.</span>About</a>
-      <a href="#skills"   onclick="closeMobileNav()"><span class="nav-num">03.</span>Skills</a>
-      <a href="#services" onclick="closeMobileNav()"><span class="nav-num">04.</span>Services</a>
-      <a href="#portfolio" onclick="closeMobileNav()"><span class="nav-num">05.</span>Work</a>
-      <a href="#contact"  onclick="closeMobileNav()"><span class="nav-num">06.</span>Contact</a>
-      <div class="nav-controls" style="display:flex;gap:10px;margin-top:20px;justify-content:center;">
+      <a href="#home"     onclick="closeMobileNav()"><span class="nav-num">01.</span><span data-i18n="nav.home">Home</span></a>
+      <a href="#about"    onclick="closeMobileNav()"><span class="nav-num">02.</span><span data-i18n="nav.about">About</span></a>
+      <a href="#skills"   onclick="closeMobileNav()"><span class="nav-num">03.</span><span data-i18n="nav.skills">Skills</span></a>
+      <a href="#services" onclick="closeMobileNav()"><span class="nav-num">04.</span><span data-i18n="nav.services">Services</span></a>
+      <a href="#portfolio" onclick="closeMobileNav()"><span class="nav-num">05.</span><span data-i18n="nav.work">Work</span></a>
+      <a href="#testimonials" onclick="closeMobileNav()"><span class="nav-num">06.</span><span data-i18n="nav.testi">Reviews</span></a>
+      <a href="#contact"  onclick="closeMobileNav()"><span class="nav-num">07.</span><span data-i18n="nav.contact">Contact</span></a>
+      <div class="nav-controls" style="display:flex;gap:10px;margin-top:20px;justify-content:center;flex-wrap:wrap;">
+        <button class="control-btn lang-toggle-btn" title="Toggle Language">LANG: EN</button>
         <button class="control-btn audio-toggle-btn" title="Toggle Audio">AUDIO: OFF</button>
         <button class="control-btn theme-toggle-btn" title="Toggle Theme">THEME: NEON</button>
       </div>
@@ -119,7 +123,7 @@
       <div class="hero-content">
         <div class="hero-badge">
           <span class="badge-pulse"></span>
-          Available for Freelance Work
+          <span data-i18n="hero.badge">Available for Freelance Work</span>
         </div>
 
         <h1 class="hero-title">
@@ -137,7 +141,7 @@
           <span class="typed-cursor"></span>
         </div>
 
-        <p class="hero-desc">
+        <p class="hero-desc" data-i18n="hero.desc">
           Full-Stack Developer &amp; UI/UX Designer with 2+ years of experience
           crafting immersive digital experiences. Building secure, scalable
           web solutions that help companies grow.
@@ -145,10 +149,10 @@
 
         <div class="hero-actions">
           <a href="apply_form.html" class="btn-primary">
-            <i class="ri-send-plane-fill"></i> Hire Me
+            <i class="ri-send-plane-fill"></i> <span data-i18n="hero.btn1">Hire Me</span>
           </a>
           <a href="files/cv.pdf" target="_blank" class="btn-outline">
-            <i class="ri-download-2-line"></i> Download CV
+            <i class="ri-download-2-line"></i> <span data-i18n="hero.btn2">Download CV</span>
           </a>
         </div>
 
@@ -170,15 +174,15 @@
         <div class="hero-stats">
           <div class="stat-item">
             <div class="stat-num" data-count="2">0</div>
-            <div class="stat-label">Years Exp.</div>
+            <div class="stat-label" data-i18n="hero.stat1">Years Exp.</div>
           </div>
           <div class="stat-item">
             <div class="stat-num" data-count="7">0</div>
-            <div class="stat-label">Projects Done</div>
+            <div class="stat-label" data-i18n="hero.stat2">Projects Done</div>
           </div>
           <div class="stat-item">
             <div class="stat-num" data-count="3">0</div>
-            <div class="stat-label">Certifications</div>
+            <div class="stat-label" data-i18n="hero.stat3">Certifications</div>
           </div>
         </div>
       </div>
@@ -238,7 +242,7 @@
             <div class="frame-overlay"></div>
             <div class="experience-badge">
               <div class="num">2+</div>
-              <div class="lbl">Years of Experience</div>
+              <div class="lbl" data-i18n="about.exp">Years of Experience</div>
             </div>
           </div>
           <div class="photo-corner tl"></div>
@@ -246,12 +250,12 @@
         </div>
 
         <div class="about-info reveal reveal-delay-2">
-          <div class="section-tag">About Me</div>
+          <div class="section-tag" data-i18n="about.tag">About Me</div>
           <h2 class="section-title">
             UI/UX Designer<br>&amp;
             <span class="accent">Web Developer</span>
           </h2>
-          <p class="section-desc" style="margin-bottom:0">
+          <p class="section-desc" style="margin-bottom:0" data-i18n="about.desc">
             I'm Merson Muhammad, a passionate Full-Stack Developer and UI/UX
             Designer from Rantepao, South Sulawesi. I build beautiful,
             performant web applications with a focus on clean code and great
@@ -260,11 +264,11 @@
 
           <div class="info-grid">
             <div class="info-item">
-              <div class="info-label">Specialty</div>
-              <div class="info-value">Product Designer, Developer</div>
+              <div class="info-label" data-i18n="about.specialty.label">Specialty</div>
+              <div class="info-value" data-i18n="about.specialty.value">Product Designer, Developer</div>
             </div>
             <div class="info-item">
-              <div class="info-label">Location</div>
+              <div class="info-label" data-i18n="about.location.label">Location</div>
               <div class="info-value">Rantepao, South Sulawesi</div>
             </div>
             <div class="info-item">
@@ -272,8 +276,8 @@
               <div class="info-value">mer***@gmail.com</div>
             </div>
             <div class="info-item">
-              <div class="info-label">Freelance Status</div>
-              <div class="info-value available">✓ Available</div>
+              <div class="info-label" data-i18n="about.freelance.label">Freelance Status</div>
+              <div class="info-value available" data-i18n="about.freelance.value">✓ Available</div>
             </div>
           </div>
 
@@ -294,7 +298,7 @@
 
           <div style="margin-top: 32px">
             <a href="#portfolio" class="btn-primary">
-              <i class="ri-eye-line"></i> View My Projects
+              <i class="ri-eye-line"></i> <span data-i18n="about.viewbtn">View My Projects</span>
             </a>
           </div>
         </div>
@@ -304,11 +308,11 @@
     <!-- ==================== SKILLS ==================== -->
     <section id="skills">
       <div class="section-header centered">
-        <div class="section-tag reveal">Tech Stack</div>
+        <div class="section-tag reveal" data-i18n="skills.tag">Tech Stack</div>
         <h2 class="section-title reveal reveal-delay-1">
-          My <span class="accent">Skills</span>
+          <span data-i18n="skills.title1">My </span><span class="accent" data-i18n="skills.title2">Skills</span>
         </h2>
-        <p class="section-desc reveal reveal-delay-2">
+        <p class="section-desc reveal reveal-delay-2" data-i18n="skills.desc">
           Technologies I work with to bring ideas to life
         </p>
       </div>
@@ -386,11 +390,11 @@
       <div class="float-diamond" style="top:30%;right:15%;animation-duration:8s;animation-delay:-2s;font-size:8px">◇</div>
 
       <div class="section-header centered">
-        <div class="section-tag reveal">What I Offer</div>
+        <div class="section-tag reveal" data-i18n="svc.tag">What I Offer</div>
         <h2 class="section-title reveal reveal-delay-1">
-          My <span class="accent">Services</span>
+          <span data-i18n="svc.title1">My </span><span class="accent" data-i18n="svc.title2">Services</span>
         </h2>
-        <p class="section-desc reveal reveal-delay-2">
+        <p class="section-desc reveal reveal-delay-2" data-i18n="svc.desc">
           End-to-end solutions from design to deployment
         </p>
       </div>
@@ -399,8 +403,8 @@
         <div class="service-card reveal reveal-delay-1">
           <span class="service-num">01</span>
           <span class="service-icon">🎨</span>
-          <div class="service-title">UI/UX Design</div>
-          <p class="service-desc">
+          <div class="service-title" data-i18n="svc.t1">UI/UX Design</div>
+          <p class="service-desc" data-i18n="svc.d1">
             Creating intuitive, visually stunning interfaces that delight users.
             From wireframes to high-fidelity prototypes in Figma.
           </p>
@@ -409,8 +413,8 @@
         <div class="service-card reveal reveal-delay-2">
           <span class="service-num">02</span>
           <span class="service-icon">🌐</span>
-          <div class="service-title">Web Development</div>
-          <p class="service-desc">
+          <div class="service-title" data-i18n="svc.t2">Web Development</div>
+          <p class="service-desc" data-i18n="svc.d2">
             Building responsive, performant websites using modern frontend
             technologies. Fast, SEO-friendly, and pixel-perfect.
           </p>
@@ -419,8 +423,8 @@
         <div class="service-card reveal reveal-delay-3">
           <span class="service-num">03</span>
           <span class="service-icon">⚡</span>
-          <div class="service-title">Fullstack Development</div>
-          <p class="service-desc">
+          <div class="service-title" data-i18n="svc.t3">Fullstack Development</div>
+          <p class="service-desc" data-i18n="svc.d3">
             End-to-end application development with Laravel, PHP, MySQL, and
             modern JS frameworks. Secure, scalable architecture.
           </p>
@@ -432,11 +436,11 @@
     <!-- ==================== PORTFOLIO ==================== -->
     <section id="portfolio">
       <div class="section-header centered">
-        <div class="section-tag reveal">My Work</div>
+        <div class="section-tag reveal" data-i18n="port.tag">My Work</div>
         <h2 class="section-title reveal reveal-delay-1">
-          Featured <span class="accent">Projects</span>
+          <span data-i18n="port.title1">Featured </span><span class="accent" data-i18n="port.title2">Projects</span>
         </h2>
-        <p class="section-desc reveal reveal-delay-2">
+        <p class="section-desc reveal reveal-delay-2" data-i18n="port.desc">
           A selection of projects I've built and shipped
         </p>
       </div>
@@ -599,11 +603,11 @@
     <!-- ==================== AI CHAT ==================== -->
     <section id="ai-section">
       <div class="section-header centered">
-        <div class="section-tag reveal">AI-Powered</div>
+        <div class="section-tag reveal" data-i18n="ai.tag">AI-Powered</div>
         <h2 class="section-title reveal reveal-delay-1">
-          Ask Me <span class="accent">Anything</span>
+          <span data-i18n="ai.title1">Ask Me </span><span class="accent" data-i18n="ai.title2">Anything</span>
         </h2>
-        <p class="section-desc reveal reveal-delay-2">
+        <p class="section-desc reveal reveal-delay-2" data-i18n="ai.desc">
           Chat with my AI assistant to learn more about my work, skills,
           and availability
         </p>
@@ -630,11 +634,86 @@
             class="chat-input"
             id="chatInput"
             type="text"
-            placeholder="> Type your query..."
+            placeholder="> Type your query..." data-i18n="ai.placeholder"
           />
           <button class="chat-send" id="chatSend">
             <i class="ri-send-plane-fill"></i>
           </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TESTIMONIALS ==================== -->
+    <section id="testimonials">
+      <div class="section-header centered">
+        <div class="section-tag reveal" data-i18n="testi.tag">Feedback</div>
+        <h2 class="section-title reveal reveal-delay-1">
+          <span data-i18n="testi.title1">What </span><span class="accent" data-i18n="testi.title2">Clients Say</span>
+        </h2>
+        <p class="section-desc reveal reveal-delay-2" data-i18n="testi.desc">
+          Trusted by clients and colleagues for delivering quality results
+        </p>
+      </div>
+
+      <div class="testimonial-slider reveal reveal-delay-2">
+        <div class="testimonial-track" id="testimonialTrack">
+          <!-- Card 1 -->
+          <div class="testimonial-card">
+            <div class="testi-quote-icon">"</div>
+            <p class="testi-text" data-i18n="testi.t1">Merson built the E-Kuesioner system for our university with excellent quality. The real-time analytics dashboard and PDF export feature exceeded our expectations. Very professional and communicative throughout the project.</p>
+            <div class="testi-author">
+              <div class="testi-avatar">DR</div>
+              <div>
+                <div class="testi-name">Dr. Ribka Tampang, S.Pd, M.Si</div>
+                <div class="testi-role" data-i18n="testi.r1">Lecturer — UKI Toraja</div>
+              </div>
+            </div>
+            <div class="testi-stars">★★★★★</div>
+          </div>
+          <!-- Card 2 -->
+          <div class="testimonial-card">
+            <div class="testi-quote-icon">"</div>
+            <p class="testi-text" data-i18n="testi.t2">The Instagram Unfollowers Checker tool Merson developed is impressive. Clean UI, fast OAuth integration, and the cyberpunk design makes it stand out from similar tools. Highly recommended developer!</p>
+            <div class="testi-author">
+              <div class="testi-avatar">AP</div>
+              <div>
+                <div class="testi-name">Andi Pratama</div>
+                <div class="testi-role" data-i18n="testi.r2">Freelance Client — Social Media Tools</div>
+              </div>
+            </div>
+            <div class="testi-stars">★★★★★</div>
+          </div>
+          <!-- Card 3 -->
+          <div class="testimonial-card">
+            <div class="testi-quote-icon">"</div>
+            <p class="testi-text" data-i18n="testi.t3">Working with Merson on the North Toraja Tourism System was a great experience. He integrated maps, ticketing, and destination listings seamlessly. His attention to detail in both frontend and backend is remarkable.</p>
+            <div class="testi-author">
+              <div class="testi-avatar">SF</div>
+              <div>
+                <div class="testi-name">Sarah Febrina</div>
+                <div class="testi-role" data-i18n="testi.r3">Project Partner — Tourism System</div>
+              </div>
+            </div>
+            <div class="testi-stars">★★★★★</div>
+          </div>
+          <!-- Card 4 -->
+          <div class="testimonial-card">
+            <div class="testi-quote-icon">"</div>
+            <p class="testi-text" data-i18n="testi.t4">Merson designed a beautiful wedding website for us with countdown timer, RSVP form, and photo gallery. The dark romantic theme was exactly what we wanted. Delivered on time and beyond expectations!</p>
+            <div class="testi-author">
+              <div class="testi-avatar">PM</div>
+              <div>
+                <div class="testi-name">Priska & Mario</div>
+                <div class="testi-role" data-i18n="testi.r4">Client — PM Wedding Website</div>
+              </div>
+            </div>
+            <div class="testi-stars">★★★★★</div>
+          </div>
+        </div>
+        <div class="testimonial-nav">
+          <button class="testi-btn testi-prev" id="testiPrev" aria-label="Previous testimonial">‹</button>
+          <div class="testimonial-dots" id="testimonialDots"></div>
+          <button class="testi-btn testi-next" id="testiNext" aria-label="Next testimonial">›</button>
         </div>
       </div>
     </section>
@@ -644,11 +723,11 @@
       <!-- 3D terrain mesh background -->
       <canvas id="canvas-terrain" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.6"></canvas>
       <div class="section-header centered">
-        <div class="section-tag reveal">Get In Touch</div>
+        <div class="section-tag reveal" data-i18n="contact.tag">Get In Touch</div>
         <h2 class="section-title reveal reveal-delay-1">
-          Let's <span class="accent">Work Together</span>
+          <span data-i18n="contact.title1">Let's </span><span class="accent" data-i18n="contact.title2">Work Together</span>
         </h2>
-        <p class="section-desc reveal reveal-delay-2" style="margin-bottom: 64px">
+        <p class="section-desc reveal reveal-delay-2" style="margin-bottom: 64px" data-i18n="contact.desc">
           Have a project in mind? I'd love to help bring your vision to life.
         </p>
       </div>
@@ -658,29 +737,29 @@
           <div class="contact-item">
             <div class="contact-item-icon"><i class="ri-map-pin-line"></i></div>
             <div>
-              <div class="contact-item-label">Location</div>
+              <div class="contact-item-label" data-i18n="contact.loc.label">Location</div>
               <div class="contact-item-value">Rantepao, South Sulawesi, Indonesia</div>
             </div>
           </div>
           <div class="contact-item">
             <div class="contact-item-icon"><i class="ri-mail-line"></i></div>
             <div>
-              <div class="contact-item-label">Email</div>
+              <div class="contact-item-label" data-i18n="contact.email.label">Email</div>
               <div class="contact-item-value">mer***@gmail.com</div>
             </div>
           </div>
           <div class="contact-item">
             <div class="contact-item-icon"><i class="ri-phone-line"></i></div>
             <div>
-              <div class="contact-item-label">Phone</div>
+              <div class="contact-item-label" data-i18n="contact.phone.label">Phone</div>
               <div class="contact-item-value">082***</div>
             </div>
           </div>
           <div class="contact-item">
             <div class="contact-item-icon"><i class="ri-time-line"></i></div>
             <div>
-              <div class="contact-item-label">Availability</div>
-              <div class="contact-item-value" style="color:var(--lime)">✓ Open for Freelance</div>
+              <div class="contact-item-label" data-i18n="contact.avail.label">Availability</div>
+              <div class="contact-item-value" style="color:var(--lime)" data-i18n="contact.avail.value">✓ Open for Freelance</div>
             </div>
           </div>
         </div>
@@ -693,16 +772,16 @@
           >
             <input type="hidden" name="returnUrl" id="returnUrlInput" value="" />
             <div class="form-group">
-              <input type="text" name="nama" placeholder="> Your Name" required />
+              <input type="text" name="nama" placeholder="> Your Name" data-i18n="contact.name" required />
             </div>
             <div class="form-group">
-              <input type="email" name="email" placeholder="> Email Address" required />
+              <input type="email" name="email" placeholder="> Email Address" data-i18n="contact.email" required />
             </div>
             <div class="form-group">
-              <textarea name="pesan" placeholder="> Tell me about your project…" required></textarea>
+              <textarea name="pesan" placeholder="> Tell me about your project…" data-i18n="contact.msg" required></textarea>
             </div>
             <button type="submit" class="form-submit">
-              <i class="ri-send-plane-fill"></i> Send Message
+              <i class="ri-send-plane-fill"></i> <span data-i18n="contact.send">Send Message</span>
             </button>
           </form>
         </div>
@@ -711,7 +790,7 @@
 
     <!-- ==================== FOOTER ==================== -->
     <footer>
-      <div class="footer-left">
+      <div class="footer-left" data-i18n="footer.copy">
         © 2025 <span>SonixDev</span> — Merson Muhammad. All rights reserved.
       </div>
       <div class="footer-right">
@@ -1089,6 +1168,187 @@ CRITICAL RULES:
     </script>
 
     <script>
+    /* ============================================================
+       TESTIMONIAL SLIDER
+       ============================================================ */
+    (function() {
+      const track = document.getElementById('testimonialTrack');
+      const dotsWrap = document.getElementById('testimonialDots');
+      const prevBtn = document.getElementById('testiPrev');
+      const nextBtn = document.getElementById('testiNext');
+      if (!track) return;
+
+      const cards = track.querySelectorAll('.testimonial-card');
+      const total = cards.length;
+      let current = 0;
+      let autoTimer;
+
+      // Create dots
+      for (let i = 0; i < total; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'testi-dot' + (i === 0 ? ' active' : '');
+        dot.addEventListener('click', () => goTo(i));
+        dotsWrap.appendChild(dot);
+      }
+
+      function goTo(idx) {
+        current = ((idx % total) + total) % total;
+        track.style.transform = `translateX(-${current * 100}%)`;
+        dotsWrap.querySelectorAll('.testi-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+        resetAuto();
+      }
+
+      prevBtn.addEventListener('click', () => goTo(current - 1));
+      nextBtn.addEventListener('click', () => goTo(current + 1));
+
+      function resetAuto() {
+        clearInterval(autoTimer);
+        autoTimer = setInterval(() => goTo(current + 1), 6000);
+      }
+      resetAuto();
+    })();
+    </script>
+
+    <script>
+    /* ============================================================
+       MULTI-LANGUAGE i18n SYSTEM (EN / ID)
+       ============================================================ */
+    (function() {
+      const translations = {
+        id: {
+          // Nav
+          "nav.home": "Beranda",
+          "nav.about": "Tentang",
+          "nav.skills": "Keahlian",
+          "nav.services": "Layanan",
+          "nav.work": "Karya",
+          "nav.testi": "Ulasan",
+          "nav.contact": "Kontak",
+          "nav.hire": "Rekrut Saya",
+          // Hero
+          "hero.badge": "Tersedia untuk Proyek Freelance",
+          "hero.desc": "Full-Stack Developer & Desainer UI/UX dengan 2+ tahun pengalaman menciptakan pengalaman digital yang imersif. Membangun solusi web yang aman, skalabel untuk membantu perusahaan berkembang.",
+          "hero.btn1": "Rekrut Saya",
+          "hero.btn2": "Unduh CV",
+          "hero.stat1": "Tahun Pengalaman",
+          "hero.stat2": "Proyek Selesai",
+          "hero.stat3": "Sertifikasi",
+          // About
+          "about.tag": "Tentang Saya",
+          "about.desc": "Saya Merson Muhammad, seorang Full-Stack Developer dan Desainer UI/UX yang penuh semangat dari Rantepao, Sulawesi Selatan. Saya membangun aplikasi web yang indah, berkinerja tinggi dengan fokus pada kode bersih dan pengalaman pengguna yang luar biasa.",
+          "about.specialty.label": "Spesialisasi",
+          "about.specialty.value": "Desainer Produk, Developer",
+          "about.location.label": "Lokasi",
+          "about.freelance.label": "Status Freelance",
+          "about.freelance.value": "✓ Tersedia",
+          "about.viewbtn": "Lihat Proyek Saya",
+          "about.exp": "Tahun Pengalaman",
+          // Skills
+          "skills.tag": "Tech Stack",
+          "skills.title1": "Keahlian ",
+          "skills.title2": "Saya",
+          "skills.desc": "Teknologi yang saya gunakan untuk mewujudkan ide",
+          // Services
+          "svc.tag": "Yang Saya Tawarkan",
+          "svc.title1": "Layanan ",
+          "svc.title2": "Saya",
+          "svc.desc": "Solusi menyeluruh dari desain hingga deployment",
+          "svc.t1": "Desain UI/UX",
+          "svc.d1": "Menciptakan antarmuka yang intuitif dan memukau secara visual. Dari wireframe hingga prototipe high-fidelity di Figma.",
+          "svc.t2": "Pengembangan Web",
+          "svc.d2": "Membangun website responsif dan berkinerja tinggi menggunakan teknologi frontend modern. Cepat, SEO-friendly, dan pixel-perfect.",
+          "svc.t3": "Pengembangan Fullstack",
+          "svc.d3": "Pengembangan aplikasi end-to-end dengan Laravel, PHP, MySQL, dan framework JS modern. Arsitektur yang aman dan skalabel.",
+          // Portfolio
+          "port.tag": "Karya Saya",
+          "port.title1": "Proyek ",
+          "port.title2": "Unggulan",
+          "port.desc": "Pilihan proyek yang telah saya bangun dan selesaikan",
+          // AI
+          "ai.tag": "AI-Powered",
+          "ai.title1": "Tanya Saya ",
+          "ai.title2": "Apapun",
+          "ai.desc": "Ngobrol dengan asisten AI saya untuk mengetahui lebih lanjut tentang pekerjaan, keahlian, dan ketersediaan saya",
+          "ai.placeholder": "> Ketik pertanyaan Anda...",
+          // Testimonials
+          "testi.tag": "Testimoni",
+          "testi.title1": "Apa Kata ",
+          "testi.title2": "Klien",
+          "testi.desc": "Dipercaya oleh klien dan kolega untuk memberikan hasil berkualitas",
+          "testi.t1": "Merson membangun sistem E-Kuesioner untuk universitas kami dengan kualitas yang sangat baik. Dashboard analitik real-time dan fitur ekspor PDF melampaui ekspektasi kami. Sangat profesional dan komunikatif sepanjang proyek.",
+          "testi.r1": "Dosen — UKI Toraja",
+          "testi.t2": "Tool Instagram Unfollowers Checker yang dikembangkan Merson sangat mengesankan. UI yang bersih, integrasi OAuth yang cepat, dan desain cyberpunk yang membuatnya menonjol dari tool serupa. Sangat direkomendasikan!",
+          "testi.r2": "Klien Freelance — Tool Media Sosial",
+          "testi.t3": "Bekerja sama dengan Merson di Sistem Pariwisata Toraja Utara adalah pengalaman yang luar biasa. Dia mengintegrasikan peta, tiket, dan daftar destinasi dengan mulus. Perhatiannya terhadap detail di frontend dan backend sungguh luar biasa.",
+          "testi.r3": "Rekan Proyek — Sistem Pariwisata",
+          "testi.t4": "Merson mendesain website pernikahan yang indah untuk kami dengan countdown timer, formulir RSVP, dan galeri foto. Tema dark romantis persis seperti yang kami inginkan. Selesai tepat waktu dan melampaui ekspektasi!",
+          "testi.r4": "Klien — Website Pernikahan PM",
+          // Contact
+          "contact.tag": "Hubungi Saya",
+          "contact.title1": "Mari ",
+          "contact.title2": "Bekerja Sama",
+          "contact.desc": "Punya proyek dalam pikiran? Saya ingin membantu mewujudkan visi Anda.",
+          "contact.loc.label": "Lokasi",
+          "contact.email.label": "Email",
+          "contact.phone.label": "Telepon",
+          "contact.avail.label": "Ketersediaan",
+          "contact.avail.value": "🟢 Terbuka untuk Freelance",
+          "contact.name": "> Nama Anda",
+          "contact.email": "> Alamat Email",
+          "contact.msg": "> Ceritakan tentang proyek Anda…",
+          "contact.send": "Kirim Pesan",
+          // Footer
+          "footer.copy": "© 2025 SonixDev — Merson Muhammad. Hak cipta dilindungi."
+        }
+      };
+
+      // Store EN defaults
+      const enDefaults = {};
+      let currentLang = localStorage.getItem('portfolio-lang') || 'en';
+
+      function captureDefaults() {
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          if (!enDefaults[key]) {
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+              enDefaults[key] = el.placeholder;
+            } else {
+              enDefaults[key] = el.innerHTML;
+            }
+          }
+        });
+      }
+
+      function applyLang(lang) {
+        currentLang = lang;
+        localStorage.setItem('portfolio-lang', lang);
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          const text = lang === 'id' ? (translations.id[key] || enDefaults[key]) : enDefaults[key];
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+            el.placeholder = text;
+          } else {
+            el.innerHTML = text;
+          }
+        });
+        // Update toggle button labels
+        document.querySelectorAll('.lang-toggle-btn').forEach(btn => {
+          btn.textContent = `LANG: ${lang.toUpperCase()}`;
+        });
+      }
+
+      // Initialize
+      captureDefaults();
+      if (currentLang === 'id') applyLang('id');
+
+      // Toggle button listeners
+      document.querySelectorAll('.lang-toggle-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          applyLang(currentLang === 'en' ? 'id' : 'en');
+        });
+      });
+    })();
+    </script>    <script>
     /* ============================================================
        ADVANCED ANIMATIONS — Active Theory Inspired
        ============================================================ */
