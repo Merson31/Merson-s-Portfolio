@@ -2154,6 +2154,40 @@ section.flash-in {
   .section-title { font-size: 32px; letter-spacing: -1px; }
   .section-header { margin-bottom: 48px; }
 
+  /* ======= MOBILE PERFORMANCE OPTIMIZATIONS ======= */
+  
+  /* Kill heavy full-screen overlays */
+  body::before { animation: none !important; } /* Scanline overlay */
+  body::after { display: none !important; }    /* Noise grain */
+
+  /* Kill glitch effect on hero name — main cause of flickering */
+  .glitch::before, .glitch::after { display: none !important; }
+
+  /* Simplify hero background effects */
+  .hero-grid-floor { animation: none !important; }
+  #home::after { animation: none !important; display: none !important; } /* Hero sweep line */
+
+  /* Disable expensive floating blobs & nebulae */
+  .morph-blob, .nebula, .orb { display: none !important; }
+
+  /* Disable skill bar laser scan */
+  .skill-bar::after { animation: none !important; display: none !important; }
+
+  /* Disable holographic shift on skill cards */
+  .skill-card::before { animation: none !important; }
+
+  /* Disable service card spinning border */
+  .service-card::after { display: none !important; }
+
+  /* Disable 3D section reveal (use simple fade) */
+  .reveal-3d { transform: translateY(36px) !important; }
+  .reveal-3d.visible { transform: translateY(0) !important; }
+
+  /* Disable section flash */
+  section.flash-in { animation: none !important; }
+
+  /* ======= END PERFORMANCE OPTS ======= */
+
   /* Hero */
   #home { align-items: flex-start; padding-top: 120px; }
   #home::before { width: 100%; opacity: 0.15; }

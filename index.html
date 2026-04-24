@@ -865,18 +865,24 @@
       }
     }
 
+    /* Mobile detection for performance optimization */
+    const isMobile = /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+
     let stars = [];
     function initStars() {
       stars = [];
-      const count = Math.min(220, Math.floor(W * H / 5500));
+      /* Drastically reduce particles on mobile (max 40 vs 220 on desktop) */
+      const maxStars = isMobile ? 40 : 220;
+      const divisor = isMobile ? 18000 : 5500;
+      const count = Math.min(maxStars, Math.floor(W * H / divisor));
       for (let i = 0; i < count; i++) stars.push(new Star(true));
     }
     initStars();
     window.addEventListener('resize', initStars);
 
-    /* Mouse aura on canvas */
+    /* Mouse aura on canvas — skip on mobile for performance */
     function drawMouseGlow() {
-      if (mouseX < 0) return;
+      if (isMobile || mouseX < 0) return;
       const g = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 180);
       g.addColorStop(0, 'rgba(0,245,255,0.022)');
       g.addColorStop(1, 'transparent');
@@ -884,15 +890,21 @@
       ctx.fillRect(0, 0, W, H);
     }
 
-    function animateCanvas() {
-      /* Faint fade — creates the trail effect */
+    /* Throttle canvas to ~30fps on mobile, full 60fps on desktop */
+    let lastCanvasFrame = 0;
+    const canvasInterval = isMobile ? 33 : 0; /* 33ms ≈ 30fps */
+
+    function animateCanvas(now) {
+      requestAnimationFrame(animateCanvas);
+      if (isMobile && now - lastCanvasFrame < canvasInterval) return;
+      lastCanvasFrame = now;
+
       ctx.fillStyle = 'rgba(2,4,8,0.18)';
       ctx.fillRect(0, 0, W, H);
       drawMouseGlow();
       stars.forEach(s => { s.update(); s.draw(); });
-      requestAnimationFrame(animateCanvas);
     }
-    animateCanvas();
+    animateCanvas(0);
 
     /* ============================================================
        HEADER SCROLL
