@@ -2713,6 +2713,22 @@ CRITICAL RULES:
     #modal-img-wrap{min-height:200px;}
     #ach-panel{width:calc(100vw - 48px);}
   }
+  @media(max-width:480px){
+    /* Stack floating buttons vertically to prevent overlap */
+    #game-btn { bottom: 60px !important; right: 12px !important; }
+    #ach-toggle { left: 12px !important; bottom: 60px !important; }
+    #time-hud { bottom: 8px !important; font-size: 8px !important; padding: 4px 10px !important; }
+    #scroll-top { bottom: 110px !important; right: 12px !important; }
+    /* Game screens */
+    .gs-logo { font-size: 32px !important; }
+    .go-title { font-size: 32px !important; }
+    .go-btns { flex-direction: column !important; }
+    #game-hud { gap: 12px !important; padding: 6px 12px !important; }
+    .ghud-item b { font-size: 14px !important; }
+    #game-close-btn { font-size: 9px !important; padding: 4px 10px !important; }
+    /* Toast */
+    #achievement-toast { min-width: auto !important; left: 8px !important; right: 8px !important; }
+  }
   </style>
 
   <script>

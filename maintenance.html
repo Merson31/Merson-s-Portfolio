@@ -3,46 +3,202 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Maintenance</title>
+    <title>System Maintenance - Merson</title>
     <!-- Remix Icon Link -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css"
-      rel="stylesheet"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
     <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+      }
+
       body {
         display: flex;
         justify-content: center;
-        margin-top: 200px;
+        align-items: center;
+        min-height: 100vh;
+        background: #020408;
+        color: #e2e8f0;
+        overflow: hidden;
       }
+
+      /* Animated Cyber Grid Background */
+      .bg-grid {
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        background-image: 
+          linear-gradient(rgba(0, 245, 255, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 245, 255, 0.05) 1px, transparent 1px);
+        background-size: 40px 40px;
+        transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
+        animation: gridMove 10s linear infinite;
+        z-index: 0;
+      }
+
+      @keyframes gridMove {
+        0% { transform: perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px); }
+        100% { transform: perspective(500px) rotateX(60deg) translateY(40px) translateZ(-200px); }
+      }
+
       .container {
+        position: relative;
+        z-index: 10;
         text-align: center;
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 60px 40px;
+        border-radius: 24px;
+        border: 1px solid rgba(0, 245, 255, 0.15);
+        box-shadow: 0 0 40px rgba(0, 245, 255, 0.05),
+                    inset 0 0 20px rgba(0, 245, 255, 0.02);
+        max-width: 500px;
+        width: 90%;
       }
 
-      .container a {
-        border: 2px solid rgb(0, 89, 255);
-        padding: 5px 10px;
-        border-radius: 50px;
+      /* Glowing Icon */
+      .icon-box {
+        font-size: 64px;
+        color: #00f5ff;
+        margin-bottom: 20px;
+        text-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% { transform: scale(1); text-shadow: 0 0 20px rgba(0, 245, 255, 0.5); }
+        50% { transform: scale(1.1); text-shadow: 0 0 40px rgba(0, 245, 255, 0.8); }
+        100% { transform: scale(1); text-shadow: 0 0 20px rgba(0, 245, 255, 0.5); }
+      }
+
+      /* Glitch Title */
+      h1 {
+        font-size: 32px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 15px;
+        position: relative;
+        display: inline-block;
+      }
+
+      h1::before, h1::after {
+        content: "SYSTEM OFFLINE";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.8;
+      }
+
+      h1::before {
+        color: #00f5ff;
+        z-index: -1;
+        animation: glitch-anim-1 2s infinite linear alternate-reverse;
+      }
+      h1::after {
+        color: #bf00ff;
+        z-index: -2;
+        animation: glitch-anim-2 3s infinite linear alternate-reverse;
+      }
+
+      @keyframes glitch-anim-1 {
+        0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
+        20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
+        40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
+        60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
+        80% { clip-path: inset(10% 0 70% 0); transform: translate(-1px, 1px); }
+        100% { clip-path: inset(30% 0 50% 0); transform: translate(1px, -1px); }
+      }
+
+      @keyframes glitch-anim-2 {
+        0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -1px); }
+        20% { clip-path: inset(30% 0 20% 0); transform: translate(-2px, 2px); }
+        40% { clip-path: inset(70% 0 10% 0); transform: translate(2px, 1px); }
+        60% { clip-path: inset(20% 0 50% 0); transform: translate(-2px, -1px); }
+        80% { clip-path: inset(50% 0 30% 0); transform: translate(1px, 2px); }
+        100% { clip-path: inset(5% 0 80% 0); transform: translate(-1px, -2px); }
+      }
+
+      p {
+        color: #94a3b8;
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 40px;
+      }
+
+      /* Cyber Button */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 14px 32px;
+        background: transparent;
+        color: #00f5ff;
+        border: 1px solid #00f5ff;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
         text-decoration: none;
-        background: rgb(0, 89, 255);
-        color: #fff;
-        font-weight: bold;
-        transition: all 0.5s ease;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
       }
 
-      .container a:hover {
-        color: rgb(0, 89, 255);
-        background: #fff;
-        box-shadow: 0 0 15px rgb(126, 126, 238);
-        transition: all 0.5s ease;
+      .btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(0, 245, 255, 0.4), transparent);
+        transition: left 0.5s ease;
+      }
+
+      .btn:hover {
+        background: rgba(0, 245, 255, 0.1);
+        box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+        transform: translateY(-2px);
+      }
+
+      .btn:hover::before {
+        left: 100%;
+      }
+
+      .btn i {
+        font-size: 18px;
+        transition: transform 0.3s;
+      }
+
+      .btn:hover i {
+        transform: translateX(-4px);
       }
     </style>
   </head>
 
   <body>
+    <!-- Animated Grid -->
+    <div class="bg-grid"></div>
+
     <div class="container">
-      <h1>This website is under maintenance</h1>
-      <a href="index.html#portfolio">Back <i class="ri-arrow-left-line"></i></a>
+      <div class="icon-box">
+        <i class="ri-tools-fill"></i>
+      </div>
+      <h1>SYSTEM OFFLINE</h1>
+      <p>This project is currently undergoing core system upgrades and maintenance. Please stand by or return to the main interface.</p>
+      
+      <a href="index.html#portfolio" class="btn">
+        <i class="ri-arrow-left-line"></i> RETURN TO BASE
+      </a>
     </div>
   </body>
 </html>
