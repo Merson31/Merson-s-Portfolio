@@ -982,49 +982,86 @@
     document.getElementById('returnUrlInput').value = window.location.href;
 
     /* ============================================================
-       AI CHAT
+       AI CHAT (CLAUDE API)
        ============================================================ */
     const chatArea  = document.getElementById('chatArea');
     const chatInput = document.getElementById('chatInput');
     const chatSend  = document.getElementById('chatSend');
 
-    const responses = {
-      skills:      "Merson is proficient in HTML5, CSS3, JavaScript, PHP, Laravel, MySQL, Tailwind CSS, Bootstrap, and Figma. He's a versatile full-stack developer! 💻",
-      project:     "He has built 7+ projects including an Instagram Unfollowers Checker, E-Kuesioner system, Tourism Info System, and several web design projects. View the Portfolio section!",
-      contact:     "You can reach Merson via the contact form below, or through his social media (Facebook, Instagram, X, YouTube). He's based in Rantepao, South Sulawesi.",
-      hire:        "Merson is currently available for freelance work! Click the 'Hire Me' button or use the contact form to get in touch. He responds quickly! ⚡",
-      experience:  "Merson has 2+ years of professional experience in full-stack development and UI/UX design with 3 certifications to his name.",
-      laravel:     "Yes! Laravel is one of Merson's core technologies. He uses it for building scalable backend systems with MySQL.",
-      hello:       "Hello! 👋 How can I help you today? Ask me about Merson's skills, projects, availability, or anything else!",
-      default:     "That's a great question! For specific inquiries, please use the contact form to reach Merson directly. He'll get back to you promptly. 🚀"
-    };
+    // Gunakan URL Cloudflare Worker Anda di bawah ini
+    const CLOUDFLARE_WORKER_URL = "https://claude-proxy.merson3112.workers.dev";
 
-    function getBotReply(msg) {
-      const m = msg.toLowerCase();
-      if (m.match(/skill|tech|know|language|stack/)) return responses.skills;
-      if (m.match(/project|work|portfolio|built|build/)) return responses.project;
-      if (m.match(/contact|reach|email|phone|location/)) return responses.contact;
-      if (m.match(/hire|freelanc|available|price|cost/)) return responses.hire;
-      if (m.match(/experience|year|certif/)) return responses.experience;
-      if (m.match(/laravel|php|mysql|backend/)) return responses.laravel;
-      if (m.match(/hello|hi|hey|halo|hey/)) return responses.hello;
-      return responses.default;
-    }
+    const sysPrompt = "You are MERSON.AI, an AI assistant for Merson Muhammad's portfolio website. Merson is a Full-Stack Developer & UI/UX Designer from Rantepao, South Sulawesi, Indonesia. He has 2+ years of experience, specializes in HTML, CSS, JavaScript, PHP, Laravel, MySQL, and Figma. Projects: Instagram Unfollowers Checker, E-Kuesioner UKI Toraja, North Toraja Tourism System. He is available for freelance work. Contact email: mersonmuhammad@gmail.com. Keep answers concise, helpful, and friendly. Answer in the same language the user uses.";
+
+    let chatHistory = [];
 
     function addMsg(text, who) {
       const d = document.createElement('div');
       d.className = 'msg ' + who;
-      d.textContent = text;
+      d.innerHTML = text.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
       chatArea.appendChild(d);
       chatArea.scrollTop = chatArea.scrollHeight;
     }
 
-    function sendChat() {
+    async function getClaudeReply(userMessage) {
+      chatHistory.push({ role: 'user', content: userMessage });
+
+      try {
+        const response = await fetch(CLOUDFLARE_WORKER_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            model: 'claude-haiku-4-5-20251001',
+            max_tokens: 350,
+            system: sysPrompt,
+            messages: chatHistory
+          })
+        });
+
+        if (!response.ok) {
+           throw new Error(`API error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const botMessage = data.content[0].text;
+        chatHistory.push({ role: 'assistant', content: botMessage });
+        return botMessage;
+
+      } catch (error) {
+        console.error('AI Error:', error);
+        return "I'm experiencing a connection error right now. Please try again later or contact Merson directly! 🔌";
+      }
+    }
+
+    async function sendChat() {
       const v = chatInput.value.trim();
       if (!v) return;
+      
       addMsg(v, 'user');
       chatInput.value = '';
-      setTimeout(() => addMsg(getBotReply(v), 'bot'), 600);
+      chatInput.disabled = true;
+      chatSend.disabled = true;
+
+      // Add loading indicator
+      const loadingId = 'loading-' + Date.now();
+      const loadingMsg = document.createElement('div');
+      loadingMsg.className = 'msg bot';
+      loadingMsg.id = loadingId;
+      loadingMsg.innerHTML = '<span class="typing-indicator"><span>.</span><span>.</span><span>.</span></span>';
+      chatArea.appendChild(loadingMsg);
+      chatArea.scrollTop = chatArea.scrollHeight;
+
+      const reply = await getClaudeReply(v);
+      
+      const loaderEl = document.getElementById(loadingId);
+      if (loaderEl) loaderEl.remove();
+      
+      addMsg(reply, 'bot');
+      chatInput.disabled = false;
+      chatSend.disabled = false;
+      chatInput.focus();
     }
 
     chatSend.addEventListener('click', sendChat);
