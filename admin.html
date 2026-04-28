@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SonixDev — Admin Analytics</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="stylesheet" href="css/admin.css" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+  </head>
+  <body>
+
+    <!-- ==================== TOPBAR ==================== -->
+    <div class="admin-topbar">
+      <a href="index.html" class="logo">
+        [<span>SonixDev</span>] <span style="color:var(--pink);margin-left:4px">// ADMIN</span>
+      </a>
+      <div class="status">SYSTEM ONLINE <span id="last-updated" style="color:var(--muted);font-size:9px;margin-left:8px"></span></div>
+      <div class="actions">
+        <button onclick="refreshDashboard()" title="Refresh data from server">
+          <i class="ri-refresh-line"></i> Refresh
+        </button>
+        <button class="danger" onclick="clearAnalyticsData()" title="Delete all visitor data">
+          <i class="ri-delete-bin-line"></i> Clear Data
+        </button>
+      </div>
+    </div>
+
+    <!-- ==================== LOADING ==================== -->
+    <div id="loading-state" style="display:flex;justify-content:center;align-items:center;padding:60px;gap:12px;font-family:var(--font-mono);font-size:12px;color:var(--cyan);letter-spacing:2px;">
+      <i class="ri-loader-4-line" style="animation:spin 1s linear infinite;font-size:18px;"></i>
+      LOADING VISITOR DATA...
+      <style>@keyframes spin{100%{transform:rotate(360deg)}}</style>
+    </div>
+
+    <!-- ==================== MAIN ==================== -->
+    <main class="admin-main">
+
+      <h1 class="admin-title">Visitor <span class="accent">Analytics</span></h1>
+      <p class="admin-subtitle">Real-Time Portfolio Traffic Dashboard — Google Sheets Engine</p>
+
+      <!-- ---- OVERVIEW CARDS ---- -->
+      <div class="overview-grid">
+        <div class="ov-card">
+          <div class="ov-label">Total Page Views</div>
+          <div class="ov-value" id="ov-total">0</div>
+          <div class="ov-sub" id="ov-total-sub">All time page views</div>
+        </div>
+        <div class="ov-card">
+          <div class="ov-label">Today</div>
+          <div class="ov-value" id="ov-today">0</div>
+          <div class="ov-sub" id="ov-today-sub">Views today</div>
+        </div>
+        <div class="ov-card">
+          <div class="ov-label">This Week</div>
+          <div class="ov-value" id="ov-week">0</div>
+          <div class="ov-sub" id="ov-week-sub">Last 7 days</div>
+        </div>
+        <div class="ov-card">
+          <div class="ov-label">This Month</div>
+          <div class="ov-value" id="ov-month">0</div>
+          <div class="ov-sub" id="ov-month-sub">Last 30 days</div>
+        </div>
+        <div class="ov-card">
+          <div class="ov-label">Avg / Day</div>
+          <div class="ov-value" id="ov-avg">0</div>
+          <div class="ov-sub" id="ov-avg-sub">Average per day</div>
+        </div>
+        <div class="ov-card">
+          <div class="ov-label">Top Page</div>
+          <div class="ov-value" id="ov-top" style="font-size:18px;word-break:break-all;">—</div>
+          <div class="ov-sub" id="ov-top-sub">Most visited page</div>
+        </div>
+      </div>
+
+      <!-- ---- CHART TABS ---- -->
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab="tab-daily">Daily</button>
+        <button class="tab-btn" data-tab="tab-weekly">Weekly</button>
+        <button class="tab-btn" data-tab="tab-monthly">Monthly</button>
+      </div>
+
+      <!-- Daily -->
+      <div class="tab-content" id="tab-daily" style="display:block">
+        <div class="charts-row">
+          <div class="chart-panel">
+            <div class="chart-panel-title">Page Views — Last 7 Days</div>
+            <div class="bar-chart" id="chart-daily"></div>
+          </div>
+          <div class="chart-panel">
+            <div class="chart-panel-title">Peak Hours — Heatmap (24h)</div>
+            <div class="heatmap-grid" id="heatmap"></div>
+            <div class="heatmap-labels" id="heatmap-labels"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Weekly -->
+      <div class="tab-content" id="tab-weekly" style="display:none">
+        <div class="charts-row">
+          <div class="chart-panel">
+            <div class="chart-panel-title">Page Views — Last 4 Weeks</div>
+            <div class="bar-chart" id="chart-weekly"></div>
+          </div>
+          <div class="chart-panel" style="display:flex;flex-direction:column;justify-content:center;align-items:center;">
+            <div style="font-family:var(--font-mono);font-size:48px;color:var(--cyan);margin-bottom:12px">
+              <i class="ri-bar-chart-grouped-line"></i>
+            </div>
+            <div style="font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase">
+              Weekly Trend Analysis
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Monthly -->
+      <div class="tab-content" id="tab-monthly" style="display:none">
+        <div class="charts-row">
+          <div class="chart-panel" style="grid-column:1/-1;">
+            <div class="chart-panel-title">Page Views — Last 6 Months</div>
+            <div class="bar-chart" id="chart-monthly"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---- BREAKDOWN ---- -->
+      <div class="breakdown-row">
+        <div class="breakdown-panel">
+          <div class="breakdown-title"><i class="ri-device-line" style="margin-right:6px"></i> Device Type</div>
+          <ul class="breakdown-list" id="bd-device"></ul>
+        </div>
+        <div class="breakdown-panel">
+          <div class="breakdown-title"><i class="ri-global-line" style="margin-right:6px"></i> Browser</div>
+          <ul class="breakdown-list" id="bd-browser"></ul>
+        </div>
+        <div class="breakdown-panel">
+          <div class="breakdown-title"><i class="ri-computer-line" style="margin-right:6px"></i> Operating System</div>
+          <ul class="breakdown-list" id="bd-os"></ul>
+        </div>
+      </div>
+
+      <!-- ---- VISIT LOG ---- -->
+      <div class="log-panel">
+        <div class="log-title"><i class="ri-list-check-2" style="margin-right:6px"></i> Recent Visit Log (Last 50)</div>
+        <div class="log-table-wrap">
+          <table class="log-table">
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Page</th>
+                <th>Referrer</th>
+                <th>Device</th>
+                <th>Browser</th>
+                <th>OS</th>
+                <th>Screen</th>
+              </tr>
+            </thead>
+            <tbody id="log-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+
+    <script src="js/admin.js"></script>
+  </body>
+</html>
